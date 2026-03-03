@@ -47,7 +47,6 @@ export const projects: Project[] = [
         stack: [
             "TypeScript",
             "Next.js",
-            "PostgreSQL",
             "Prisma",
             "Zustand",
             "Docker",
@@ -86,8 +85,8 @@ export const projects: Project[] = [
             "OpenSpec",
         ],
         media: {
-            kind: "image",
-            src: "/projects/repoly.webp",
+            kind: "video",
+            src: media.repoly,
             alt: "Repoly Dashboard",
         },
         links: {
