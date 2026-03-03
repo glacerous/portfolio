@@ -1,0 +1,48 @@
+export type MediaKind = "image" | "video";
+
+export interface Media {
+  kind: MediaKind;
+  src: string;
+  poster?: string;
+  alt?: string;
+}
+
+export type ProjectCategory =
+  | "INTERNAL PLATFORM"
+  | "CAMPUS SYSTEM"
+  | "FULLSTACK SYSTEM"
+  | "BACKEND SERVICE"
+  | "DEVOPS / INFRA"
+  | "AI PLATFORM"
+  | "DATA PIPELINE"
+  | "AUTOMATION TOOL";
+
+export interface Project {
+  id: string;
+  title: string;
+  role: string; // e.g., Backend Lead
+  year: string;
+  category: ProjectCategory;
+  impact: string; // e.g., "300+ active users · 5 services"
+  description: string;
+  oneLiner: string;
+  stack: string[];
+  media: Media;
+  links?: {
+    demo?: string;
+    code?: string;
+  };
+}
+
+export interface Experience {
+  company: string;
+  role: string;
+  period: string;
+  description: string[];
+}
+
+export interface SocialLink {
+  label: string;
+  url: string;
+  platform: string;
+}

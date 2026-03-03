@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-background text-neutral-300 font-sans selection:bg-cyan-500/30 selection:text-white antialiased;
+}
+
+/* Technical background texture - ultra-minimal */
+.bg-grid {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  ::before,
+  ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+    transition-delay: -1ms !important;
+  }
+}
+
+.focus-ring {
+  @apply focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-500 focus-visible:ring-offset-1 focus-visible:ring-offset-background;
+}
