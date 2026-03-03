@@ -15,7 +15,11 @@ export type ProjectCategory =
   | "DEVOPS / INFRA"
   | "AI PLATFORM"
   | "DATA PIPELINE"
-  | "AUTOMATION TOOL";
+  | "AUTOMATION TOOL"
+  | "CLOSED SOURCE"
+  | "OPEN SOURCE"
+  | "PLATFORM"
+  | "HACKATHON";
 
 export interface Project {
   id: string;

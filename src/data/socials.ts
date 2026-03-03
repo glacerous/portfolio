@@ -11,9 +11,4 @@ export const socials: SocialLink[] = [
         url: "https://linkedin.com/in/arch-builder",
         platform: "linkedin"
     },
-    {
-        label: "Bluesky",
-        url: "https://bsky.app",
-        platform: "bluesky"
-    }
 ];

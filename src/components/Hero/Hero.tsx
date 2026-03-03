@@ -3,41 +3,52 @@ import { motion } from "framer-motion";
 
 export const Hero: React.FC = () => {
     return (
-        <section className="relative py-20 md:py-28 px-6 max-w-7xl mx-auto overflow-hidden">
-            <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="relative z-10 text-left border-l border-neutral-700 pl-4 md:pl-6"
-            >
-                <p className="text-neutral-300 text-sm mb-4 font-mono tracking-wider">
-                    Information Systems Undergraduate | Backend Developer
-                </p>
-
-                <div className="max-w-3xl">
-                    <h1 className="text-3xl md:text-4xl font-semibold text-white leading-tight mb-4">
-                        I build internal platforms and backend systems for student organizations
-                        and hackathon projects.
-                    </h1>
-
-                    <p className="text-base text-neutral-400 max-w-2xl leading-relaxed mb-6">
-                        Most of my work focuses on API design, database modeling, and
-                        containerized deployments — building tools that are stable enough to be
-                        used in real environments.
+        <section className="pt-28 pb-16 px-6 font-mono">
+            <div className="max-w-3xl mx-auto">
+                <motion.div
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    {/* Identity Line */}
+                    <p className="text-xs tracking-widest uppercase text-slate-500">
+                        Software Architect | Information Systems
                     </p>
-                </div>
 
-                <div className="flex flex-col gap-1 font-mono text-sm mt-8 text-cyan-400">
-                    <a href="https://github.com/yourhandle" className="hover:underline">
-                        github: @yourhandle
-                    </a>
-                    <span className="text-neutral-400">
-                        email: yourmail [at] gmail (dot) com
-                    </span>
-                </div>
+                    {/* Core Statement */}
+                    <p className="mt-6 text-base md:text-lg text-slate-300 leading-relaxed">
+                        My focus is on architecture first — API boundaries,
+                        data modeling, system reliability, and deployment.
+                        I work mostly with campus organizations and hackathons,
+                        building tools that are actually used, not just demoed.
+                    </p>
 
-                <div className="mt-12 h-px w-24 bg-cyan-400/40"></div>
-            </motion.div>
+                    {/* Contact */}
+                    <div className="mt-10 text-base space-y-2 tracking-wide">
+                        <div>
+                            <span className="text-slate-400">github:</span>{" "}
+                            <a
+                                href="https://github.com/glacerous"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#F6E6A6] hover:text-cyan-300 transition-colors duration-200"
+                            >
+                                @glacerous
+                            </a>
+                        </div>
+
+                        <div>
+                            <span className="text-slate-400">email:</span>{" "}
+                            <a
+                                href="mailto:azzakyraihan@protonmail.com"
+                                className="text-[#F6E6A6] hover:text-cyan-300 transition-colors duration-200"
+                            >
+                                azzakyraihan [at] protonmail (dot) com
+                            </a>
+                        </div>
+                    </div>
+                </motion.div>
+            </div>
         </section>
     );
 };

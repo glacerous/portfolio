@@ -1,61 +1,97 @@
 import { Project } from "./types";
+import { media } from "./media";
 
 export const projects: Project[] = [
     {
-        id: "campus-flow",
-        title: "CampusFlow Manager",
-        role: "Backend Lead",
-        year: "2023",
-        category: "CAMPUS SYSTEM",
-        impact: "300+ active users · 5 services · containerized stack",
-        description: "Designed a high-throughput data pipeline for real-time neural signal processing in clinical environments.",
-        oneLiner: "Real-time resource orchestration for campus-wide organizations.",
-        stack: ["TypeScript", "Next.js", "PostgreSQL", "Docker", "Prisma"],
-        media: {
-            kind: "video",
-            src: "https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-a-human-brain-34442-large.mp4",
-            poster: "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=800&q=80",
-            alt: "Dashboard demonstration of campus resource management"
-        },
-        links: {
-            demo: "https://example.com",
-            code: "https://github.com"
-        }
-    },
-    {
-        id: "sisfo-portal",
-        title: "HIMA SISFO Portal",
-        role: "Fullstack Engineer",
+        id: "himasisfo",
+        title: "HIMASISFO Portal",
+        role: "Backend & Platform",
         year: "2024",
-        category: "FULLSTACK SYSTEM",
-        impact: "Used by HIMA SISFO committee · 2k+ monthly visits",
-        description: "Cloud-native orchestration for automated hematology analysis, reducing manual intervention by 40%.",
-        oneLiner: "Official committee portal for Information Systems department.",
-        stack: ["TypeScript", "Next.js", "PostgreSQL", "Tailwind CSS", "GitHub Actions"],
+        category: "CAMPUS SYSTEM",
+        impact: "20 developers · ~2k monthly traffic",
+        description:
+            "Official web platform for the Information Systems student association. Handles member management, publishing workflows, and internal coordination. Designed with clean database modeling and stable deployment for peak recruitment traffic.",
+        oneLiner:
+            "Production portal for the Information Systems student association.",
+        stack: [
+            "TypeScript",
+            "Next.js",
+            "PostgreSQL",
+            "Prisma",
+            "Docker",
+            "Vercel",
+            "GitHub Actions",
+            "Tailwind CSS",
+        ],
         media: {
             kind: "image",
-            src: "https://images.unsplash.com/photo-1579165466541-713028243be7?auto=format&fit=crop&w=800&q=80",
-            alt: "Interface of the HIMA SISFO portal"
+            src: "/projects/himasisfo.webp",
+            alt: "HIMA SISFO Portal Interface",
         },
         links: {
-            demo: "https://example.com"
-        }
+            code: "https://github.com/glacerous",
+        },
     },
+
     {
-        id: "sentinel-bot",
-        title: "Sentinel Auth Bot",
-        role: "Infra Engineer",
-        year: "2022",
-        category: "BACKEND SERVICE",
-        impact: "Hackathon deployment · containerized stack · 50+ servers",
-        description: "Built a resilient, multi-tenant platform for patient monitoring across multiple hospital networks.",
-        oneLiner: "Discord-based authentication service for campus groups.",
-        stack: ["Python", "Docker", "Redis", "PostgreSQL"],
+        id: "krslab",
+        title: "KRSLab",
+        role: "System Architecture & Backend",
+        year: "2025",
+        category: "PLATFORM",
+        impact: "Cross-faculty curriculum parsing · ~1k users per KRS cycle",
+        description:
+            "Academic planning system for modeling semester constraints, prerequisite chains, and credit limits. Designed with explicit data boundaries, predictable rule enforcement, and clean client state management.",
+        oneLiner:
+            "Constraint-aware academic course planning system.",
+        stack: [
+            "TypeScript",
+            "Next.js",
+            "PostgreSQL",
+            "Prisma",
+            "Zustand",
+            "Docker",
+        ],
         media: {
             kind: "video",
-            src: "https://assets.mixkit.co/videos/preview/mixkit-heart-rate-monitor-screen-at-the-hospital-33230-large.mp4",
-            poster: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=800&q=80",
-            alt: "Terminal log view of the authentication bot"
-        }
-    }
+            src: media.krslab, // assuming you used media.ts
+            alt: "KRSLab semester planning demo",
+        },
+        links: {
+            code: "https://github.com/glacerous",
+        },
+    },
+
+    {
+        id: "repoly",
+        title: "Repoly",
+        role: "Backend Architecture",
+        year: "2025",
+        category: "HACKATHON",
+        impact: "containerized infra | my first ever hackathon!",
+        description:
+            "Repository automation and analytics system built under hackathon constraints. Focused on backend structure, containerized deployment, and scalable orchestration. Emphasized reliability and deployment readiness over surface-level polish.",
+        oneLiner:
+            "Containerized repository automation platform.",
+        stack: [
+            "TypeScript",
+            "Node.js",
+            "Express",
+            "PostgreSQL",
+            "Redis",
+            "Docker",
+            "Kubernetes",
+            "Three.js",
+            "Groq",
+            "OpenSpec",
+        ],
+        media: {
+            kind: "image",
+            src: "/projects/repoly.webp",
+            alt: "Repoly Dashboard",
+        },
+        links: {
+            code: "https://github.com/glacerous",
+        },
+    },
 ];
