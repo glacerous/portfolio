@@ -29,7 +29,7 @@ export const projects: Project[] = [
             alt: "HIMA SISFO Portal Interface",
         },
         links: {
-            code: "https://github.com/glacerous",
+            site: "https://himasisfoupnvyk.com", // Example site link
         },
     },
 
@@ -57,7 +57,7 @@ export const projects: Project[] = [
             alt: "KRSLab semester planning demo",
         },
         links: {
-            code: "https://github.com/glacerous",
+            site: "https://krslab.vercel.app",
         },
     },
 
@@ -94,7 +94,7 @@ Built under hackathon constraints with emphasis on backend architecture, contain
             alt: "Repoly Dashboard",
         },
         links: {
-            code: "https://github.com/glacerous",
+            code: "https://github.com/glacerous/first-commit-hackathon",
         },
     },
 ];

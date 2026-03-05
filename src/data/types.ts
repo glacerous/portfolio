@@ -33,6 +33,7 @@ export interface Project {
   stack: string[];
   media: Media;
   links?: {
+    site?: string;
     demo?: string;
     code?: string;
   };

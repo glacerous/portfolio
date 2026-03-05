@@ -291,38 +291,40 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                     ))}
                 </div>
 
-                <div className="mt-auto pt-6 border-t border-border">
-                    <div className="flex flex-wrap gap-4">
-                        {project.links?.code && (
-                            <a
-                                href={project.links.code}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-sm text-cyan-300 hover:text-amber-300 transition-colors flex items-center gap-1 font-mono"
-                            >
-                                View Source ↗
-                            </a>
-                        )}
-                        {project.links?.demo && (
-                            <a
-                                href={project.links.demo}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-sm text-cyan-300 hover:text-amber-300 transition-colors flex items-center gap-1 font-mono"
-                            >
-                                Visit Site ↗
-                            </a>
-                        )}
-                        {!project.links?.code && !project.links?.demo && (
-                            <span className="text-[15px] text-accent-warm/80 font-medium leading-normal font-sans">
-                                {project.category === "CLOSED SOURCE"
-                                    ? "Closed-source project – media, details, and demo available on request."
-                                    : "Details available on request."
-                                }
-                            </span>
-                        )}
+                {project.links && (
+                    <div className="mt-auto pt-6 border-t border-border">
+                        <div className="flex flex-wrap gap-4">
+                            {(project.links.site || project.links.demo) && (
+                                <a
+                                    href={project.links.site || project.links.demo}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-sm text-cyan-300 hover:text-amber-300 transition-colors flex items-center gap-1 font-mono"
+                                >
+                                    Visit Site ↗
+                                </a>
+                            )}
+                            {project.links.code && (
+                                <a
+                                    href={project.links.code}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-sm text-cyan-300 hover:text-amber-300 transition-colors flex items-center gap-1 font-mono"
+                                >
+                                    View Source ↗
+                                </a>
+                            )}
+                            {!project.links.code && !project.links.site && !project.links.demo && (
+                                <span className="text-[15px] text-accent-warm/80 font-medium leading-normal font-sans">
+                                    {project.category === "CLOSED SOURCE"
+                                        ? "Closed-source project – media, details, and demo available on request."
+                                        : "Details available on request."
+                                    }
+                                </span>
+                            )}
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </div>
     );
