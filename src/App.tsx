@@ -17,7 +17,7 @@ const App: React.FC = () => {
                 <div className="section-divider" />
                 <footer className="py-12 px-6 max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
                     <div className="font-mono text-[10px] text-muted uppercase tracking-widest">
-                        © 2024 PORTFOLIO.V2 // TECH_DOC_STYLE
+                        © 2026 PORTFOLIO.V1
                     </div>
                     <div className="flex gap-6">
                         <a href="#" className="font-mono text-[10px] text-muted hover:text-amber-300 uppercase transition-colors tracking-widest">Back_to_top</a>

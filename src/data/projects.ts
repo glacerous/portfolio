@@ -8,7 +8,7 @@ export const projects: Project[] = [
         role: "Backend & Platform",
         year: "2024",
         category: "CAMPUS SYSTEM",
-        impact: "20 developers · ~2k monthly traffic",
+        impact: "worked with 20+ developers and designers",
         description:
             "Official web platform for the Information Systems student association. Handles member management, publishing workflows, and internal coordination. Designed with clean database modeling and stable deployment for peak recruitment traffic.",
         oneLiner:
@@ -41,7 +41,7 @@ export const projects: Project[] = [
         category: "PLATFORM",
         impact: "Cross-faculty curriculum parsing · ~1k users per KRS cycle",
         description:
-            "Academic planning system for modeling semester constraints, prerequisite chains, and credit limits. Designed with explicit data boundaries, predictable rule enforcement, and clean client state management.",
+            'Academic planning system for modeling semester scheduling constraints, course prerequisite graphs, and credit load limits.Courses and prerequisite relationships are represented as dependency graphs, allowing deterministic validation of eligibility rules and schedule feasibility before enrollment. The backend enforces prerequisite resolution, credit limits, and semester availability through explicit validation layers',
         oneLiner:
             "Constraint-aware academic course planning system.",
         stack: [
@@ -69,7 +69,11 @@ export const projects: Project[] = [
         category: "HACKATHON",
         impact: "containerized infra | my first ever hackathon!",
         description:
-            "Repository automation and analytics system built under hackathon constraints. Focused on backend structure, containerized deployment, and scalable orchestration. Emphasized reliability and deployment readiness over surface-level polish.",
+            `Repository analysis and documentation automation system that ingests a code repository, inspects its structure, and generates explanations for the frameworks, libraries, and tools used in the project.
+
+The backend integrates Llama-3.3-70B-Versatile to interpret source files and produce structured, human-readable descriptions of each detected technology.
+
+Built under hackathon constraints with emphasis on backend architecture, containerized deployment, and scalable orchestration rather than surface-level UI polish.`,
         oneLiner:
             "Containerized repository automation platform.",
         stack: [

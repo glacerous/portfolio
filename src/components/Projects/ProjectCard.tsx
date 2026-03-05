@@ -172,6 +172,23 @@ const getColorStyles = (tech: string) => {
     return variants[color];
 };
 
+const formatImpact = (impact: string) => {
+    // Regex to match patterns like "~1k users", "20 developers", "2k monthly traffic"
+    // It looks for numbers followed by specific keywords or units.
+    const parts = impact.split(/(\~?\d+[kM\+]?\s*(?:users|developers|monthly traffic|traffic|services|active users))/i);
+
+    return parts.map((part, i) => {
+        if (i % 2 === 1) {
+            return (
+                <span key={i} className="text-cyan-300 font-semibold">
+                    {part}
+                </span>
+            );
+        }
+        return part;
+    });
+};
+
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -217,7 +234,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                     {project.title}
                     {project.impact && (
                         <span className="block font-mono text-xs tracking-wide text-slate-500 font-normal mt-0.5">
-                            {project.impact}
+                            {formatImpact(project.impact)}
                         </span>
                     )}
                 </h3>

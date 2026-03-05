@@ -3,12 +3,12 @@ import { SocialLink } from "./types";
 export const socials: SocialLink[] = [
     {
         label: "GitHub",
-        url: "https://github.com/arch-builder",
+        url: "https://github.com/glacerous",
         platform: "github"
     },
     {
         label: "LinkedIn",
-        url: "https://linkedin.com/in/arch-builder",
+        url: "https://www.linkedin.com/in/azzaky-raihan-ramdhani-71b1bb329",
         platform: "linkedin"
     },
 ];

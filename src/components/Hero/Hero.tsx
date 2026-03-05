@@ -17,10 +17,12 @@ export const Hero: React.FC = () => {
 
                     {/* Core Statement */}
                     <p className="mt-6 text-base md:text-lg text-slate-300 leading-relaxed">
-                        My focus is on architecture first — API boundaries,
-                        data modeling, system reliability, and deployment.
-                        I work mostly with campus organizations and hackathons,
-                        building tools that are actually used, not just demoed.
+                        My focus is on system architecture first — API boundaries, scalable
+                        data modeling, system reliability, and production-ready deployments.
+
+                        I'm interested in designing cloud-native backend platforms and the
+                        infrastructure that supports them, building systems that remain
+                        maintainable, scalable, and resilient as they grow.
                     </p>
 
                     {/* Contact */}
@@ -40,10 +42,10 @@ export const Hero: React.FC = () => {
                         <div>
                             <span className="text-slate-400">email:</span>{" "}
                             <a
-                                href="mailto:azzakyraihan@protonmail.com"
+                                href="mailto:azzakyraihan@gmail.com"
                                 className="text-[#F6E6A6] hover:text-cyan-300 transition-colors duration-200"
                             >
-                                azzakyraihan [at] protonmail (dot) com
+                                azzakyraihan [at] gmail (dot) com
                             </a>
                         </div>
                     </div>

@@ -2,33 +2,33 @@ import { Experience } from "./types";
 
 export const experiences: Experience[] = [
     {
-        company: "Student IT Services",
-        role: "Backend Platform Lead",
-        period: "2023 — PRESENT",
+        company: "Code124",
+        role: "Quality Assurance",
+        period: "2026 — 2027",
         description: [
-            "Architected a containerized authentication service used by 4+ campus organizations.",
-            "Optimized database queries for the student activity portal, reducing load times by 60%.",
-            "Lead a team of 3 developers to migrate legacy campus tools to a modern CI/CD pipeline."
+            "Conducting manual and automated testing to ensure application reliability.",
+            "Identifying bugs and documenting issues for the development team.",
+            "Ensuring software meets functional and performance requirements before release."
         ]
     },
     {
-        company: "Information Systems Lab",
-        role: "Research Assistant (Distributed Systems)",
-        period: "2022 — 2023",
+        company: "Code124",
+        role: "Backend Developer",
+        period: "2025 — 2026",
         description: [
-            "Implemented a peer-to-peer data synchronization protocol for localized campus networks.",
-            "Developed a real-time monitoring dashboard for laboratory server infrastructure.",
-            "Collaborated on a published paper regarding efficient resource allocation in high-node university clusters."
+            "Developing backend services and APIs for internal and external projects.",
+            "Designing database schemas and maintaining server-side logic.",
+            "Collaborating with frontend developers to deliver scalable web applications."
         ]
     },
     {
-        company: "Google Developer Student Clubs",
-        role: "Core Team Member (Tech)",
-        period: "2021 — 2022",
+        company: "HIMASISFO (Information Systems Student Association)",
+        role: "Media, Information & Communication Division — Website Program Coordinator",
+        period: "2025 — 2026",
         description: [
-            "Mentored 50+ students in backend development and cloud infrastructure basics.",
-            "Orchestrated the technical deployment for 'HackOverCampus 2022'.",
-            "Built and maintained the official chapter website and member registration system."
+            "Responsible for the development and maintenance of the HIMASISFO official website.",
+            "Coordinating the website program as part of the Media, Information, and Communication division.",
+            "Ensuring the website functions as the main platform for student information and organizational updates."
         ]
     }
 ];
