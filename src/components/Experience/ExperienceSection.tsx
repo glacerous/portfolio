@@ -1,39 +1,34 @@
 import React from "react";
 import { experiences } from "@/data/experience";
-import { motion } from "framer-motion";
 
 export const ExperienceSection: React.FC = () => {
     return (
-        <section id="experience" className="py-24 px-6 max-w-7xl mx-auto font-mono">
+        <section id="experience" className="pt-10 pb-20 px-6 max-w-7xl mx-auto font-mono">
             <div className="mb-16">
-                <h2 className="text-2xl font-semibold tracking-tight text-primary mb-2 uppercase">
+                <h2 className="text-base font-bold tracking-wider text-slate-200 uppercase">
                     Experience
                 </h2>
-                <p className="text-muted text-xs">
+                <p className="text-slate-500 text-xs">
                     Professional and organizational summary.
                 </p>
             </div>
 
             <div className="space-y-12">
                 {experiences.map((exp, index) => (
-                    <motion.div
+                    <div
                         key={exp.company + index}
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                        viewport={{ once: true }}
                         className="flex flex-col gap-4"
                     >
                         <div className="flex flex-col md:flex-row md:justify-between items-baseline gap-2">
                             <div>
-                                <h3 className="text-lg font-semibold text-primary">
+                                <h3 className="text-sm font-bold text-slate-100">
                                     {exp.role}
                                 </h3>
-                                <span className="text-accent text-sm">
+                                <span className="text-slate-400 text-xs">
                                     @{exp.company}
                                 </span>
                             </div>
-                            <span className="text-xs text-muted">
+                            <span className="text-[11px] text-slate-500">
                                 {exp.period}
                             </span>
                         </div>
@@ -42,16 +37,16 @@ export const ExperienceSection: React.FC = () => {
                             {exp.description.map((item, i) => (
                                 <li
                                     key={i}
-                                    className="text-secondary text-sm leading-relaxed flex gap-3"
+                                    className="text-slate-400 text-xs leading-relaxed flex gap-3"
                                 >
-                                    <span className="text-muted shrink-0 select-none">
+                                    <span className="text-slate-600 shrink-0 select-none">
                                         •
                                     </span>
                                     {item}
                                 </li>
                             ))}
                         </ul>
-                    </motion.div>
+                    </div>
                 ))}
             </div>
         </section>

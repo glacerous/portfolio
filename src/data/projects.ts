@@ -3,14 +3,43 @@ import { media } from "./media";
 
 export const projects: Project[] = [
     {
+        id: "vora",
+        title: "Vora",
+        role: "Lead Developer",
+        year: "2026",
+        category: "AI PLATFORM",
+        impact: "3D Gaussian Splatting | IPCC Tier 1 allometrics",
+        description:
+            "AI-powered forest carbon estimation platform. Reconstructs high-fidelity 3D tree models from drone scans to estimate biomass storage.",
+        oneLiner:
+            "AI-powered forest carbon estimation using 3D Gaussian Splatting.",
+        stack: [
+            "Next.js",
+            "Python",
+            "FastAPI",
+            "Modal",
+            "Open3D",
+            "Leaflet",
+            "PostgreSQL",
+        ],
+        media: {
+            kind: "video",
+            src: media.vora,
+            alt: "Vora Platform",
+        },
+        links: {
+            code: "https://github.com/glacerous/vora",
+        },
+    },
+    {
         id: "himasisfo",
         title: "HIMASISFO Portal",
         role: "Backend & Platform",
         year: "2024",
         category: "CAMPUS SYSTEM",
-        impact: "worked with 20+ developers and designers",
+        impact: "20-person team",
         description:
-            "Official web platform for the Information Systems student association. Handles member management, publishing workflows, and internal coordination. Designed with clean database modeling and stable deployment for peak recruitment traffic.",
+            "Web platform for student membership and publishing workflows. Built with relational database modeling and deployed to handle peak traffic.",
         oneLiner:
             "Production portal for the Information Systems student association.",
         stack: [
@@ -25,7 +54,7 @@ export const projects: Project[] = [
         ],
         media: {
             kind: "image",
-            src: "/projects/himasisfo.webp",
+            src: "",
             alt: "HIMA SISFO Portal Interface",
         },
         links: {
@@ -41,7 +70,7 @@ export const projects: Project[] = [
         category: "PLATFORM",
         impact: "Cross-faculty curriculum parsing · ~1k users per KRS cycle",
         description:
-            'Academic planning system for modeling semester scheduling constraints, course prerequisite graphs, and credit load limits.Courses and prerequisite relationships are represented as dependency graphs, allowing deterministic validation of eligibility rules and schedule feasibility before enrollment. The backend enforces prerequisite resolution, credit limits, and semester availability through explicit validation layers',
+            "Academic planning tool for constraint modeling. Uses dependency graphs to validate prerequisite rules and enforce credit load limits.",
         oneLiner:
             "Constraint-aware academic course planning system.",
         stack: [
@@ -67,13 +96,9 @@ export const projects: Project[] = [
         role: "Backend Architecture",
         year: "2025",
         category: "HACKATHON",
-        impact: "containerized infra | my first ever hackathon!",
+        impact: "Containerized infrastructure | Hackathon project",
         description:
-            `Repository analysis and documentation automation system that ingests a code repository, inspects its structure, and generates explanations for the frameworks, libraries, and tools used in the project.
-
-The backend integrates Llama-3.3-70B-Versatile to interpret source files and produce structured, human-readable descriptions of each detected technology.
-
-Built under hackathon constraints with emphasis on backend architecture, containerized deployment, and scalable orchestration rather than surface-level UI polish.`,
+            "Repository analysis tool that automates codebase documentation. Integrates Llama-3.3-70B-Versatile and deploys with containerized infra.",
         oneLiner:
             "Containerized repository automation platform.",
         stack: [
