@@ -4,7 +4,7 @@ export const experiences: Experience[] = [
     {
         company: "Code124",
         role: "Quality Assurance",
-        period: "2026 — 2027",
+        period: "2026 - 2027",
         description: [
             "Conducting manual and automated testing to ensure application reliability.",
             "Identifying bugs and documenting issues for the development team.",
@@ -14,7 +14,7 @@ export const experiences: Experience[] = [
     {
         company: "Code124",
         role: "Backend Developer",
-        period: "2025 — 2026",
+        period: "2025 - 2026",
         description: [
             "Developing backend services and APIs for internal and external projects.",
             "Designing database schemas and maintaining server-side logic.",
@@ -23,8 +23,8 @@ export const experiences: Experience[] = [
     },
     {
         company: "HIMASISFO (Information Systems Student Association)",
-        role: "Media, Information & Communication Division — Website Program Coordinator",
-        period: "2025 — 2026",
+        role: "Media, Information & Communication Division - Website Program Coordinator",
+        period: "2025 - 2026",
         description: [
             "Responsible for the development and maintenance of the HIMASISFO official website.",
             "Coordinating the website program as part of the Media, Information, and Communication division.",
