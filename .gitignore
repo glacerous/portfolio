@@ -96,7 +96,6 @@ dist
 
 # Gatsby files
 .cache/
-public
 
 # vue-cli build output
 dist
