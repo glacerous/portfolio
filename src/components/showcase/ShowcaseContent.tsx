@@ -514,16 +514,25 @@ export const ShowcaseContent: React.FC = () => {
                                             >
                                                 {exp.role}
                                             </h3>
-                                            <span
-                                                style={{
-                                                    fontFamily: 'MSSerif, sans-serif',
-                                                    fontSize: 12,
-                                                    fontWeight: 'bold',
-                                                    color: winColors.blue,
-                                                }}
-                                            >
-                                                @{exp.company}
-                                            </span>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 4 }}>
+                                                {exp.logo && (
+                                                    <img
+                                                        src={exp.logo}
+                                                        alt={exp.company}
+                                                        style={{ width: 18, height: 18, objectFit: 'contain', border: '1px solid #000', backgroundColor: '#000' }}
+                                                    />
+                                                )}
+                                                <span
+                                                    style={{
+                                                        fontFamily: 'MSSerif, sans-serif',
+                                                        fontSize: 12,
+                                                        fontWeight: 'bold',
+                                                        color: winColors.blue,
+                                                    }}
+                                                >
+                                                    @{exp.company}
+                                                </span>
+                                            </div>
                                         </div>
                                         <span
                                             style={{
