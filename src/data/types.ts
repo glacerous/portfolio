@@ -43,7 +43,36 @@ export interface Experience {
   company: string;
   role: string;
   period: string;
+  logo?: string;
   description: string[];
+}
+
+export interface CreativeProject {
+  id: string;
+  title: string;
+  role: string;
+  year: string;
+  category: "3D ANIMATION" | "VIDEO EDITING" | "MOTION GRAPHICS" | "VFX" | "CREATIVE";
+  tools: string[];
+  description: string;
+  impact?: string;
+  media: Media;
+  links?: {
+    video?: string;
+    demo?: string;
+    site?: string;
+  };
+}
+
+export interface CreativeStill {
+  id: string;
+  title: string;
+  category: string;
+  year: string;
+  tools: string[];
+  description: string;
+  src: string;
+  alt: string;
 }
 
 export interface SocialLink {

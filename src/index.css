@@ -233,9 +233,14 @@ input:active {
     margin-bottom: 32px;
 }
 
-.captioned-image img,
-.captioned-image video {
+.captioned-image img {
     width: 100%;
+}
+
+.captioned-image video {
+    max-width: 100%;
+    width: auto;
+    height: auto;
 }
 
 .text-block {

@@ -22,16 +22,21 @@ import ghIcon from '@/assets/pictures/contact-gh.png';
 import inIcon from '@/assets/pictures/contact-in.png';
 import forHireGif from '@/assets/pictures/forHireGif.gif';
 import robloxStudioImg from '@/assets/pictures/roblox-studio.png';
+import artIcon from '@/assets/pictures/projects/art.gif';
+import { creativeProjects, creativeStills } from '@/data/creative';
+import { CreativeStill } from '@/data/types';
 
 type TabType = 'about' | 'experience' | 'projects' | 'contact';
 
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('about');
+  const [projectCategory, setProjectCategory] = useState<'software' | 'creative'>('software');
   const [isMinimized, setIsMinimized] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
   const [isStartOpen, setIsStartOpen] = useState(false);
   const [activeLink, setActiveLink] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState(false);
+  const [selectedStill, setSelectedStill] = useState<CreativeStill | null>(null);
 
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -343,86 +348,233 @@ export const App: React.FC = () => {
                     {activeTab === 'projects' && (
                       <div className="max-w-[760px] text-black pb-12">
                         <h1>Projects</h1>
-                        <h3>& Engineering Ventures</h3>
+                        <h3>& Creative Endeavors</h3>
                         <br />
                         <p>
-                          Below are some of my favorite software systems and infrastructure projects I have architected and deployed over the last few years.
+                          Explore my engineering builds, distributed platforms, as well as creative 3D animations and video editing projects.
                         </p>
                         <br />
 
-                        {/* Big Button Container for Software */}
-                        <div className="big-button-container flex items-center justify-between mb-8">
-                          <div className="flex items-center gap-6">
-                            <img src={softwareIcon} alt="Software" className="w-14 h-14 [image-rendering:pixelated]" />
+                        {/* Category Selectors */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                          <button
+                            type="button"
+                            onClick={() => setProjectCategory('software')}
+                            className={`big-button-container flex items-center gap-4 text-left p-3 cursor-pointer select-none transition-all ${
+                              projectCategory === 'software'
+                                ? 'bg-[#dfdfdf] border-t-2 border-l-2 border-t-[#808080] border-l-[#808080] border-b-2 border-r-2 border-b-white border-r-white'
+                                : 'opacity-85 hover:opacity-100'
+                            }`}
+                          >
+                            <img src={softwareIcon} alt="Software" className="w-12 h-12 [image-rendering:pixelated]" />
                             <div>
-                              <h1 className="!text-[36px] md:!text-[44px]">Software</h1>
-                              <h3>SELECTED REPOSITORIES</h3>
+                              <h2 className="!text-[22px] md:!text-[26px] m-0">Software</h2>
+                              <h4 className="text-[#555] text-xs">SELECTED REPOSITORIES</h4>
                             </div>
-                          </div>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => setProjectCategory('creative')}
+                            className={`big-button-container flex items-center gap-4 text-left p-3 cursor-pointer select-none transition-all ${
+                              projectCategory === 'creative'
+                                ? 'bg-[#dfdfdf] border-t-2 border-l-2 border-t-[#808080] border-l-[#808080] border-b-2 border-r-2 border-b-white border-r-white'
+                                : 'opacity-85 hover:opacity-100'
+                            }`}
+                          >
+                            <img src={artIcon} alt="Creative" className="w-12 h-12 [image-rendering:pixelated]" />
+                            <div>
+                              <h2 className="!text-[22px] md:!text-[26px] m-0">Creative & 3D</h2>
+                              <h4 className="text-[#555] text-xs">3D ANIMATION & VIDEO</h4>
+                            </div>
+                          </button>
                         </div>
 
-                        {/* Projects Breakdown */}
-                        <div className="space-y-12">
-                          {projects.map((proj, idx) => (
-                            <div key={proj.id} className="text-block border-b border-[#808080] pb-8">
-                              <h2>{proj.title}</h2>
-                              <h4 className="text-[#555] mt-1">
-                                {proj.role} - {proj.year} [{proj.category}]
-                              </h4>
-                              <br />
-                              <p>{proj.description}</p>
-                              <br />
+                        {/* SOFTWARE PROJECTS LIST */}
+                        {projectCategory === 'software' && (
+                          <div className="space-y-12">
+                            {projects.map((proj, idx) => (
+                              <div key={proj.id} className="text-block border-b border-[#808080] pb-8">
+                                <h2>{proj.title}</h2>
+                                <h4 className="text-[#555] mt-1">
+                                  {proj.role} - {proj.year} [{proj.category}]
+                                </h4>
+                                <br />
+                                <p>{proj.description}</p>
+                                <br />
 
-                              {proj.media && proj.media.src && (
-                                <div className="captioned-image my-2">
-                                  {proj.media.kind === 'video' ? (
-                                    <video
-                                      src={proj.media.src}
-                                      autoPlay
-                                      loop
-                                      muted
-                                      playsInline
-                                      className="border border-black max-h-[360px] object-cover bg-black"
-                                    />
-                                  ) : (
-                                    <img
-                                      src={proj.media.src}
-                                      alt={proj.title}
-                                      className="border border-black max-h-[360px] object-cover"
-                                    />
+                                {proj.media && proj.media.src && (
+                                  <div className="captioned-image my-2">
+                                    {proj.media.kind === 'video' ? (
+                                      <video
+                                        src={proj.media.src}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className="border border-black max-h-[360px] object-cover bg-black"
+                                      />
+                                    ) : (
+                                      <img
+                                        src={proj.media.src}
+                                        alt={proj.title}
+                                        className="border border-black max-h-[360px] object-cover"
+                                      />
+                                    )}
+                                    <p className="mt-1 text-xs">
+                                      <sub>
+                                        <b>Figure {idx + 1}:</b> {proj.impact || proj.oneLiner}
+                                      </sub>
+                                    </p>
+                                  </div>
+                                )}
+
+                                <h3>Links:</h3>
+                                <ul className="mt-2">
+                                  {proj.links?.site && (
+                                    <li>
+                                      <a href={proj.links.site} target="_blank" rel="noreferrer" className="text-[#0000ee] underline hover:text-red-600">
+                                        <p><b>[Live Application]</b> - {proj.links.site}</p>
+                                      </a>
+                                    </li>
                                   )}
-                                  <p className="mt-1 text-xs">
-                                    <sub>
-                                      <b>Figure {idx + 1}:</b> {proj.impact || proj.oneLiner}
-                                    </sub>
-                                  </p>
-                                </div>
-                              )}
+                                  {proj.links?.code && (
+                                    <li>
+                                      <a href={proj.links.code} target="_blank" rel="noreferrer" className="text-[#0000ee] underline hover:text-red-600">
+                                        <p><b>[GitHub Repository]</b> - {proj.links.code}</p>
+                                      </a>
+                                    </li>
+                                  )}
+                                </ul>
 
-                              <h3>Links:</h3>
-                              <ul className="mt-2">
-                                {proj.links?.site && (
-                                  <li>
-                                    <a href={proj.links.site} target="_blank" rel="noreferrer" className="text-[#0000ee] underline hover:text-red-600">
-                                      <p><b>[Live Application]</b> - {proj.links.site}</p>
-                                    </a>
-                                  </li>
-                                )}
-                                {proj.links?.code && (
-                                  <li>
-                                    <a href={proj.links.code} target="_blank" rel="noreferrer" className="text-[#0000ee] underline hover:text-red-600">
-                                      <p><b>[GitHub Repository]</b> - {proj.links.code}</p>
-                                    </a>
-                                  </li>
-                                )}
-                              </ul>
+                                <p className="text-xs font-['Terminal',monospace] text-[#555]">
+                                  <b>TECH STACK:</b> {proj.stack.join(' / ')}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        )}
 
-                              <p className="text-xs font-['Terminal',monospace] text-[#555]">
-                                <b>TECH STACK:</b> {proj.stack.join(' / ')}
+                        {/* CREATIVE & 3D ANIMATION LIST */}
+                        {projectCategory === 'creative' && (
+                          <div className="space-y-10">
+                            <div className="bg-[#f7f7f7] border border-black p-3.5 mb-8">
+                              <h4 className="font-bold text-sm">3D & Creative Stuff</h4>
+                              <p className="text-xs text-[#444] mt-1 leading-relaxed">
+                                Besides coding and servers, I spend a lot of time in Blender making 3D scenes, lighting experiments, and video teasers. Here are some of the projects and renders I've worked on:
                               </p>
                             </div>
-                          ))}
-                        </div>
+
+                            <div className="space-y-12">
+                              {creativeProjects.map((item, idx) => (
+                                <div key={item.id} className="text-block border-b border-[#808080] pb-8">
+                                  <h2>{item.title}</h2>
+                                  <h4 className="text-[#666] mt-0.5 font-normal text-xs font-['Terminal',monospace]">
+                                    {item.role} · {item.year}
+                                  </h4>
+                                  <br />
+                                  <p>{item.description}</p>
+                                  <br />
+
+                                  {item.media && item.media.src && (
+                                    <div className="captioned-image my-2">
+                                      {item.media.kind === 'video' ? (
+                                        <video
+                                          src={item.media.src}
+                                          autoPlay
+                                          loop
+                                          muted
+                                          playsInline
+                                          preload="auto"
+                                          className="max-h-[440px] max-w-full w-auto mx-auto block outline-none select-none"
+                                        />
+                                      ) : (
+                                        <img
+                                          src={item.media.src}
+                                          alt={item.title}
+                                          className="max-h-[440px] max-w-full w-auto mx-auto block"
+                                        />
+                                      )}
+                                      <p className="mt-1 text-xs">
+                                        <sub>
+                                          <b>Figure {idx + 1}:</b> {item.impact || item.title}
+                                        </sub>
+                                      </p>
+                                    </div>
+                                  )}
+
+                                  {item.links && Object.keys(item.links).length > 0 && (
+                                    <>
+                                      <h3>Links:</h3>
+                                      <ul className="mt-2">
+                                        {item.links.video && item.links.video !== '#' && (
+                                          <li>
+                                            <a href={item.links.video} target="_blank" rel="noreferrer" className="text-[#0000ee] underline hover:text-red-600">
+                                              <p><b>[Watch Video / Reel]</b> - {item.links.video}</p>
+                                            </a>
+                                          </li>
+                                        )}
+                                        {item.links.demo && item.links.demo !== '#' && (
+                                          <li>
+                                            <a href={item.links.demo} target="_blank" rel="noreferrer" className="text-[#0000ee] underline hover:text-red-600">
+                                              <p><b>[Interactive Demo]</b> - {item.links.demo}</p>
+                                            </a>
+                                          </li>
+                                        )}
+                                      </ul>
+                                    </>
+                                  )}
+
+                                  <p className="text-xs font-['Terminal',monospace] text-[#555] mt-2">
+                                    <b>TOOLS:</b> {item.tools.join(' · ')}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+
+                            {/* 3D STILLS & GAME ASSETS (PERSONAL GALLERY) */}
+                            <div className="mt-12 pt-8 border-t border-[#808080]">
+                              <div className="mb-4">
+                                <h2 className="!text-[22px] md:!text-[24px] m-0">Personal Renders & Assets</h2>
+                                <h4 className="text-[#666] text-xs font-normal mt-0.5">
+                                  Lighting studies, environment scenes, and game-ready models
+                                </h4>
+                              </div>
+
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {creativeStills.map((still) => (
+                                  <div
+                                    key={still.id}
+                                    onClick={() => setSelectedStill(still)}
+                                    className="border border-[#808080] p-2 bg-[#fafafa] hover:bg-[#f0f0f0] cursor-pointer transition-colors flex flex-col group shadow-sm"
+                                  >
+                                    <div className="w-full h-[190px] sm:h-[200px] bg-[#1a1a1a] border border-black overflow-hidden flex items-center justify-center relative">
+                                      <img
+                                        src={still.src}
+                                        alt={still.alt}
+                                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                                      />
+                                    </div>
+                                    <div className="mt-2.5 flex-1 flex flex-col justify-between">
+                                      <div>
+                                        <h4 className="!text-sm font-bold text-black group-hover:text-[#0000ee] transition-colors">
+                                          {still.title}
+                                        </h4>
+                                        <p className="text-xs text-[#444] mt-1 leading-relaxed">
+                                          {still.description}
+                                        </p>
+                                      </div>
+                                      <div className="mt-2.5 pt-1.5 border-t border-[#e0e0e0] flex items-center justify-between text-[11px] font-['Terminal',monospace] text-[#666]">
+                                        <span>{still.tools.join(' · ')}</span>
+                                        <span className="text-[#0000ee] group-hover:underline text-[11px]">View &rarr;</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     )}
 
@@ -444,9 +596,20 @@ export const App: React.FC = () => {
 
                         {experiences.map((exp, idx) => (
                           <div key={exp.company + idx} className="text-block border-b border-[#808080] pb-8 mb-8">
-                            <div className="flex flex-wrap justify-between items-baseline mb-2">
-                              <h1>{exp.company}</h1>
-                              <h4 className="text-[#555]">{exp.period}</h4>
+                            <div className="flex flex-wrap justify-between items-center gap-3 mb-2">
+                              <div className="flex items-center gap-3">
+                                {exp.logo && (
+                                  <img
+                                    src={exp.logo}
+                                    alt={exp.company}
+                                    className="w-10 h-10 object-contain border border-black bg-black p-0.5 shrink-0 [image-rendering:pixelated]"
+                                  />
+                                )}
+                                <h2 className="!text-[22px] md:!text-[26px] font-bold leading-tight m-0">
+                                  {exp.company}
+                                </h2>
+                              </div>
+                              <h4 className="text-[#555] whitespace-nowrap">{exp.period}</h4>
                             </div>
                             <div className="flex justify-between items-baseline mb-4">
                               <h3>{exp.role}</h3>
@@ -627,6 +790,72 @@ export const App: React.FC = () => {
               <img src={myComputerIcon} alt="" className="w-4 h-4 [image-rendering:pixelated]" />
               <span>GitHub Profile</span>
             </a>
+          </div>
+        </div>
+      )}
+
+      {/* RETRO WINDOWS 95 PHOTO VIEWER MODAL */}
+      {selectedStill && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/65 backdrop-blur-[2px]"
+          onClick={() => setSelectedStill(null)}
+        >
+          <div 
+            className="win-border max-w-[860px] w-full max-h-[92vh] flex flex-col bg-[#c3c6ca] shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="bg-[#0000a3] h-[22px] flex items-center justify-between px-1 shrink-0">
+              <div className="flex items-center gap-1.5 overflow-hidden">
+                <img src={windowExplorerIcon} alt="" className="w-3.5 h-3.5 [image-rendering:pixelated]" />
+                <span className="showcase-header truncate text-white text-xs">
+                  Photo Viewer - {selectedStill.title}
+                </span>
+              </div>
+              <button
+                onClick={() => setSelectedStill(null)}
+                className="w-[16px] h-[14px] bg-[#c3c6ca] border border-black border-t-white border-l-white flex items-center justify-center p-[1px] active:border-t-black active:border-l-black active:border-b-white active:border-r-white"
+                title="Close"
+              >
+                <img src={closeIcon} alt="X" className="[image-rendering:pixelated]" />
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-2.5 flex-1 overflow-y-auto flex flex-col items-center">
+              <div className="win-inset-panel p-1 bg-black w-full flex items-center justify-center max-h-[62vh] overflow-hidden">
+                <img
+                  src={selectedStill.src}
+                  alt={selectedStill.alt}
+                  className="max-h-[60vh] max-w-full w-auto object-contain"
+                />
+              </div>
+
+              <div className="w-full mt-2.5 bg-white p-3 win-inset-panel text-black">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#bbb] pb-1.5 mb-1.5">
+                  <h3 className="!text-[18px] md:!text-[20px] font-bold text-black m-0">
+                    {selectedStill.title}
+                  </h3>
+                  <span className="text-xs font-['Terminal',monospace] text-[#666]">
+                    {selectedStill.category} · {selectedStill.year}
+                  </span>
+                </div>
+                <p className="text-xs text-[#222] leading-relaxed">
+                  {selectedStill.description}
+                </p>
+                <div className="mt-2 pt-1.5 border-t border-[#eee] flex items-center justify-between">
+                  <p className="text-[11px] font-['Terminal',monospace] text-[#555] m-0">
+                    <b>TOOLS:</b> {selectedStill.tools.join(' · ')}
+                  </p>
+                  <button
+                    onClick={() => setSelectedStill(null)}
+                    className="site-button !text-xs !py-0.5 !px-2.5"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
