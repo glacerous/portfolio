@@ -22,7 +22,7 @@ import ghIcon from '@/assets/pictures/contact-gh.png';
 import inIcon from '@/assets/pictures/contact-in.png';
 import forHireGif from '@/assets/pictures/forHireGif.gif';
 import robloxStudioImg from '@/assets/pictures/roblox-studio.png';
-import artIcon from '@/assets/pictures/projects/art.gif';
+import creativeIcon from '@/assets/pictures/projects/creative3d.png';
 import { creativeProjects, creativeStills } from '@/data/creative';
 import { CreativeStill } from '@/data/types';
 
@@ -360,32 +360,34 @@ export const App: React.FC = () => {
                           <button
                             type="button"
                             onClick={() => setProjectCategory('software')}
-                            className={`big-button-container flex items-center gap-4 text-left p-3 cursor-pointer select-none transition-all ${
-                              projectCategory === 'software'
-                                ? 'bg-[#dfdfdf] border-t-2 border-l-2 border-t-[#808080] border-l-[#808080] border-b-2 border-r-2 border-b-white border-r-white'
-                                : 'opacity-85 hover:opacity-100'
+                            className={`category-button ${
+                              projectCategory === 'software' ? 'active' : ''
                             }`}
+                            aria-pressed={projectCategory === 'software'}
                           >
-                            <img src={softwareIcon} alt="Software" className="w-12 h-12 [image-rendering:pixelated]" />
-                            <div>
-                              <h2 className="!text-[22px] md:!text-[26px] m-0">Software</h2>
-                              <h4 className="text-[#555] text-xs">SELECTED REPOSITORIES</h4>
+                            <div className="category-button-content flex items-center gap-4">
+                              <img src={softwareIcon} alt="Software" className="w-12 h-12 [image-rendering:pixelated] shrink-0" />
+                              <div>
+                                <h2 className="!text-[22px] md:!text-[26px] m-0">Software</h2>
+                                <h4 className="text-[#555] text-xs">SELECTED REPOSITORIES</h4>
+                              </div>
                             </div>
                           </button>
 
                           <button
                             type="button"
                             onClick={() => setProjectCategory('creative')}
-                            className={`big-button-container flex items-center gap-4 text-left p-3 cursor-pointer select-none transition-all ${
-                              projectCategory === 'creative'
-                                ? 'bg-[#dfdfdf] border-t-2 border-l-2 border-t-[#808080] border-l-[#808080] border-b-2 border-r-2 border-b-white border-r-white'
-                                : 'opacity-85 hover:opacity-100'
+                            className={`category-button ${
+                              projectCategory === 'creative' ? 'active' : ''
                             }`}
+                            aria-pressed={projectCategory === 'creative'}
                           >
-                            <img src={artIcon} alt="Creative" className="w-12 h-12 [image-rendering:pixelated]" />
-                            <div>
-                              <h2 className="!text-[22px] md:!text-[26px] m-0">Creative & 3D</h2>
-                              <h4 className="text-[#555] text-xs">3D ANIMATION & VIDEO</h4>
+                            <div className="category-button-content flex items-center gap-4">
+                              <img src={creativeIcon} alt="Creative & 3D" className="w-12 h-12 [image-rendering:pixelated] shrink-0" />
+                              <div>
+                                <h2 className="!text-[22px] md:!text-[26px] m-0">Creative & 3D</h2>
+                                <h4 className="text-[#555] text-xs">3D ANIMATION & VIDEO</h4>
+                              </div>
                             </div>
                           </button>
                         </div>
@@ -637,7 +639,7 @@ export const App: React.FC = () => {
                                 <img src={ghIcon} alt="GitHub" className="w-8 h-8" />
                               </div>
                             </a>
-                            <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">
+                            <a href="https://www.linkedin.com/in/azzaky-raihan-ramdhani/" target="_blank" rel="noreferrer">
                               <div className="big-button-container p-2.5">
                                 <img src={inIcon} alt="LinkedIn" className="w-8 h-8" />
                               </div>
@@ -789,6 +791,15 @@ export const App: React.FC = () => {
             >
               <img src={myComputerIcon} alt="" className="w-4 h-4 [image-rendering:pixelated]" />
               <span>GitHub Profile</span>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/azzaky-raihan-ramdhani/"
+              target="_blank"
+              rel="noreferrer"
+              className="p-1.5 flex items-center gap-2 hover:bg-[#0000a3] hover:text-white cursor-pointer text-black no-underline"
+            >
+              <img src={inIcon} alt="" className="w-4 h-4 [image-rendering:pixelated]" />
+              <span>LinkedIn Profile</span>
             </a>
           </div>
         </div>

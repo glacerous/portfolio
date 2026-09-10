@@ -8,7 +8,7 @@ export const socials: SocialLink[] = [
     },
     {
         label: "LinkedIn",
-        url: "https://www.linkedin.com/in/azzaky-raihan-ramdhani-71b1bb329",
+        url: "https://www.linkedin.com/in/azzaky-raihan-ramdhani/",
         platform: "linkedin"
     },
 ];

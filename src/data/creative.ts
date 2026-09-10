@@ -25,7 +25,7 @@ export const creativeProjects: CreativeProject[] = [
   },
   {
     id: "pkkfti-teaser",
-    title: "PKKFTI Orientation Teaser",
+    title: "PKKFTI 2025 Orientation Teaser",
     role: "3D Environment & Camera Animation",
     year: "2025",
     category: "3D ANIMATION",
