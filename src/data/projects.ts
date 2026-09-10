@@ -58,7 +58,7 @@ export const projects: Project[] = [
             alt: "HIMA SISFO Portal Interface",
         },
         links: {
-            site: "https://himasisfoupnvyk.com", // Example site link
+            site: "https://www.himasisfoupnvy.com/",
         },
     },
 
