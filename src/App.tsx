@@ -21,6 +21,7 @@ import softwareIcon from '@/assets/pictures/projects/software.gif';
 import ghIcon from '@/assets/pictures/contact-gh.png';
 import inIcon from '@/assets/pictures/contact-in.png';
 import forHireGif from '@/assets/pictures/forHireGif.gif';
+import robloxStudioImg from '@/assets/pictures/roblox-studio.png';
 
 type TabType = 'about' | 'experience' | 'projects' | 'contact';
 
@@ -249,7 +250,7 @@ export const App: React.FC = () => {
 
                         <div className="text-block">
                           <p>
-                            I'm a software engineer specializing in backend architecture, cloud infrastructure, and platform systems.
+                            I focus on DevSecOps and cloud infrastructure, building automated pipelines and keeping production systems secure.
                           </p>
                           <br />
                           <p>
@@ -285,12 +286,36 @@ export const App: React.FC = () => {
                           <h3>About Me</h3>
                           <br />
                           <p>
-                            From a young age, I have had an obsessive curiosity about how things worked under the surface. This fascination steered me from Earth Science Olympiads and competitive programming into backend development, distributed architecture, and data pipelines.
+                            I got into coding when I was 14 through Roblox Studio. Lua was my first language, mostly because I just wanted to build games and see my own mechanics actually work on screen. That was pretty much the spark that got me hooked on programming.
+                          </p>
+                          <br />
+
+                          <div className="captioned-image my-2">
+                            <img
+                              src={robloxStudioImg}
+                              alt="Roblox Studio project"
+                              className="border border-black w-full max-h-[420px] object-cover"
+                            />
+                            <p className="mt-1 text-xs text-[#555]">
+                              <sub>
+                                <b>Figure 1:</b> One of my early creations in Roblox Studio where it all started.
+                              </sub>
+                            </p>
+                          </div>
+                          <br />
+
+                          <p>
+                            Earlier on, I spent time competing in math and Earth Science olympiads, building projects in hackathons, and shipping campus platforms used by thousands of active students.
                           </p>
                           <br />
 
                           <p>
-                            I build scalable backends with TypeScript, Go, Python, and Node.js, combined with robust relational modeling in PostgreSQL and high-throughput caches with Redis. I am also deeply interested in containerization, Kubernetes orchestration, and AI model serving.
+                            Along the way, I spent time across different roles like backend development and QA. Building backend systems taught me how data flows and scales, while doing QA trained me to spot edge cases and understand how things fail. Having hands-on experience across both sides made me realize that my real sweet spot is where code quality, infrastructure, and security meet.
+                          </p>
+                          <br />
+
+                          <p>
+                            That naturally led me to DevSecOps. My goal is to work on CI/CD pipelines, cloud infrastructure, and security automation so teams can ship software quickly without leaving vulnerabilities behind.
                           </p>
                           <br />
 
@@ -299,7 +324,7 @@ export const App: React.FC = () => {
                               <h3>My Focus Areas</h3>
                               <br />
                               <p>
-                                Beyond software engineering, I explore machine learning allometrics, cloud orchestration, and interactive web tools. I love solving tough architectural bottlenecks and creating performant user-focused applications.
+                                My primary focus is DevSecOps, infrastructure as code, and cloud security. I enjoy automating deployment workflows, hardening Linux and cloud environments, and ensuring applications remain resilient under load.
                               </p>
                             </div>
                           </div>

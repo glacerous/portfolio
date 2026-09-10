@@ -3,6 +3,7 @@ import { projects } from '@/data/projects';
 import { experiences } from '@/data/experience';
 import ResumeBox from './ResumeBox';
 import winColors from '@/constants/colors';
+import robloxStudioImg from '@/assets/pictures/roblox-studio.png';
 
 export type TabKey = 'about' | 'projects' | 'experience' | 'contact';
 
@@ -165,14 +166,28 @@ export const ShowcaseContent: React.FC = () => {
                             }}
                         >
                             <p style={{ marginBottom: 14 }}>
-                                Welcome to my interactive portfolio showcase. I specialize in backend architecture,
-                                containerized infrastructure, distributed algorithms, and resilient fullstack systems.
-                                I love writing clean TypeScript/Go/Python, debugging complex system bottlenecks, and creating
-                                software that scales elegantly.
+                                I focus on DevSecOps and cloud infrastructure, building automated pipelines and keeping production systems secure.
                             </p>
                             <p style={{ marginBottom: 14 }}>
-                                In my background, I did Earth Science Olympiads, high-intensity hackathons, and built campus-wide
-                                platforms serving thousands of active users.
+                                I got into coding when I was 14 through Roblox Studio using Lua, which sparked my curiosity for how software actually works. Having worked in different roles like backend development and QA gave me practical experience in both building systems and spotting failure points. Today, that experience feeds directly into my DevSecOps focus: automating pipelines and making sure infrastructure is resilient and secure.
+                            </p>
+                            <div style={{ margin: '16px 0' }}>
+                                <img
+                                    src={robloxStudioImg}
+                                    alt="Roblox Studio project"
+                                    style={{
+                                        width: '100%',
+                                        maxHeight: 380,
+                                        objectFit: 'cover',
+                                        border: '1px solid #000000',
+                                    }}
+                                />
+                                <div style={{ fontSize: 13, color: '#555555', marginTop: 4 }}>
+                                    <b>Figure 1:</b> One of my early creations in Roblox Studio where it all started.
+                                </div>
+                            </div>
+                            <p style={{ marginBottom: 14 }}>
+                                Earlier on, I spent time competing in math and Earth Science olympiads, building projects in hackathons, and shipping campus platforms used by thousands of active students.
                             </p>
                         </div>
 
