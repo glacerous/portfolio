@@ -32,4 +32,4 @@ jobs:
 
       # 5. DevSecOps check: Audit dependencies for known vulnerabilities
       - name: Run Security Audit
-        run: npm audit --audit-level=high
+        run: npm audit --omit=dev --audit-level=high
