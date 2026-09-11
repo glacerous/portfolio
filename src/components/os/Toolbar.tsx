@@ -200,7 +200,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
                     display: 'flex',
                     alignItems: 'center',
                     gap: 3,
-                    overflowX: 'auto',
+                    overflow: 'hidden',
                     height: '100%',
                 }}
             >
