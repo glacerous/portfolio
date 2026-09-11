@@ -23,16 +23,100 @@ import inIcon from '@/assets/pictures/contact-in.png';
 import forHireGif from '@/assets/pictures/forHireGif.gif';
 import robloxStudioImg from '@/assets/pictures/roblox-studio.png';
 import creativeIcon from '@/assets/pictures/projects/creative3d.png';
+import creditsIcon from '@/assets/icons/credits.png';
 import { creativeProjects, creativeStills } from '@/data/creative';
 import { CreativeStill } from '@/data/types';
+import { blogPosts } from '@/data/blogs';
+import DevLogApp from '@/components/showcase/DevLogApp';
 
-type TabType = 'about' | 'experience' | 'projects' | 'contact';
+type TabType = 'about' | 'experience' | 'projects' | 'blog' | 'contact';
 
 export const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('about');
+  const [selectedBlogSlug, setSelectedBlogSlug] = useState<string | null>(null);
   const [projectCategory, setProjectCategory] = useState<'software' | 'creative'>('software');
-  const [isMinimized, setIsMinimized] = useState(false);
-  const [isMaximized, setIsMaximized] = useState(false);
+  
+  // Showcase Window State
+  const [isShowcaseMinimized, setIsShowcaseMinimized] = useState(false);
+  const [isShowcaseMaximized, setIsShowcaseMaximized] = useState(false);
+
+  // DevLog Window State (Separate Retro Panel)
+  const [isDevLogOpen, setIsDevLogOpen] = useState(false);
+  const [isDevLogMinimized, setIsDevLogMinimized] = useState(false);
+  const [isDevLogMaximized, setIsDevLogMaximized] = useState(false);
+
+  // Window Focus & Stacking Order
+  const [activeWindow, setActiveWindow] = useState<'showcase' | 'devlog'>('showcase');
+  const [showcaseZIndex, setShowcaseZIndex] = useState(10);
+  const [devLogZIndex, setDevLogZIndex] = useState(20);
+
+  // Draggable Window Positions & Dimensions
+  const [showcasePos, setShowcasePos] = useState(() => ({
+    x: Math.max(12, Math.floor((window.innerWidth - Math.min(1080, window.innerWidth - 36)) / 2 - 15)),
+    y: 18,
+  }));
+  const [showcaseSize, setShowcaseSize] = useState(() => ({
+    width: Math.min(1080, window.innerWidth - 36),
+    height: Math.min(740, window.innerHeight - 76),
+  }));
+
+  const [devLogPos, setDevLogPos] = useState(() => ({
+    x: Math.max(20, Math.floor((window.innerWidth - Math.min(880, window.innerWidth - 36)) / 2 + 25)),
+    y: 32,
+  }));
+  const [devLogSize, setDevLogSize] = useState(() => ({
+    width: Math.min(880, window.innerWidth - 36),
+    height: Math.min(700, window.innerHeight - 76),
+  }));
+
+  // Showcase Drag Handler
+  const handleShowcaseTitleMouseDown = (e: React.MouseEvent) => {
+    if (isShowcaseMaximized) return;
+    focusShowcase();
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const initX = showcasePos.x;
+    const initY = showcasePos.y;
+
+    const onMouseMove = (ev: MouseEvent) => {
+      const newX = Math.max(0, Math.min(window.innerWidth - 120, initX + (ev.clientX - startX)));
+      const newY = Math.max(0, Math.min(window.innerHeight - 70, initY + (ev.clientY - startY)));
+      setShowcasePos({ x: newX, y: newY });
+    };
+
+    const onMouseUp = () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+  };
+
+  // DevLog Drag Handler
+  const handleDevLogTitleMouseDown = (e: React.MouseEvent) => {
+    if (isDevLogMaximized) return;
+    focusDevLog();
+    const startX = e.clientX;
+    const startY = e.clientY;
+    const initX = devLogPos.x;
+    const initY = devLogPos.y;
+
+    const onMouseMove = (ev: MouseEvent) => {
+      const newX = Math.max(0, Math.min(window.innerWidth - 120, initX + (ev.clientX - startX)));
+      const newY = Math.max(0, Math.min(window.innerHeight - 70, initY + (ev.clientY - startY)));
+      setDevLogPos({ x: newX, y: newY });
+    };
+
+    const onMouseUp = () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+  };
+
   const [isStartOpen, setIsStartOpen] = useState(false);
   const [activeLink, setActiveLink] = useState<string | null>(null);
   const [isMuted, setIsMuted] = useState(false);
@@ -40,7 +124,39 @@ export const App: React.FC = () => {
 
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // Auto scroll to top on tab change
+  const focusShowcase = () => {
+    setActiveWindow('showcase');
+    setShowcaseZIndex((prev) => Math.max(prev, devLogZIndex + 1));
+  };
+
+  const focusDevLog = () => {
+    setActiveWindow('devlog');
+    setDevLogZIndex((prev) => Math.max(prev, showcaseZIndex + 1));
+  };
+
+  const openDevLog = (slug: string | null = null) => {
+    setIsDevLogOpen(true);
+    setIsDevLogMinimized(false);
+    setSelectedBlogSlug(slug);
+    focusDevLog();
+    const targetUrl = slug ? `/blog/${slug}` : '/blog';
+    if (window.location.pathname !== targetUrl) {
+      window.history.pushState(null, '', targetUrl);
+    }
+  };
+
+  const closeDevLog = () => {
+    setIsDevLogOpen(false);
+    setIsDevLogMinimized(false);
+    setSelectedBlogSlug(null);
+    focusShowcase();
+    const targetUrl = activeTab === 'about' ? '/' : `/${activeTab}`;
+    if (window.location.pathname !== targetUrl) {
+      window.history.pushState(null, '', targetUrl);
+    }
+  };
+
+  // Auto scroll to top on tab change in Showcase
   useEffect(() => {
     if (contentRef.current) {
       contentRef.current.scrollTo({ top: 0, behavior: 'instant' });
@@ -71,17 +187,103 @@ export const App: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // Parse current URL or Hash to determine tab and blog slug
+  const parseRouteFromLocation = (): { tab: TabType; blogSlug: string | null } => {
+    let path = window.location.pathname;
+    const hash = window.location.hash;
+
+    if (hash) {
+      const cleanHash = hash.replace(/^#\/?/, '/');
+      if (cleanHash.startsWith('/blog')) {
+        path = cleanHash;
+      } else if (['/about', '/experience', '/projects', '/contact'].includes(cleanHash)) {
+        path = cleanHash;
+      }
+    }
+
+    if (path.startsWith('/blog/')) {
+      const slug = path.replace('/blog/', '').replace(/\/$/, '');
+      return { tab: 'blog', blogSlug: slug || null };
+    }
+    if (path === '/blog' || path === '/blog/') {
+      return { tab: 'blog', blogSlug: null };
+    }
+    if (path === '/experience' || path === '/experience/') {
+      return { tab: 'experience', blogSlug: null };
+    }
+    if (path === '/projects' || path === '/projects/') {
+      return { tab: 'projects', blogSlug: null };
+    }
+    if (path === '/contact' || path === '/contact/') {
+      return { tab: 'contact', blogSlug: null };
+    }
+    return { tab: 'about', blogSlug: null };
+  };
+
+  // Sync route on initial load and back/forward browser history navigation
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const route = parseRouteFromLocation();
+      if (route.tab === 'blog') {
+        setIsDevLogOpen(true);
+        setIsDevLogMinimized(false);
+        setSelectedBlogSlug(route.blogSlug);
+        focusDevLog();
+      } else {
+        setActiveTab(route.tab);
+        setIsShowcaseMinimized(false);
+        focusShowcase();
+      }
+    };
+
+    handleLocationChange();
+
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
+  }, []);
+
+  // Update dynamic document title based on active window & article
+  const currentBlogPost = selectedBlogSlug ? blogPosts.find((p) => p.slug === selectedBlogSlug) : null;
+
+  useEffect(() => {
+    if (isDevLogOpen && activeWindow === 'devlog' && currentBlogPost) {
+      document.title = `${currentBlogPost.title} - Azzaky Raihan`;
+    } else if (isDevLogOpen && activeWindow === 'devlog') {
+      document.title = 'DevLog Help Viewer - Azzaky Raihan';
+    } else {
+      document.title = 'Azzaky Raihan - Showcase 2026';
+    }
+  }, [isDevLogOpen, activeWindow, currentBlogPost]);
+
   const handleNavClick = (tab: TabType) => {
     setActiveLink(tab);
     setTimeout(() => {
-      setActiveTab(tab);
+      if (tab === 'blog') {
+        openDevLog(selectedBlogSlug);
+      } else {
+        setActiveTab(tab);
+        focusShowcase();
+        const targetUrl = tab === 'about' ? '/' : `/${tab}`;
+        if (window.location.pathname !== targetUrl) {
+          window.history.pushState(null, '', targetUrl);
+        }
+      }
       setActiveLink(null);
     }, 100);
   };
 
   const openApp = (tab: TabType) => {
-    setIsMinimized(false);
-    setActiveTab(tab);
+    if (tab === 'blog') {
+      openDevLog(selectedBlogSlug);
+    } else {
+      setIsShowcaseMinimized(false);
+      setActiveTab(tab);
+      focusShowcase();
+    }
   };
 
   const handleToggleMute = (e: React.MouseEvent) => {
@@ -112,20 +314,39 @@ export const App: React.FC = () => {
               Showcase
             </span>
           </div>
+
+          <div
+            className="flex flex-col items-center w-20 cursor-pointer group"
+            onDoubleClick={() => openDevLog(selectedBlogSlug)}
+            onClick={() => openDevLog(selectedBlogSlug)}
+          >
+            <img src={creditsIcon} alt="Dev Log" className="w-8 h-8 [image-rendering:pixelated]" />
+            <span className="mt-1 text-xs text-white px-1 font-['MSSerif'] text-center border border-transparent group-hover:border-dotted group-hover:border-white group-hover:bg-[#0000a3]">
+              Dev Log
+            </span>
+          </div>
         </div>
 
-        {/* Main Retro Window */}
-        {!isMinimized && (
+        {/* Main Showcase Retro Window */}
+        {!isShowcaseMinimized && (
           <div
-            className={`absolute z-10 win-border-outer bg-[#c3c6ca] flex flex-col ${
-              isMaximized
-                ? 'top-0 left-0 w-full h-[calc(100%-28px)]'
-                : 'top-3 left-3 right-3 bottom-10 md:top-6 md:left-24 md:right-16 md:bottom-12 max-w-[1100px] mx-auto shadow-2xl'
-            }`}
+            onMouseDown={focusShowcase}
+            style={{
+              zIndex: showcaseZIndex,
+              ...(isShowcaseMaximized
+                ? { top: 0, left: 0, width: '100vw', height: 'calc(100vh - 28px)' }
+                : { top: showcasePos.y, left: showcasePos.x, width: showcaseSize.width, height: showcaseSize.height }),
+            }}
+            className="absolute win-border-outer bg-[#c3c6ca] flex flex-col shadow-2xl select-none"
           >
             <div className="win-border-inner flex flex-col flex-1 p-[2px] overflow-hidden">
-              {/* Window Header / Title Bar */}
-              <div className="bg-[#0000a3] h-[20px] flex items-center justify-between px-1 shrink-0">
+              {/* Window Header / Draggable Title Bar */}
+              <div
+                onMouseDown={handleShowcaseTitleMouseDown}
+                className={`h-[20px] flex items-center justify-between px-1 shrink-0 ${
+                  isShowcaseMaximized ? 'cursor-default' : 'cursor-move'
+                } ${activeWindow === 'showcase' ? 'bg-[#0000a3]' : 'bg-[#808080]'}`}
+              >
                 <div className="flex items-center gap-1.5 overflow-hidden">
                   <img src={windowExplorerIcon} alt="" className="w-4 h-4 [image-rendering:pixelated]" />
                   <span className="showcase-header truncate">
@@ -133,9 +354,12 @@ export const App: React.FC = () => {
                   </span>
                 </div>
                 {/* Control Buttons with double bevel */}
-                <div className="flex items-center gap-0.5 shrink-0 ml-2">
+                <div
+                  className="flex items-center gap-0.5 shrink-0 ml-2"
+                  onMouseDown={(e) => e.stopPropagation()}
+                >
                   <button
-                    onClick={() => setIsMinimized(true)}
+                    onClick={() => setIsShowcaseMinimized(true)}
                     className="w-[16px] h-[14px] bg-[#c3c6ca] border border-black border-t-white border-l-white flex items-center justify-center p-[1px] active:border-t-black active:border-l-black active:border-b-white active:border-r-white"
                     title="Minimize"
                   >
@@ -144,7 +368,7 @@ export const App: React.FC = () => {
                     </div>
                   </button>
                   <button
-                    onClick={() => setIsMaximized(!isMaximized)}
+                    onClick={() => setIsShowcaseMaximized(!isShowcaseMaximized)}
                     className="w-[16px] h-[14px] bg-[#c3c6ca] border border-black border-t-white border-l-white flex items-center justify-center p-[1px] active:border-t-black active:border-l-black active:border-b-white active:border-r-white"
                     title="Maximize"
                   >
@@ -153,7 +377,7 @@ export const App: React.FC = () => {
                     </div>
                   </button>
                   <button
-                    onClick={() => setIsMinimized(true)}
+                    onClick={() => setIsShowcaseMinimized(true)}
                     className="w-[16px] h-[14px] bg-[#c3c6ca] border border-black border-t-white border-l-white flex items-center justify-center p-[1px] active:border-t-black active:border-l-black active:border-b-white active:border-r-white ml-0.5"
                     title="Close"
                   >
@@ -185,28 +409,35 @@ export const App: React.FC = () => {
 
                       {/* Navigation Links */}
                       <nav className="flex flex-col gap-6">
-                        {(['about', 'experience', 'projects', 'contact'] as TabType[]).map((tab) => {
-                          const isCurrent = activeTab === tab;
+                        {[
+                          { key: 'about', label: 'about' },
+                          { key: 'experience', label: 'experience' },
+                          { key: 'projects', label: 'projects' },
+                          { key: 'blog', label: 'dev log', isApp: true },
+                          { key: 'contact', label: 'contact' },
+                        ].map(({ key: tab, label, isApp }) => {
+                          const isCurrent = !isApp && activeTab === tab;
+                          const isActiveApp = isApp && isDevLogOpen && !isDevLogMinimized && activeWindow === 'devlog';
                           const isActiveClicked = activeLink === tab;
                           return (
                             <button
                               key={tab}
-                              onClick={() => handleNavClick(tab)}
+                              onClick={() => handleNavClick(tab as TabType)}
                               className="flex items-center text-left group focus:outline-none w-fit cursor-pointer"
                             >
-                              {isCurrent && (
+                              {(isCurrent || isActiveApp) && (
                                 <div className="w-[5px] h-[5px] rounded-full border-[3px] border-[rgb(85,26,139)] mr-2 shrink-0" />
                               )}
                               <h4
                                 className={`font-bold uppercase underline underline-offset-2 ${
                                   isActiveClicked
                                     ? '!text-red-600'
-                                    : isCurrent
+                                    : (isCurrent || isActiveApp)
                                     ? '!text-[rgb(85,26,139)]'
                                     : '!text-[#0000ee] hover:!text-red-600'
                                 }`}
                               >
-                                {tab}
+                                {label} {isApp && <span className="text-[11px] no-underline font-normal text-[#555]">↗</span>}
                               </h4>
                             </button>
                           );
@@ -233,7 +464,7 @@ export const App: React.FC = () => {
                   >
                     {/* Mobile Navigation bar */}
                     <div className="flex md:hidden gap-4 pb-3 mb-6 border-b border-[#c3c6ca] overflow-x-auto shrink-0">
-                      {(['about', 'experience', 'projects', 'contact'] as TabType[]).map((tab) => (
+                      {(['about', 'experience', 'projects', 'blog', 'contact'] as TabType[]).map((tab) => (
                         <button
                           key={tab}
                           onClick={() => handleNavClick(tab)}
@@ -702,15 +933,44 @@ export const App: React.FC = () => {
             </div>
           </div>
         )}
+
+        {/* Separate Dev Log Retro Application Panel */}
+        <DevLogApp
+          isOpen={isDevLogOpen}
+          isMinimized={isDevLogMinimized}
+          isMaximized={isDevLogMaximized}
+          isActive={activeWindow === 'devlog'}
+          zIndex={devLogZIndex}
+          selectedSlug={selectedBlogSlug}
+          pos={devLogPos}
+          size={devLogSize}
+          onClose={closeDevLog}
+          onMinimize={() => setIsDevLogMinimized(true)}
+          onToggleMaximize={() => setIsDevLogMaximized(!isDevLogMaximized)}
+          onFocus={focusDevLog}
+          onTitleMouseDown={handleDevLogTitleMouseDown}
+          onSelectSlug={(slug) => {
+            setSelectedBlogSlug(slug);
+            const targetUrl = slug ? `/blog/${slug}` : '/blog';
+            if (window.location.pathname !== targetUrl) {
+              window.history.pushState(null, '', targetUrl);
+            }
+          }}
+          onNavigateToContact={() => {
+            setIsShowcaseMinimized(false);
+            setActiveTab('contact');
+            focusShowcase();
+          }}
+        />
       </div>
 
       {/* Windows 95 Taskbar */}
       <div className="h-[28px] bg-[#c3c6ca] win-border-outer border-b-0 border-l-0 border-r-0 flex items-center justify-between px-1 z-30 shrink-0 select-none">
-        <div className="flex items-center gap-1.5 h-full py-0.5">
+        <div className="flex items-center gap-1.5 h-full py-0.5 overflow-hidden">
           {/* Start Button */}
           <button
             onClick={() => setIsStartOpen(!isStartOpen)}
-            className={`h-[22px] px-2 flex items-center gap-1.5 win-border-outer bg-[#c3c6ca] ${
+            className={`h-[22px] px-2 flex items-center gap-1.5 win-border-outer bg-[#c3c6ca] shrink-0 ${
               isStartOpen ? 'border-t-black border-l-black border-b-white border-r-white bg-[#b0b0b0]' : ''
             }`}
           >
@@ -720,18 +980,55 @@ export const App: React.FC = () => {
             </span>
           </button>
 
-          {/* Taskbar Window Button */}
+          {/* Taskbar Button: Showcase 2026 */}
           <button
-            onClick={() => setIsMinimized(!isMinimized)}
-            className={`h-[22px] px-3 max-w-[220px] flex items-center gap-1.5 win-border-outer text-left truncate ${
-              !isMinimized ? 'border-t-black border-l-black border-b-white border-r-white bg-[#dfdfdf] font-bold' : 'bg-[#c3c6ca]'
+            onClick={() => {
+              if (isShowcaseMinimized) {
+                setIsShowcaseMinimized(false);
+                focusShowcase();
+              } else if (activeWindow === 'showcase') {
+                setIsShowcaseMinimized(true);
+              } else {
+                focusShowcase();
+              }
+            }}
+            className={`h-[22px] px-2.5 max-w-[200px] flex items-center gap-1.5 win-border-outer text-left truncate shrink-0 ${
+              !isShowcaseMinimized && activeWindow === 'showcase'
+                ? 'border-t-black border-l-black border-b-white border-r-white bg-[#dfdfdf] font-bold'
+                : 'bg-[#c3c6ca]'
             }`}
           >
             <img src={windowExplorerIcon} alt="" className="w-3.5 h-3.5 shrink-0 [image-rendering:pixelated]" />
-            <span className="font-['MSSerif'] text-[12px] text-black truncate">
-              Azzaky Raihan - Showcase
+            <span className="font-['MSSerif'] text-[11px] text-black truncate">
+              Showcase 2026
             </span>
           </button>
+
+          {/* Taskbar Button: Dev Log App (when running) */}
+          {isDevLogOpen && (
+            <button
+              onClick={() => {
+                if (isDevLogMinimized) {
+                  setIsDevLogMinimized(false);
+                  focusDevLog();
+                } else if (activeWindow === 'devlog') {
+                  setIsDevLogMinimized(true);
+                } else {
+                  focusDevLog();
+                }
+              }}
+              className={`h-[22px] px-2.5 max-w-[220px] flex items-center gap-1.5 win-border-outer text-left truncate shrink-0 ${
+                !isDevLogMinimized && activeWindow === 'devlog'
+                  ? 'border-t-black border-l-black border-b-white border-r-white bg-[#dfdfdf] font-bold'
+                  : 'bg-[#c3c6ca]'
+              }`}
+            >
+              <img src={creditsIcon} alt="" className="w-3.5 h-3.5 shrink-0 [image-rendering:pixelated]" />
+              <span className="font-['MSSerif'] text-[11px] text-black truncate">
+                Dev Log - {currentBlogPost ? currentBlogPost.title : 'Help Viewer'}
+              </span>
+            </button>
+          )}
         </div>
 
         {/* System Tray with Audio Toggle & Clock */}
@@ -781,6 +1078,16 @@ export const App: React.FC = () => {
             >
               <img src={softwareIcon} alt="" className="w-4 h-4 [image-rendering:pixelated]" />
               <span>Software Projects</span>
+            </div>
+            <div
+              className="p-1.5 flex items-center gap-2 hover:bg-[#0000a3] hover:text-white cursor-pointer"
+              onClick={() => {
+                openDevLog(selectedBlogSlug);
+                setIsStartOpen(false);
+              }}
+            >
+              <img src={creditsIcon} alt="" className="w-4 h-4 [image-rendering:pixelated]" />
+              <span>Dev Log & Articles</span>
             </div>
             <div className="h-[1px] bg-[#808080] my-0.5" />
             <a
