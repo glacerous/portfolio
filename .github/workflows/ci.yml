@@ -1,0 +1,35 @@
+name: CI & Security Checks
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Download your repo onto the GitHub runner VM
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js runtime
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      # 3. Clean install exact dependencies from package-lock.json
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Run TypeScript check and Vite production build
+      - name: Typecheck and Build
+        run: npm run build
+
+      # 5. DevSecOps check: Audit dependencies for known vulnerabilities
+      - name: Run Security Audit
+        run: npm audit --audit-level=high
