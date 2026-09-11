@@ -414,3 +414,33 @@ a:hover, a:active {
     border-top-color: #000000;
     border-left-color: #000000;
 }
+
+/* Blog Article Typography & Reader Mode */
+.select-text,
+.blog-markdown-article,
+.blog-markdown-article * {
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+}
+
+.blog-markdown-article h1,
+.blog-markdown-article h2,
+.blog-markdown-article h3,
+.blog-markdown-article h4 {
+    font-family: MillenniumBold, 'Times New Roman', Times, serif;
+    letter-spacing: -0.2px;
+}
+
+.blog-markdown-article p {
+    font-family: Millennium, 'Times New Roman', Times, serif;
+    font-size: 17px;
+    line-height: 1.6;
+    color: #111111;
+}
+
+.blog-markdown-article code {
+    font-family: 'Consolas', 'Courier New', monospace;
+}
+
