@@ -4,13 +4,13 @@ import code124Logo from "@/assets/pictures/code124.png";
 export const experiences: Experience[] = [
     {
         company: "Code124",
-        role: "Quality Assurance",
-        period: "2026 - 2027",
+        role: "Quality Assurance Engineer",
+        period: "Jan. 2026 - Present",
         logo: code124Logo,
         description: [
-            "Conducting manual and automated testing to ensure application reliability.",
-            "Identifying bugs and documenting issues for the development team.",
-            "Ensuring software meets functional and performance requirements before release."
+            "Authored Scrum backlogs, user stories, and acceptance criteria that turned rough competition ideas into clear, shippable product requirements for the team.",
+            "Ran thorough manual and regression test passes on HimaSISFO (himasisfoupnvy.com) and BehindTheWeb, tracking down pesky edge cases and verifying UI and API behaviors across releases.",
+            "Took pride in breaking features in staging so users never experienced them in production, collaborating directly with developers to triage and patch bugs before launch."
         ]
     },
     {
@@ -25,13 +25,13 @@ export const experiences: Experience[] = [
         ]
     },
     {
-        company: "HIMASISFO (Information Systems Student Association)",
-        role: "Media, Information & Communication Division - Website Program Coordinator",
-        period: "2025 - 2026",
+        company: "Universitas Pembangunan Nasional “Veteran” Yogyakarta",
+        role: "Assistant Lecturer / Teaching Assistant",
+        period: "Feb. 2026 - Jun. 2026",
         description: [
-            "Responsible for the development and maintenance of the HIMASISFO official website.",
-            "Coordinating the website program as part of the Media, Information, and Communication division.",
-            "Ensuring the website functions as the main platform for student information and organizational updates."
+            "Assisted faculty in delivering lecture material and graded coursework for backend web development, breaking down core architectural concepts across Laravel and Express.js in classroom sessions.",
+            "Evaluated student project submissions and assignments, providing direct feedback on RESTful API design, database schemas, and clean code architecture.",
+            "Helped students connect textbook backend theory with real-world engineering, guiding them through defensive error handling, authentication, and building systems that hold up beyond the classroom."
         ]
     }
 ];
