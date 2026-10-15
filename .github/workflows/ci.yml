@@ -13,7 +13,7 @@ jobs:
     steps:
       # 1. Download your repo onto the GitHub runner VM
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # 2. Setup Node.js runtime
       - name: Set up Node.js
