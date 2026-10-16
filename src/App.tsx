@@ -8,90 +8,10 @@ import { experiences } from '@/data/experience';
 import { fetchMediumArticles, MediumArticle } from '@/utils/medium';
 import { ActivityGraph } from '@/components/ActivityGraph';
 import { TechIcon } from '@/components/TechIcon';
-import { initSmoothScroll } from '@/utils/smoothScroll';
-
-const getPoster = (src?: string) => {
-  if (!src) return undefined;
-  if (src.includes('vora')) return '/projects/vora.jpg';
-  if (src.includes('krslab')) return '/projects/krslab.jpg';
-  return undefined;
-};
-
-const ProjectMedia: React.FC<{
-  media?: { kind: 'video' | 'image'; src: string; alt?: string };
-  title: string;
-}> = ({ media, title }) => {
-  const videoRef = React.useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    let isIntersecting = false;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        isIntersecting = entry.isIntersecting;
-        if (isIntersecting && !document.documentElement.classList.contains('is-scrolling')) {
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.15 }
-    );
-
-    const handleScroll = () => {
-      if (document.documentElement.classList.contains('is-scrolling')) {
-        if (!video.paused) video.pause();
-      } else if (isIntersecting) {
-        video.play().catch(() => {});
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    observer.observe(video);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  if (media?.kind === 'video') {
-    return (
-      <video
-        ref={videoRef}
-        src={media.src}
-        poster={getPoster(media.src)}
-        loop
-        muted
-        playsInline
-        preload="metadata"
-        className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-      />
-    );
-  }
-
-  return (
-    <img
-      src={media?.src || '/projects/himasisfo.png'}
-      alt={media?.alt || title}
-      loading="lazy"
-      decoding="async"
-      className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-    />
-  );
-};
 
 export const App: React.FC = () => {
   const [articles, setArticles] = useState<MediumArticle[]>([]);
   const [openBlogIdx, setOpenBlogIdx] = useState<number | null>(null);
-
-  useEffect(() => {
-    const cleanup = initSmoothScroll();
-    return cleanup;
-  }, []);
 
   useEffect(() => {
     fetchMediumArticles('azzakyraihan').then(res => {
@@ -231,11 +151,27 @@ export const App: React.FC = () => {
               {projects.map((proj) => (
                 <article 
                   key={proj.id}
-                  className="card-elevation group relative flex flex-col overflow-hidden rounded-xl border border-[#E8E8E8] bg-white"
+                  className="group relative flex flex-col overflow-hidden rounded-xl border border-[#E8E8E8] transition-colors duration-300 hover:border-[#A3A3A3] bg-white"
                 >
                   {/* Media Preview (Video/GIF/Image) */}
                   <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-[#E8E8E8] bg-[#F5F5F4]">
-                    <ProjectMedia media={proj.media} title={proj.title} />
+                    {proj.media?.kind === 'video' ? (
+                      <video 
+                        src={proj.media.src}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                    ) : (
+                      <img 
+                        src={proj.media?.src || '/projects/himasisfo.png'} 
+                        alt={proj.title}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                    )}
                   </div>
 
                   <div className="flex flex-1 flex-col gap-3 p-5">

@@ -21,6 +21,7 @@
 }
 
 html {
+  scroll-behavior: smooth;
   background-color: #FCFCFB;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -49,20 +50,4 @@ body {
 ::selection {
   background-color: #0A0A0A;
   color: #FCFCFB;
-}
-
-/* Completely eliminate hover thrashing and repaint jank while actively scrolling */
-html.is-scrolling,
-html.is-scrolling * {
-  pointer-events: none !important;
-}
-
-/* Card hover with zero geometric shift under cursor to prevent hover jitter */
-.card-elevation {
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.card-elevation:hover {
-  border-color: #B5B5B5;
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
 }
