@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
   ArrowUpRight, 
-  Rocket, 
-  Sparkles, 
-  Heart,
   ChevronDown
 } from 'lucide-react';
 import { projects } from '@/data/projects';
@@ -53,33 +50,10 @@ export const App: React.FC = () => {
                 </p>
                 <p className="mt-1">
                   I build full products on my own, from the database up to{' '}
-                  <span className="inline-flex items-baseline text-[#0A0A0A] font-normal">
-                    <span>deployment</span>
-                    <span className="inline-flex items-center align-middle ml-1 text-[#8A8A8A]">
-                      <Rocket className="w-3.5 h-3.5" />
-                    </span>
-                  </span>
-                  . I care a lot about the{' '}
-                  <span className="inline-flex items-baseline text-[#0A0A0A] font-normal">
-                    <span>small stuff</span>
-                    <span className="inline-flex items-center align-middle ml-1 text-[#8A8A8A]">
-                      <Sparkles className="w-3.5 h-3.5" />
-                    </span>
-                  </span>
-                  . Clean APIs, fast interfaces, interactions that actually{' '}
-                  <span className="inline-flex items-baseline text-[#0A0A0A] font-normal">
-                    <span>feel right</span>
-                    <span className="inline-flex items-center align-middle ml-1 text-[#8A8A8A]">
-                      <Heart className="w-3.5 h-3.5" />
-                    </span>
-                  </span>
-                  .
+                  <span className="text-[#0A0A0A] font-normal">deployment</span>. 
+                  I care a lot about the <span className="text-[#0A0A0A] font-normal">small stuff</span>. Clean APIs, fast interfaces, interactions that actually <span className="text-[#0A0A0A] font-normal">feel right</span>.
                 </p>
               </div>
-
-              <p>
-                I mostly work with <span className="text-[#0A0A0A] font-medium">TypeScript</span>, <span className="text-[#0A0A0A] font-medium">Next.js</span>, <span className="text-[#0A0A0A] font-medium">PostgreSQL</span>, <span className="text-[#0A0A0A] font-medium">Prisma</span>, and <span className="text-[#0A0A0A] font-medium">Docker</span>.
-              </p>
 
               <p>
                 Want to hire me?{' '}
@@ -93,7 +67,7 @@ export const App: React.FC = () => {
               </p>
             </div>
 
-            {/* Social Icons (SVG brand icons matching reference) */}
+            {/* Social Icons */}
             <div className="mt-8 flex flex-wrap items-center gap-5">
               {/* GitHub */}
               <a 
@@ -174,6 +148,27 @@ export const App: React.FC = () => {
                   key={proj.id}
                   className="group relative flex flex-col overflow-hidden rounded-xl border border-[#E8E8E8] transition-colors duration-300 hover:border-[#A3A3A3] bg-white"
                 >
+                  {/* Media Preview (Video/GIF/Image) */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-[#E8E8E8] bg-[#F5F5F4]">
+                    {proj.media?.kind === 'video' ? (
+                      <video 
+                        src={proj.media.src}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                    ) : (
+                      <img 
+                        src={proj.media?.src || '/projects/himasisfo.png'} 
+                        alt={proj.title}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                    )}
+                  </div>
+
                   <div className="flex flex-1 flex-col gap-3 p-5">
                     <div className="flex items-center justify-between gap-3">
                       <h3 className="text-[16px] font-medium tracking-[-0.01em] text-[#0A0A0A]">
@@ -301,28 +296,6 @@ export const App: React.FC = () => {
                       ))}
                     </ul>
                   </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Tech Stack Chips Section */}
-          <section id="tech-stack" className="w-full pb-12">
-            <p className="mb-5 font-mono text-[15px] text-[#8A8A8A]">
-              <span className="text-[#B5B5B5]">#</span> tech stack
-            </p>
-
-            <div className="flex flex-wrap gap-1.5 sm:gap-2">
-              {[
-                'TypeScript', 'Next.js', 'React', 'Node.js', 
-                'PostgreSQL', 'Prisma', 'Docker', 'Python', 
-                'FastAPI', 'Redis', 'Zod', 'Tailwind CSS'
-              ].map(tech => (
-                <div 
-                  key={tech} 
-                  className="flex items-center rounded-md border border-[#E8E8E8] bg-white py-1 px-2.5 sm:py-1.5 sm:px-3 text-[12px] font-mono text-[#0A0A0A] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#A3A3A3]"
-                >
-                  {tech}
                 </div>
               ))}
             </div>

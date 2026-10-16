@@ -54,7 +54,7 @@ export const projects: Project[] = [
         ],
         media: {
             kind: "image",
-            src: "",
+            src: "/projects/himasisfo.png",
             alt: "HIMA SISFO Portal Interface",
         },
         links: {
