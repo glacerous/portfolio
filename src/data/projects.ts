@@ -10,7 +10,7 @@ export const projects: Project[] = [
         category: "AI PLATFORM",
         impact: "3D Gaussian Splatting | IPCC Tier 1 allometrics",
         description:
-            "AI-powered forest carbon estimation platform. Reconstructs high-fidelity 3D tree models from drone scans to estimate biomass storage.",
+            "AI-powered forest carbon estimation platform. Reconstructs high-fidelity 3D tree models from mobile phone footage to estimate biomass storage.",
         oneLiner:
             "AI-powered forest carbon estimation using 3D Gaussian Splatting.",
         stack: [
