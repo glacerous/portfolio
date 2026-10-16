@@ -7,6 +7,7 @@ import { projects } from '@/data/projects';
 import { experiences } from '@/data/experience';
 import { fetchMediumArticles, MediumArticle } from '@/utils/medium';
 import { ActivityGraph } from '@/components/ActivityGraph';
+import { TechIcon } from '@/components/TechIcon';
 
 export const App: React.FC = () => {
   const [articles, setArticles] = useState<MediumArticle[]>([]);
@@ -163,9 +164,16 @@ export const App: React.FC = () => {
 
                   <div className="flex flex-1 flex-col gap-3 p-5">
                     <div className="flex items-center justify-between gap-3">
-                      <h3 className="text-[16px] font-medium tracking-[-0.01em] text-[#0A0A0A]">
-                        {proj.title}
-                      </h3>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="text-[16px] font-medium tracking-[-0.01em] text-[#0A0A0A]">
+                          {proj.title}
+                        </h3>
+                        {proj.badge && (
+                          <span className="font-mono text-[11px] font-medium text-[#166534] bg-[#F0FDF4] border border-[#DCFCE7] px-2 py-0.5 rounded-full">
+                            {proj.badge}
+                          </span>
+                        )}
+                      </div>
                       <div className="flex shrink-0 items-center gap-3">
                         {proj.links?.site && (
                           <a 
@@ -195,7 +203,7 @@ export const App: React.FC = () => {
                       </div>
                     </div>
 
-                    <p className="text-[14px] leading-[1.6] text-[#8A8A8A]">
+                    <p className="text-[14px] leading-[1.6] text-[#737373]">
                       {proj.description || proj.oneLiner}
                     </p>
 
@@ -203,9 +211,10 @@ export const App: React.FC = () => {
                       {proj.stack.map(tech => (
                         <span 
                           key={tech} 
-                          className="font-mono text-[11px] text-[#8A8A8A] bg-[#F5F5F4] px-2 py-0.5 rounded"
+                          className="inline-flex items-center gap-1.5 font-mono text-[11px] text-[#525252] bg-[#F5F5F4] border border-[#EBEBEA] px-2 py-0.5 rounded"
                         >
-                          {tech}
+                          <TechIcon name={tech} className="w-3 h-3 text-[#737373]" />
+                          <span>{tech}</span>
                         </span>
                       ))}
                     </div>

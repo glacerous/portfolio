@@ -28,6 +28,8 @@ export interface Project {
   year: string;
   category: ProjectCategory;
   impact: string; // e.g., "300+ active users · 5 services"
+  badge?: string;
+  highlight?: string;
   description: string;
   oneLiner: string;
   stack: string[];

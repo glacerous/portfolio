@@ -8,11 +8,12 @@ export const projects: Project[] = [
         role: "Lead Developer",
         year: "2026",
         category: "AI PLATFORM",
-        impact: "3D Gaussian Splatting | IPCC Tier 1 allometrics",
+        badge: "🏆 Prize Winner · Earth Forward (NextStep Hacks)",
+        impact: "Top 60 of 279 projects · 1,000+ participants",
         description:
-            "AI-powered forest carbon estimation platform. Reconstructs high-fidelity 3D tree models from mobile phone footage to estimate biomass storage.",
+            "AI-powered forest carbon estimation platform built for Earth Forward (NextStep Hacks Year 6), placing in the top 60 prize-winners out of 279 submissions from 1,000+ participants worldwide. Reconstructs high-fidelity 3D tree models from drone and mobile phone footage using 3D Gaussian Splatting to estimate biomass storage.",
         oneLiner:
-            "AI-powered forest carbon estimation using 3D Gaussian Splatting.",
+            "Prize-winning AI forest carbon estimation using 3D Gaussian Splatting.",
         stack: [
             "Next.js",
             "Python",
@@ -68,11 +69,12 @@ export const projects: Project[] = [
         role: "System Architecture & Backend",
         year: "2025",
         category: "PLATFORM",
-        impact: "Cross-faculty curriculum parsing · ~1k users per KRS cycle",
+        badge: "⚡ 1,000+ students per KRS cycle",
+        impact: "Used by 1,000+ active students every semester course enrollment cycle",
         description:
-            "Academic planning tool for constraint modeling. Uses dependency graphs to validate prerequisite rules and enforce credit load limits.",
+            "High-impact academic planning system actively used by 1,000+ students per semester KRS cycle. Uses dependency graphs and constraint modeling to validate prerequisite rules, resolve schedule clashes, and enforce credit load limits in real time.",
         oneLiner:
-            "Constraint-aware academic course planning system.",
+            "Constraint-aware academic course planning system serving 1,000+ students.",
         stack: [
             "TypeScript",
             "Next.js",
