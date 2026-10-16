@@ -8,10 +8,9 @@ export const projects: Project[] = [
         role: "Lead Developer",
         year: "2026",
         category: "AI PLATFORM",
-        badge: "Prize Winner · Earth Forward (NextStep Hacks)",
         impact: "Top 60 of 279 projects · 1,000+ participants",
         description:
-            "AI-powered forest carbon estimation platform built for Earth Forward (NextStep Hacks Year 6), placing in the top 60 prize-winners out of 279 submissions from 1,000+ participants worldwide. Reconstructs high-fidelity 3D tree models from drone and mobile phone footage using 3D Gaussian Splatting to estimate biomass storage.",
+            "AI-powered forest carbon estimation platform. One of 60 prize-winning projects (+$800 non-cash prize) at Earth Forward (NextStep Hacks Year 6), out of 279 submissions from 1,000+ participants worldwide. Reconstructs high-fidelity 3D tree models from drone and mobile phone footage using 3D Gaussian Splatting to estimate biomass storage.",
         oneLiner:
             "Prize-winning AI forest carbon estimation using 3D Gaussian Splatting.",
         stack: [
@@ -69,10 +68,9 @@ export const projects: Project[] = [
         role: "System Architecture & Backend",
         year: "2025",
         category: "PLATFORM",
-        badge: "1,000+ students / cycle",
         impact: "Used by 1,000+ active students every semester course enrollment cycle",
         description:
-            "High-impact academic planning system actively used by 1,000+ students per semester KRS cycle. Uses dependency graphs and constraint modeling to validate prerequisite rules, resolve schedule clashes, and enforce credit load limits in real time.",
+            "Academic planning platform actively used by 1,000+ students per semester KRS cycle. Leverages dependency graphs and constraint modeling to validate prerequisite rules, resolve schedule clashes, and enforce credit load limits in real time.",
         oneLiner:
             "Constraint-aware academic course planning system serving 1,000+ students.",
         stack: [

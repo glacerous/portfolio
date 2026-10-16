@@ -164,16 +164,9 @@ export const App: React.FC = () => {
 
                   <div className="flex flex-1 flex-col gap-3 p-5">
                     <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2.5 flex-wrap">
-                        <h3 className="text-[16px] font-medium tracking-[-0.01em] text-[#0A0A0A]">
-                          {proj.title}
-                        </h3>
-                        {proj.badge && (
-                          <span className="font-mono text-[11px] text-[#525252] bg-[#F5F5F4] border border-[#EBEBEA] px-2 py-0.5 rounded">
-                            {proj.badge}
-                          </span>
-                        )}
-                      </div>
+                      <h3 className="text-[16px] font-medium tracking-[-0.01em] text-[#0A0A0A]">
+                        {proj.title}
+                      </h3>
                       <div className="flex shrink-0 items-center gap-3">
                         {proj.links?.site && (
                           <a 
@@ -203,8 +196,26 @@ export const App: React.FC = () => {
                       </div>
                     </div>
 
-                    <p className="text-[14px] leading-[1.6] text-[#737373]">
-                      {proj.description || proj.oneLiner}
+                    <p className="text-[14px] leading-[1.65] text-[#525252]">
+                      {proj.id === 'vora' ? (
+                        <>
+                          AI-powered forest carbon estimation platform.{' '}
+                          <span className="text-[#0A0A0A] font-medium">
+                            One of 60 prize-winning projects (+$800 non-cash prize) at Earth Forward (NextStep Hacks Year 6), out of 279 submissions from 1,000+ participants worldwide.
+                          </span>{' '}
+                          Reconstructs high-fidelity 3D tree models from footage using 3D Gaussian Splatting to estimate biomass storage.
+                        </>
+                      ) : proj.id === 'krslab' ? (
+                        <>
+                          Academic course planning platform{' '}
+                          <span className="text-[#0A0A0A] font-medium">
+                            actively used by 1,000+ students per semester KRS cycle.
+                          </span>{' '}
+                          Leverages dependency graphs and constraint modeling to validate prerequisite rules, resolve schedule clashes, and enforce credit load limits in real time.
+                        </>
+                      ) : (
+                        proj.description || proj.oneLiner
+                      )}
                     </p>
 
                     <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-3">
