@@ -8,16 +8,84 @@ import { experiences } from '@/data/experience';
 import { fetchMediumArticles, MediumArticle } from '@/utils/medium';
 import { ActivityGraph } from '@/components/ActivityGraph';
 import { TechIcon } from '@/components/TechIcon';
+import { initSmoothScroll } from '@/utils/smoothScroll';
+
+const ProjectMedia: React.FC<{
+  media?: { kind: 'video' | 'image'; src: string; alt?: string };
+  title: string;
+}> = ({ media, title }) => {
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  if (media?.kind === 'video') {
+    return (
+      <video
+        ref={videoRef}
+        src={media.src}
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+      />
+    );
+  }
+
+  return (
+    <img
+      src={media?.src || '/projects/himasisfo.png'}
+      alt={media?.alt || title}
+      loading="lazy"
+      decoding="async"
+      className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+    />
+  );
+};
 
 export const App: React.FC = () => {
   const [articles, setArticles] = useState<MediumArticle[]>([]);
   const [openBlogIdx, setOpenBlogIdx] = useState<number | null>(null);
 
   useEffect(() => {
+    const cleanup = initSmoothScroll();
+    return cleanup;
+  }, []);
+
+  useEffect(() => {
     fetchMediumArticles('azzakyraihan').then(res => {
       setArticles(res);
     });
   }, []);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    if (targetId === '#') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    const el = document.querySelector(targetId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#FCFCFB] text-[#0A0A0A] selection:bg-[#0A0A0A] selection:text-[#FCFCFB] antialiased">
@@ -27,11 +95,11 @@ export const App: React.FC = () => {
           {/* Header Navigation */}
           <header className="w-full pt-8 pb-14 flex items-center justify-between">
             <nav className="flex items-center gap-7 text-[14px]">
-              <a href="#" className="font-medium text-[#0A0A0A] transition-colors">Home</a>
-              <a href="#about" className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">About</a>
-              <a href="#projects" className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">Projects</a>
-              <a href="#experience" className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">Experience</a>
-              <a href="#blogs" className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">Blogs</a>
+              <a href="#" onClick={(e) => handleNavClick(e, '#')} className="font-medium text-[#0A0A0A] transition-colors">Home</a>
+              <a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">About</a>
+              <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">Projects</a>
+              <a href="#experience" onClick={(e) => handleNavClick(e, '#experience')} className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">Experience</a>
+              <a href="#blogs" onClick={(e) => handleNavClick(e, '#blogs')} className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">Blogs</a>
             </nav>
           </header>
 
@@ -143,23 +211,7 @@ export const App: React.FC = () => {
                 >
                   {/* Media Preview (Video/GIF/Image) */}
                   <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-[#E8E8E8] bg-[#F5F5F4]">
-                    {proj.media?.kind === 'video' ? (
-                      <video 
-                        src={proj.media.src}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                      />
-                    ) : (
-                      <img 
-                        src={proj.media?.src || '/projects/himasisfo.png'} 
-                        alt={proj.title}
-                        loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                      />
-                    )}
+                    <ProjectMedia media={proj.media} title={proj.title} />
                   </div>
 
                   <div className="flex flex-1 flex-col gap-3 p-5">

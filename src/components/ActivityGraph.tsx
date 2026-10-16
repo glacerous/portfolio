@@ -67,8 +67,8 @@ export const ActivityGraph: React.FC<{ username: string }> = ({ username }) => {
 
   return (
     <div className="w-full select-none">
-      <div className="w-full overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-        <div className="min-w-[670px] w-full">
+      <div className="w-full overflow-x-auto sm:overflow-x-visible [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <div className="min-w-[670px] sm:min-w-0 w-full">
           <svg className="block w-full h-auto font-mono text-[10px]" viewBox="0 0 686.5 108.5">
             {/* Month labels */}
             <g className="fill-[#8A8A8A] text-[10px] font-mono tracking-wider">
