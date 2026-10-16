@@ -164,12 +164,12 @@ export const App: React.FC = () => {
 
                   <div className="flex flex-1 flex-col gap-3 p-5">
                     <div className="flex items-center justify-between gap-3">
-                      <div className="flex items-center gap-2 flex-wrap">
+                      <div className="flex items-center gap-2.5 flex-wrap">
                         <h3 className="text-[16px] font-medium tracking-[-0.01em] text-[#0A0A0A]">
                           {proj.title}
                         </h3>
                         {proj.badge && (
-                          <span className="font-mono text-[11px] font-medium text-[#166534] bg-[#F0FDF4] border border-[#DCFCE7] px-2 py-0.5 rounded-full">
+                          <span className="font-mono text-[11px] text-[#525252] bg-[#F5F5F4] border border-[#EBEBEA] px-2 py-0.5 rounded">
                             {proj.badge}
                           </span>
                         )}
