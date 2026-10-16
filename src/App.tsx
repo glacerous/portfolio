@@ -43,12 +43,9 @@ export const App: React.FC = () => {
             </div>
 
             {/* About / Bio */}
-            <div id="about" className="scroll-mt-24 sm:scroll-mt-28 mt-8 text-[15px] sm:text-[16px] text-[#525252] leading-[1.7] font-normal space-y-3">
+            <div id="about" className="scroll-mt-24 sm:scroll-mt-28 mt-8 text-[15px] sm:text-[16px] text-[#525252] leading-[1.7] font-normal space-y-2">
               <p>
-                I'm a <span className="text-[#0A0A0A] font-medium">Software Engineer</span>. I break things in dev so they stay bulletproof in prod.
-              </p>
-              <p>
-                From 3D Gaussian Splatting and distributed backends to snappy interfaces—I build things that feel effortless.
+                I'm a <span className="text-[#0A0A0A] font-medium">Software Engineer</span>, big fan of computers.
               </p>
               <p>
                 Got something fun to build?{' '}
