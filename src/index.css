@@ -26,6 +26,13 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 body {
@@ -36,6 +43,8 @@ body {
   background-color: #FCFCFB;
   color: #0A0A0A;
   letter-spacing: -0.011em;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 ::selection {
