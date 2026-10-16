@@ -54,7 +54,7 @@ export const projects: Project[] = [
         ],
         media: {
             kind: "image",
-            src: "/projects/himasisfo.png",
+            src: "/projects/himasisfo.jpg",
             alt: "HIMA SISFO Portal Interface",
         },
         links: {
@@ -87,39 +87,6 @@ export const projects: Project[] = [
         },
         links: {
             site: "https://krslab.vercel.app",
-        },
-    },
-
-    {
-        id: "repoly",
-        title: "Repoly",
-        role: "Backend Architecture",
-        year: "2025",
-        category: "HACKATHON",
-        impact: "Containerized infrastructure | Hackathon project",
-        description:
-            "Repository analysis tool that automates codebase documentation. Integrates Llama-3.3-70B-Versatile and deploys with containerized infra.",
-        oneLiner:
-            "Containerized repository automation platform.",
-        stack: [
-            "TypeScript",
-            "Node.js",
-            "Express",
-            "PostgreSQL",
-            "Redis",
-            "Docker",
-            "Kubernetes",
-            "Three.js",
-            "Groq",
-            "OpenSpec",
-        ],
-        media: {
-            kind: "video",
-            src: media.repoly,
-            alt: "Repoly Dashboard",
-        },
-        links: {
-            code: "https://github.com/glacerous/first-commit-hackathon",
         },
     },
 ];
