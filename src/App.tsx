@@ -45,20 +45,20 @@ export const App: React.FC = () => {
             {/* About / Bio */}
             <div id="about" className="scroll-mt-24 sm:scroll-mt-28 mt-8 text-[15px] sm:text-[16px] text-[#525252] leading-[1.7] font-normal space-y-3">
               <p>
-                I'm a <span className="text-[#0A0A0A] font-medium">Software Engineer</span> who likes breaking things in staging so they stay unbreakable in production.
+                I'm a <span className="text-[#0A0A0A] font-medium">Software Engineer</span>. I break things in dev so they stay bulletproof in prod.
               </p>
               <p>
-                I turn wild ideas into fast, reliable systems. From distributed services and 3D Gaussian Splatting to crisp web apps that don't make users wait.
+                From 3D Gaussian Splatting and distributed backends to snappy interfaces—I build things that feel effortless.
               </p>
               <p>
-                Have something fun to build?{' '}
+                Got something fun to build?{' '}
                 <a 
                   href="mailto:azzakyraihan@gmail.com" 
                   className="text-[#0A0A0A] underline underline-offset-4 decoration-[#D4D4D4] hover:decoration-[#0A0A0A] transition-colors"
                 >
                   Let's talk
                 </a>
-                . Based in Indonesia.
+                .
               </p>
             </div>
 
