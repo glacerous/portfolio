@@ -139,7 +139,7 @@ export const App: React.FC = () => {
               {projects.map((proj) => (
                 <article 
                   key={proj.id}
-                  className="group relative flex flex-col overflow-hidden rounded-xl border border-[#E8E8E8] transition-colors duration-300 hover:border-[#A3A3A3] bg-white"
+                  className="card-elevation group relative flex flex-col overflow-hidden rounded-xl border border-[#E8E8E8] bg-white"
                 >
                   {/* Media Preview (Video/GIF/Image) */}
                   <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-[#E8E8E8] bg-[#F5F5F4]">
@@ -150,14 +150,14 @@ export const App: React.FC = () => {
                         loop
                         muted
                         playsInline
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                       />
                     ) : (
                       <img 
                         src={proj.media?.src || '/projects/himasisfo.png'} 
                         alt={proj.title}
                         loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                       />
                     )}
                   </div>
