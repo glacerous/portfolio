@@ -1,388 +1,346 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Github, 
-  Linkedin, 
-  BookOpen, 
-  ExternalLink, 
-  Sun, 
-  Moon, 
   ArrowUpRight, 
-  Terminal, 
-  Calendar,
-  Sparkles,
-  Rocket,
-  ShieldCheck,
-  Code2,
-  Database
+  Rocket, 
+  Sparkles, 
+  Heart,
+  ChevronDown
 } from 'lucide-react';
 import { projects } from '@/data/projects';
 import { experiences } from '@/data/experience';
 import { fetchMediumArticles, MediumArticle } from '@/utils/medium';
+import { ActivityGraph } from '@/components/ActivityGraph';
 
 export const App: React.FC = () => {
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('theme');
-      if (saved === 'dark' || saved === 'light') return saved;
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    return 'light';
-  });
-
   const [articles, setArticles] = useState<MediumArticle[]>([]);
-  const [loadingArticles, setLoadingArticles] = useState(true);
-  const [activityTab, setActivityTab] = useState<'github' | 'backend'>('github');
+  const [openBlogIdx, setOpenBlogIdx] = useState<number | null>(null);
 
   useEffect(() => {
-    const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  };
-
-  useEffect(() => {
-    let isMounted = true;
     fetchMediumArticles('azzakyraihan').then(res => {
-      if (isMounted) {
-        setArticles(res);
-        setLoadingArticles(false);
-      }
+      setArticles(res);
     });
-    return () => { isMounted = false; };
   }, []);
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--ink)] antialiased transition-colors duration-200">
-      <main className="w-full max-w-[740px] mx-auto px-5 sm:px-8 py-8 md:py-14">
-        
-        {/* Navigation Bar */}
-        <header className="flex items-center justify-between pb-12 sm:pb-16">
-          <nav className="flex items-center gap-6 sm:gap-8 text-[14px]">
-            <a href="#" className="font-semibold text-[var(--ink)] transition-colors">Home</a>
-            <a href="#about" className="text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors">About</a>
-            <a href="#projects" className="text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors">Projects</a>
-            <a href="#experience" className="text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors">Experience</a>
-            <a href="#blogs" className="text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors">Blogs</a>
-          </nav>
+    <div className="min-h-screen bg-[#FCFCFB] text-[#0A0A0A] selection:bg-[#0A0A0A] selection:text-[#FCFCFB] antialiased">
+      <main className="min-h-screen w-full flex flex-col items-center px-6 sm:px-8">
+        <div className="w-full max-w-[720px]">
           
-          <button 
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-            className="w-9 h-9 flex items-center justify-center rounded-lg border border-[var(--border)] text-[var(--ink-muted)] hover:text-[var(--ink)] hover:bg-[var(--bg-subtle)] transition-all cursor-pointer"
-          >
-            {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-          </button>
-        </header>
+          {/* Header Navigation */}
+          <header className="w-full pt-8 pb-14 flex items-center justify-between">
+            <nav className="flex items-center gap-7 text-[14px]">
+              <a href="#" className="font-medium text-[#0A0A0A] transition-colors">Home</a>
+              <a href="#about" className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">About</a>
+              <a href="#projects" className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">Projects</a>
+              <a href="#experience" className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">Experience</a>
+              <a href="#blogs" className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">Blogs</a>
+            </nav>
+          </header>
 
-        {/* Hero Section */}
-        <section id="about" className="space-y-6 pt-2 pb-10">
-          <div className="flex flex-wrap items-center gap-3.5 sm:gap-4.5">
-            <h1 className="text-3xl sm:text-4xl md:text-[44px] font-bold tracking-tight text-[var(--ink)]">
-              Hey, I'm Azzaky
-            </h1>
-          </div>
-
-          <div className="text-[15px] sm:text-[16px] text-[var(--ink-muted)] leading-relaxed space-y-3.5 font-normal">
-            <p>
-              I'm a <span className="text-[var(--ink)] font-medium">Backend & Full-Stack Engineer</span>.
-            </p>
-            <p>
-              I build reliable distributed backends, robust database models, and production platforms from data pipelines to <span className="inline-flex items-center text-[var(--ink)] font-medium"><Rocket className="w-3.5 h-3.5 inline mr-1 text-emerald-500" />deployment</span>. 
-              I care deeply about software correctness, type-safe API contracts, and defensive testing so bugs <span className="text-[var(--ink)] font-medium">never make it to production</span>.
-            </p>
-            <p>
-              Core technologies: <span className="text-[var(--ink)] font-medium">TypeScript</span>, <span className="text-[var(--ink)] font-medium">Next.js</span>, <span className="text-[var(--ink)] font-medium">Node.js</span>, <span className="text-[var(--ink)] font-medium">PostgreSQL</span>, <span className="text-[var(--ink)] font-medium">Prisma</span>, <span className="text-[var(--ink)] font-medium">Docker</span>, and <span className="text-[var(--ink)] font-medium">Python</span>.
-            </p>
-            <p>
-              Want to build something together? <a href="mailto:azzakyraihan@gmail.com" className="text-[var(--ink)] underline underline-offset-4 decoration-[var(--ink-faint)] hover:decoration-[var(--ink)] font-medium transition-colors">Let's talk</a>. Based in Indonesia.
-            </p>
-          </div>
-
-          {/* Social Links */}
-          <div className="flex items-center gap-4 pt-2">
-            <a 
-              href="https://github.com/glacerous" 
-              target="_blank" 
-              rel="noreferrer"
-              aria-label="GitHub"
-              className="w-9 h-9 rounded-full flex items-center justify-center border border-[var(--border)] text-[var(--ink-muted)] hover:text-[var(--ink)] hover:border-[var(--ink)] transition-all"
-            >
-              <Github className="w-4 h-4" />
-            </a>
-            <a 
-              href="https://www.linkedin.com/in/azzaky-raihan-ramdhani/" 
-              target="_blank" 
-              rel="noreferrer"
-              aria-label="LinkedIn"
-              className="w-9 h-9 rounded-full flex items-center justify-center border border-[var(--border)] text-[var(--ink-muted)] hover:text-blue-500 hover:border-blue-500 transition-all"
-            >
-              <Linkedin className="w-4 h-4" />
-            </a>
-            <a 
-              href="https://medium.com/@azzakyraihan" 
-              target="_blank" 
-              rel="noreferrer"
-              aria-label="Medium"
-              className="w-9 h-9 rounded-full flex items-center justify-center border border-[var(--border)] text-[var(--ink-muted)] hover:text-[var(--ink)] hover:border-[var(--ink)] transition-all"
-            >
-              <BookOpen className="w-4 h-4" />
-            </a>
-          </div>
-        </section>
-
-        {/* Activity & GitHub Contributions */}
-        <section className="pt-10 pb-6 border-t border-[var(--border)]">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-1.5 font-mono text-[13px] text-[var(--ink-muted)]">
-              <span className="text-[var(--ink-faint)]">#</span> activity
+          {/* Hero Section */}
+          <section className="w-full flex flex-col pt-4 pb-4">
+            <div className="relative">
+              <h1 className="text-[38px] sm:text-[48px] md:text-[54px] font-semibold text-[#0A0A0A] leading-[1.2] tracking-[-0.03em] flex items-center">
+                Hey, I'm Azzaky
+              </h1>
             </div>
-            <div className="flex items-center gap-2 font-mono text-[13px]">
-              <button 
-                onClick={() => setActivityTab('github')}
-                className={`transition-colors ${activityTab === 'github' ? 'text-[var(--ink)] font-semibold' : 'text-[var(--ink-muted)] hover:text-[var(--ink)]'}`}
-              >
-                github
-              </button>
-              <span className="text-[var(--ink-faint)]">/</span>
-              <button 
-                onClick={() => setActivityTab('backend')}
-                className={`transition-colors ${activityTab === 'backend' ? 'text-[var(--ink)] font-semibold' : 'text-[var(--ink-muted)] hover:text-[var(--ink)]'}`}
-              >
-                stack
-              </button>
-            </div>
-          </div>
 
-          {activityTab === 'github' ? (
-            <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-subtle)] p-4 sm:p-5 overflow-hidden">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[var(--border)] text-xs text-[var(--ink-muted)] font-mono">
-                <span>@glacerous contributions</span>
-                <a 
-                  href="https://github.com/glacerous" 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="inline-flex items-center gap-1 hover:text-[var(--ink)] transition-colors"
-                >
-                  View profile <ArrowUpRight className="w-3 h-3" />
-                </a>
-              </div>
-              <div className="pt-4 overflow-x-auto">
-                <img 
-                  src={`https://ghchart.rshah.org/${theme === 'dark' ? '39d353' : '216e39'}/glacerous`} 
-                  alt="glacerous Github Chart"
-                  className="w-full min-w-[580px] h-auto select-none"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          ) : (
-            <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-subtle)] p-5 text-sm text-[var(--ink-muted)] grid grid-cols-2 sm:grid-cols-3 gap-3">
-              <div className="p-3 bg-[var(--bg)] rounded-lg border border-[var(--border)]">
-                <div className="font-medium text-[var(--ink)] mb-1 flex items-center gap-1.5">
-                  <Database className="w-3.5 h-3.5 text-blue-500" /> Database & ORM
-                </div>
-                <div className="text-xs">PostgreSQL, Prisma, Redis</div>
-              </div>
-              <div className="p-3 bg-[var(--bg)] rounded-lg border border-[var(--border)]">
-                <div className="font-medium text-[var(--ink)] mb-1 flex items-center gap-1.5">
-                  <Code2 className="w-3.5 h-3.5 text-emerald-500" /> API & Backend
-                </div>
-                <div className="text-xs">Next.js App Router, Express, FastAPI</div>
-              </div>
-              <div className="p-3 bg-[var(--bg)] rounded-lg border border-[var(--border)]">
-                <div className="font-medium text-[var(--ink)] mb-1 flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-amber-500" /> Reliability & QA
-                </div>
-                <div className="text-xs">Zod Validation, RBAC, CI/CD, Regression Testing</div>
-              </div>
-            </div>
-          )}
-        </section>
-
-        {/* Projects Section */}
-        <section id="projects" className="pt-12 pb-6 border-t border-[var(--border)]">
-          <div className="flex items-center justify-between mb-8">
-            <p className="font-mono text-[14px] text-[var(--ink-muted)]">
-              <span className="text-[var(--ink-faint)]">#</span> projects
-            </p>
-            <span className="text-xs font-mono text-[var(--ink-faint)]">{projects.length} featured</span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {projects.map((proj) => (
-              <div 
-                key={proj.id}
-                className="group flex flex-col justify-between rounded-xl border border-[var(--border)] bg-[var(--bg-subtle)] p-5 hover:border-[var(--ink-muted)] hover:shadow-sm transition-all duration-200"
-              >
-                <div>
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <h3 className="font-semibold text-[16px] text-[var(--ink)] group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                      {proj.title}
-                    </h3>
-                    <div className="flex items-center gap-2">
-                      {proj.links?.site && (
-                        <a 
-                          href={proj.links.site} 
-                          target="_blank" 
-                          rel="noreferrer"
-                          aria-label={`${proj.title} website`}
-                          className="text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors"
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </a>
-                      )}
-                      {proj.links?.code && (
-                        <a 
-                          href={proj.links.code} 
-                          target="_blank" 
-                          rel="noreferrer"
-                          aria-label={`${proj.title} source code`}
-                          className="text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors"
-                        >
-                          <Github className="w-4 h-4" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-
-                  <p className="text-[13px] text-[var(--ink-muted)] line-clamp-3 leading-relaxed mb-4">
-                    {proj.description || proj.oneLiner}
-                  </p>
-                </div>
-
-                <div>
-                  <div className="text-[11px] font-mono text-[var(--ink-faint)] mb-3">
-                    {proj.impact}
-                  </div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {proj.stack.slice(0, 4).map((tech) => (
-                      <span 
-                        key={tech} 
-                        className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-[var(--bg)] border border-[var(--border)] text-[var(--ink-muted)]"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {proj.stack.length > 4 && (
-                      <span className="text-[11px] font-mono px-1.5 py-0.5 text-[var(--ink-faint)]">
-                        +{proj.stack.length - 4}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Experience Section */}
-        <section id="experience" className="pt-12 pb-6 border-t border-[var(--border)]">
-          <div className="flex items-center justify-between mb-8">
-            <p className="font-mono text-[14px] text-[var(--ink-muted)]">
-              <span className="text-[var(--ink-faint)]">#</span> experience
-            </p>
-          </div>
-
-          <div className="space-y-8">
-            {experiences.map((exp, index) => (
-              <div key={index} className="space-y-2">
-                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
-                  <h3 className="font-semibold text-[15px] text-[var(--ink)]">
-                    {exp.role} <span className="font-normal text-[var(--ink-muted)]">· {exp.company}</span>
-                  </h3>
-                  <span className="font-mono text-xs text-[var(--ink-faint)]">{exp.period}</span>
-                </div>
-                <ul className="list-disc list-outside pl-4 space-y-1.5 text-[13.5px] text-[var(--ink-muted)] leading-relaxed">
-                  {exp.description.map((item, idx) => (
-                    <li key={idx}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Blogs / Medium Section */}
-        <section id="blogs" className="pt-12 pb-8 border-t border-[var(--border)]">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-2">
-              <p className="font-mono text-[14px] text-[var(--ink-muted)]">
-                <span className="text-[var(--ink-faint)]">#</span> blogs
-              </p>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono font-medium">
-                Live Medium RSS
-              </span>
-            </div>
-            <a 
-              href="https://medium.com/@azzakyraihan" 
-              target="_blank" 
-              rel="noreferrer"
-              className="text-xs font-mono text-[var(--ink-muted)] hover:text-[var(--ink)] inline-flex items-center gap-1 transition-colors"
-            >
-              medium/@azzakyraihan <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
-          </div>
-
-          {loadingArticles ? (
-            <div className="py-8 text-center text-xs font-mono text-[var(--ink-muted)]">
-              Loading recent articles from Medium...
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {articles.map((post, i) => (
-                <a 
-                  key={i}
-                  href={post.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group block p-4 sm:p-5 rounded-xl border border-[var(--border)] bg-[var(--bg-subtle)] hover:border-[var(--ink-muted)] transition-all"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                    <h4 className="font-medium text-[15px] text-[var(--ink)] group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors flex items-center gap-1.5">
-                      {post.title}
-                      <ArrowUpRight className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </h4>
-                    <span className="font-mono text-xs text-[var(--ink-faint)] shrink-0">
-                      {post.pubDate ? new Date(post.pubDate).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "Recent"}
+            {/* About / Bio */}
+            <div id="about" className="scroll-mt-24 sm:scroll-mt-28 mt-8 text-[15px] sm:text-[16px] text-[#525252] leading-[1.7] font-normal space-y-3">
+              <div>
+                <p>
+                  I'm a <span className="text-[#0A0A0A] font-medium">Backend & Full-Stack Engineer</span>.
+                </p>
+                <p className="mt-1">
+                  I build full products on my own, from the database up to{' '}
+                  <span className="inline-flex items-baseline text-[#0A0A0A] font-normal">
+                    <span>deployment</span>
+                    <span className="inline-flex items-center align-middle ml-1 text-[#8A8A8A]">
+                      <Rocket className="w-3.5 h-3.5" />
                     </span>
-                  </div>
-                  <p className="text-[13px] text-[var(--ink-muted)] line-clamp-2 leading-relaxed">
-                    {post.description}
-                  </p>
-                  {post.categories && post.categories.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mt-3">
-                      {post.categories.slice(0, 3).map((tag, tIdx) => (
-                        <span key={tIdx} className="text-[10px] font-mono px-2 py-0.5 rounded bg-[var(--bg)] border border-[var(--border)] text-[var(--ink-faint)]">
-                          #{tag}
+                  </span>
+                  . I care a lot about the{' '}
+                  <span className="inline-flex items-baseline text-[#0A0A0A] font-normal">
+                    <span>small stuff</span>
+                    <span className="inline-flex items-center align-middle ml-1 text-[#8A8A8A]">
+                      <Sparkles className="w-3.5 h-3.5" />
+                    </span>
+                  </span>
+                  . Clean APIs, fast interfaces, interactions that actually{' '}
+                  <span className="inline-flex items-baseline text-[#0A0A0A] font-normal">
+                    <span>feel right</span>
+                    <span className="inline-flex items-center align-middle ml-1 text-[#8A8A8A]">
+                      <Heart className="w-3.5 h-3.5" />
+                    </span>
+                  </span>
+                  .
+                </p>
+              </div>
+
+              <p>
+                I mostly work with <span className="text-[#0A0A0A] font-medium">TypeScript</span>, <span className="text-[#0A0A0A] font-medium">Next.js</span>, <span className="text-[#0A0A0A] font-medium">PostgreSQL</span>, <span className="text-[#0A0A0A] font-medium">Prisma</span>, and <span className="text-[#0A0A0A] font-medium">Docker</span>.
+              </p>
+
+              <p>
+                Want to hire me?{' '}
+                <a 
+                  href="mailto:azzakyraihan@gmail.com" 
+                  className="text-[#0A0A0A] underline underline-offset-4 decoration-[#D4D4D4] hover:decoration-[#0A0A0A] transition-colors"
+                >
+                  Let's talk
+                </a>
+                . Based in Indonesia.
+              </p>
+            </div>
+
+            {/* Social Icons (SVG brand icons matching reference) */}
+            <div className="mt-8 flex flex-wrap items-center gap-5">
+              {/* GitHub */}
+              <a 
+                href="https://github.com/glacerous" 
+                target="_blank" 
+                rel="noreferrer" 
+                aria-label="GitHub"
+                className="group relative flex items-center justify-center transition-all duration-200 ease-out hover:-translate-y-0.5 hover:scale-105 text-[#0A0A0A] hover:opacity-80"
+              >
+                <svg viewBox="0 0 512 512" fill="currentColor" className="h-[18px] w-[18px]">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M256 6.3C114.6 6.3 0 120.9 0 262.3c0 113.3 73.3 209 175 242.9 12.8 2.2 17.6-5.4 17.6-12.2 0-6.1-.3-26.2-.3-47.7-64.3 11.8-81-15.7-86.1-30.1-2.9-7.4-15.4-30.1-26.2-36.2-9-4.8-21.8-16.6-.3-17 20.2-.3 34.6 18.6 39.4 26.2 23 38.7 59.8 27.8 74.6 21.1 2.2-16.6 9-27.8 16.3-34.2-57-6.4-116.5-28.5-116.5-126.4 0-27.8 9.9-50.9 26.2-68.8-2.6-6.4-11.5-32.6 2.6-67.8 0 0 21.4-6.7 70.4 26.2 20.5-5.8 42.2-8.6 64-8.6s43.5 2.9 64 8.6c49-33.3 70.4-26.2 70.4-26.2 14.1 35.2 5.1 61.4 2.6 67.8 16.3 17.9 26.2 40.6 26.2 68.8 0 98.2-59.8 120-116.8 126.4 9.3 8 17.3 23.4 17.3 47.4 0 34.2-.3 61.8-.3 70.4 0 6.7 4.8 14.7 17.6 12.2C438.7 471.3 512 375.3 512 262.3c0-141.4-114.6-256-256-256" />
+                </svg>
+                <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-[#0A0A0A] px-2 py-0.5 text-[11px] font-medium text-[#FCFCFB] opacity-0 group-hover:opacity-100 transition-opacity">
+                  GitHub
+                </span>
+              </a>
+
+              {/* LinkedIn */}
+              <a 
+                href="https://www.linkedin.com/in/azzaky-raihan-ramdhani/" 
+                target="_blank" 
+                rel="noreferrer" 
+                aria-label="LinkedIn"
+                className="group relative flex items-center justify-center transition-all duration-200 ease-out hover:-translate-y-0.5 hover:scale-105 hover:opacity-85"
+              >
+                <svg viewBox="0 0 512 512" className="h-[18px] w-[18px]">
+                  <path d="M56.9 512h398.2c31.4 0 56.9-25.5 56.9-56.9V56.9C512 25.5 486.5 0 455.1 0H56.9C25.5 0 0 25.5 0 56.9v398.2C0 486.5 25.5 512 56.9 512" fill="#007ebb" />
+                  <path d="M440.9 440.9h-76V311.5c0-35.5-13.5-55.3-41.6-55.3-30.5 0-46.5 20.6-46.5 55.3v129.4h-73.2V194.4h73.2v33.2s22-40.7 74.3-40.7 89.7 31.9 89.7 98v156zM116.3 162.1c-24.9 0-45.2-20.4-45.2-45.5s20.2-45.5 45.2-45.5 45.1 20.4 45.1 45.5-20.2 45.5-45.1 45.5M78.5 440.9h76.4V194.4H78.5z" fill="#ffffff" />
+                </svg>
+                <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-[#0A0A0A] px-2 py-0.5 text-[11px] font-medium text-[#FCFCFB] opacity-0 group-hover:opacity-100 transition-opacity">
+                  LinkedIn
+                </span>
+              </a>
+
+              {/* Medium */}
+              <a 
+                href="https://medium.com/@azzakyraihan" 
+                target="_blank" 
+                rel="noreferrer" 
+                aria-label="Medium"
+                className="group relative flex items-center justify-center transition-all duration-200 ease-out hover:-translate-y-0.5 hover:scale-105 hover:opacity-85"
+              >
+                <svg viewBox="0 0 1043.63 592.71" className="h-[13px] w-auto fill-[#0A0A0A]">
+                  <path d="M588.67,296.36c0,163.67-131.78,296.35-294.33,296.35S0,460,0,296.36,131.78,0,294.34,0,588.67,132.69,588.67,296.36" />
+                  <path d="M911.56,296.36c0,154.06-65.89,279-147.17,279s-147.17-124.94-147.17-279,65.88-279,147.16-279,147.17,124.9,147.17,279" />
+                  <path d="M1043.63,296.36c0,138-23.17,249.94-51.76,249.94s-51.75-111.91-51.75-249.94S963.29,46.42,991.87,46.42s51.76,111.9,51.76,249.94" />
+                </svg>
+                <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-[#0A0A0A] px-2 py-0.5 text-[11px] font-medium text-[#FCFCFB] opacity-0 group-hover:opacity-100 transition-opacity">
+                  Medium
+                </span>
+              </a>
+            </div>
+          </section>
+
+          {/* Activity Section */}
+          <section id="activity" className="scroll-mt-14 sm:scroll-mt-16 w-full pt-14 pb-4 sm:pt-16 sm:pb-6">
+            <div className="flex items-center justify-between mb-8">
+              <p className="font-mono text-[15px] text-[#8A8A8A]">
+                <span className="text-[#B5B5B5]">#</span> activity
+              </p>
+              <div className="flex items-center gap-2 font-mono text-[13px]">
+                <span className="text-[#0A0A0A] font-medium">github</span>
+              </div>
+            </div>
+
+            <ActivityGraph username="glacerous" />
+          </section>
+
+          {/* Projects Section */}
+          <section id="projects" className="scroll-mt-14 sm:scroll-mt-16 w-full pt-8 pb-10 sm:pt-10 sm:pb-12">
+            <p className="mb-8 font-mono text-[15px] text-[#8A8A8A]">
+              <span className="text-[#B5B5B5]">#</span> projects
+            </p>
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {projects.map((proj) => (
+                <article 
+                  key={proj.id}
+                  className="group relative flex flex-col overflow-hidden rounded-xl border border-[#E8E8E8] transition-colors duration-300 hover:border-[#A3A3A3] bg-white"
+                >
+                  <div className="flex flex-1 flex-col gap-3 p-5">
+                    <div className="flex items-center justify-between gap-3">
+                      <h3 className="text-[16px] font-medium tracking-[-0.01em] text-[#0A0A0A]">
+                        {proj.title}
+                      </h3>
+                      <div className="flex shrink-0 items-center gap-3">
+                        {proj.links?.site && (
+                          <a 
+                            href={proj.links.site} 
+                            target="_blank" 
+                            rel="noreferrer" 
+                            aria-label={`${proj.title} live site`}
+                            className="flex items-center gap-1 text-[13px] font-medium text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors"
+                          >
+                            Live
+                            <ArrowUpRight className="h-3.5 w-3.5" />
+                          </a>
+                        )}
+                        {proj.links?.code && (
+                          <a 
+                            href={proj.links.code} 
+                            target="_blank" 
+                            rel="noreferrer" 
+                            aria-label={`${proj.title} source on GitHub`}
+                            className="inline-flex items-center gap-1 text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors"
+                          >
+                            <svg viewBox="0 0 512 512" fill="currentColor" className="h-[15px] w-[15px]">
+                              <path fillRule="evenodd" clipRule="evenodd" d="M256 6.3C114.6 6.3 0 120.9 0 262.3c0 113.3 73.3 209 175 242.9 12.8 2.2 17.6-5.4 17.6-12.2 0-6.1-.3-26.2-.3-47.7-64.3 11.8-81-15.7-86.1-30.1-2.9-7.4-15.4-30.1-26.2-36.2-9-4.8-21.8-16.6-.3-17 20.2-.3 34.6 18.6 39.4 26.2 23 38.7 59.8 27.8 74.6 21.1 2.2-16.6 9-27.8 16.3-34.2-57-6.4-116.5-28.5-116.5-126.4 0-27.8 9.9-50.9 26.2-68.8-2.6-6.4-11.5-32.6 2.6-67.8 0 0 21.4-6.7 70.4 26.2 20.5-5.8 42.2-8.6 64-8.6s43.5 2.9 64 8.6c49-33.3 70.4-26.2 70.4-26.2 14.1 35.2 5.1 61.4 2.6 67.8 16.3 17.9 26.2 40.6 26.2 68.8 0 98.2-59.8 120-116.8 126.4 9.3 8 17.3 23.4 17.3 47.4 0 34.2-.3 61.8-.3 70.4 0 6.7 4.8 14.7 17.6 12.2C438.7 471.3 512 375.3 512 262.3c0-141.4-114.6-256-256-256" />
+                            </svg>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+
+                    <p className="text-[14px] leading-[1.6] text-[#8A8A8A]">
+                      {proj.description || proj.oneLiner}
+                    </p>
+
+                    <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-3">
+                      {proj.stack.map(tech => (
+                        <span 
+                          key={tech} 
+                          className="font-mono text-[11px] text-[#8A8A8A] bg-[#F5F5F4] px-2 py-0.5 rounded"
+                        >
+                          {tech}
                         </span>
                       ))}
                     </div>
-                  )}
-                </a>
+                  </div>
+                </article>
               ))}
             </div>
-          )}
-        </section>
+          </section>
 
-        {/* Footer */}
-        <footer className="pt-14 pb-8 border-t border-[var(--border)] flex flex-col sm:flex-row items-center justify-between text-xs text-[var(--ink-faint)] gap-4 font-mono">
-          <div>
-            © {new Date().getFullYear()} Azzaky Raihan Ramdhani
-          </div>
-          <div className="flex items-center gap-4">
-            <a href="https://github.com/glacerous" target="_blank" rel="noreferrer" className="hover:text-[var(--ink)] transition-colors">GitHub</a>
-            <a href="https://www.linkedin.com/in/azzaky-raihan-ramdhani/" target="_blank" rel="noreferrer" className="hover:text-[var(--ink)] transition-colors">LinkedIn</a>
-            <a href="https://medium.com/@azzakyraihan" target="_blank" rel="noreferrer" className="hover:text-[var(--ink)] transition-colors">Medium</a>
-          </div>
-        </footer>
+          {/* Blogs Section (Accordion list style matching reference) */}
+          <section id="blogs" className="scroll-mt-14 sm:scroll-mt-16 w-full pb-10 sm:pb-12">
+            <div className="flex items-center justify-between mb-5">
+              <p className="font-mono text-[15px] text-[#8A8A8A]">
+                <span className="text-[#B5B5B5]">#</span> blogs
+              </p>
+              <a 
+                href="https://medium.com/@azzakyraihan" 
+                target="_blank" 
+                rel="noreferrer"
+                className="font-mono text-xs text-[#8A8A8A] hover:text-[#0A0A0A] inline-flex items-center gap-1 transition-colors"
+              >
+                medium/@azzakyraihan <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
 
+            <div className="flex flex-col divide-y divide-[#E8E8E8]">
+              {articles.map((post, idx) => (
+                <div key={idx} className="py-3.5 first:pt-0 last:pb-0">
+                  <button 
+                    type="button"
+                    onClick={() => setOpenBlogIdx(openBlogIdx === idx ? null : idx)}
+                    className="w-full flex items-center justify-between gap-3 text-left cursor-pointer group select-none py-1 transition-colors"
+                  >
+                    <span className="text-[14px] sm:text-[14.5px] font-medium text-[#0A0A0A] group-hover:text-neutral-600 transition-colors leading-snug pr-2">
+                      {post.title}
+                    </span>
+                    <div className="shrink-0 text-[#8A8A8A] group-hover:text-[#0A0A0A] transition-colors">
+                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${openBlogIdx === idx ? 'rotate-180' : ''}`} />
+                    </div>
+                  </button>
+
+                  {openBlogIdx === idx && (
+                    <div className="pt-2 pb-1 text-[13.5px] text-[#737373] leading-relaxed">
+                      <p className="mb-2">{post.description}</p>
+                      <a 
+                        href={post.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-xs font-mono font-medium text-[#0A0A0A] hover:underline"
+                      >
+                        Read on Medium <ArrowUpRight className="w-3 h-3" />
+                      </a>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Experience Section */}
+          <section id="experience" className="scroll-mt-14 sm:scroll-mt-16 w-full pb-10 sm:pb-12">
+            <p className="mb-6 font-mono text-[15px] text-[#8A8A8A]">
+              <span className="text-[#B5B5B5]">#</span> experience
+            </p>
+
+            <div className="relative ml-2 sm:ml-2.5 border-l border-[#E8E8E8] pl-5 sm:pl-6 space-y-6">
+              {experiences.map((exp, index) => (
+                <div key={index} className="relative group">
+                  <div className="absolute -left-[25px] sm:-left-[29px] top-1.5 h-2.5 w-2.5 rounded-full border-2 transition-all duration-200 border-[#D4D4D4] bg-[#FCFCFB] group-hover:border-[#0A0A0A]"></div>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[14px] sm:text-[14.5px] font-medium text-[#0A0A0A] leading-snug">
+                      {exp.role} · {exp.company}
+                    </span>
+                    <div className="flex items-center gap-2 font-mono text-[11.5px] text-[#8A8A8A]">
+                      <span>{exp.period}</span>
+                    </div>
+                    <ul className="mt-2 space-y-1.5 text-[13px] text-[#737373] leading-relaxed list-disc list-outside pl-3.5">
+                      {exp.description.map((item, dIdx) => (
+                        <li key={dIdx}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Tech Stack Chips Section */}
+          <section id="tech-stack" className="w-full pb-12">
+            <p className="mb-5 font-mono text-[15px] text-[#8A8A8A]">
+              <span className="text-[#B5B5B5]">#</span> tech stack
+            </p>
+
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
+              {[
+                'TypeScript', 'Next.js', 'React', 'Node.js', 
+                'PostgreSQL', 'Prisma', 'Docker', 'Python', 
+                'FastAPI', 'Redis', 'Zod', 'Tailwind CSS'
+              ].map(tech => (
+                <div 
+                  key={tech} 
+                  className="flex items-center rounded-md border border-[#E8E8E8] bg-white py-1 px-2.5 sm:py-1.5 sm:px-3 text-[12px] font-mono text-[#0A0A0A] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#A3A3A3]"
+                >
+                  {tech}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Footer */}
+          <footer className="pt-8 pb-12 border-t border-[#E8E8E8] flex flex-col sm:flex-row items-center justify-between text-xs text-[#8A8A8A] gap-4 font-mono">
+            <div>
+              © {new Date().getFullYear()} Azzaky Raihan Ramdhani
+            </div>
+            <div className="flex items-center gap-4">
+              <a href="https://github.com/glacerous" target="_blank" rel="noreferrer" className="hover:text-[#0A0A0A] transition-colors">GitHub</a>
+              <a href="https://www.linkedin.com/in/azzaky-raihan-ramdhani/" target="_blank" rel="noreferrer" className="hover:text-[#0A0A0A] transition-colors">LinkedIn</a>
+              <a href="https://medium.com/@azzakyraihan" target="_blank" rel="noreferrer" className="hover:text-[#0A0A0A] transition-colors">Medium</a>
+            </div>
+          </footer>
+
+        </div>
       </main>
     </div>
   );
