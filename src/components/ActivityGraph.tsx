@@ -93,7 +93,7 @@ export const ActivityGraph: React.FC<{ username: string }> = ({ username }) => {
                       rx={2}
                       ry={2}
                       fill={getCellFill(day.level)}
-                      className="transition-colors duration-150 hover:opacity-80 cursor-pointer"
+                      className="hover:opacity-75 cursor-pointer"
                     >
                       <title>{`${day.count} contributions on ${day.date}`}</title>
                     </rect>

@@ -21,9 +21,8 @@
 }
 
 html {
-  scroll-behavior: smooth;
   background-color: #FCFCFB;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizeSpeed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scrollbar-width: none; /* Firefox */
@@ -52,19 +51,14 @@ body {
   color: #FCFCFB;
 }
 
-/* Subtle micro-interactions */
-.smooth-hover {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
+/* Hardware accelerated card hover with zero repaint lag */
 .card-elevation {
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-              border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .card-elevation:hover {
   transform: translateY(-2px);
-  border-color: #D4D4D4;
-  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.05);
+  border-color: #A3A3A3;
 }
