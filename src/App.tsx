@@ -213,6 +213,14 @@ export const App: React.FC = () => {
                           </span>{' '}
                           Leverages dependency graphs and constraint modeling to validate prerequisite rules, resolve schedule clashes, and enforce credit load limits in real time.
                         </>
+                      ) : proj.id === 'himasisfo' ? (
+                        <>
+                          Production web platform for the Information Systems student association.{' '}
+                          <span className="text-[#0A0A0A] font-medium">
+                            Built within a 30+ person team collaborating across Backend, Frontend, and UI/UX divisions
+                          </span>{' '}
+                          to deliver student membership, content publishing, and organization workflows.
+                        </>
                       ) : (
                         proj.description || proj.oneLiner
                       )}
@@ -303,9 +311,27 @@ export const App: React.FC = () => {
                       <span>{exp.period}</span>
                     </div>
                     <ul className="mt-2 space-y-1.5 text-[13px] text-[#737373] leading-relaxed list-disc list-outside pl-3.5">
-                      {exp.description.map((item, dIdx) => (
-                        <li key={dIdx}>{item}</li>
-                      ))}
+                      {exp.description.map((item, dIdx) => {
+                        // Make himasisfoupnvy.com clickable with subtle underline
+                        if (item.includes('himasisfoupnvy.com')) {
+                          const parts = item.split('himasisfoupnvy.com');
+                          return (
+                            <li key={dIdx}>
+                              {parts[0]}
+                              <a
+                                href="https://www.himasisfoupnvy.com"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-[#0A0A0A] underline underline-offset-2 decoration-[#D4D4D4] hover:decoration-[#0A0A0A] transition-colors"
+                              >
+                                himasisfoupnvy.com
+                              </a>
+                              {parts[1]}
+                            </li>
+                          );
+                        }
+                        return <li key={dIdx}>{item}</li>;
+                      })}
                     </ul>
                   </div>
                 </div>

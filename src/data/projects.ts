@@ -37,9 +37,9 @@ export const projects: Project[] = [
         role: "Backend & Platform",
         year: "2024",
         category: "CAMPUS SYSTEM",
-        impact: "20-person team",
+        impact: "30+ person cross-functional team",
         description:
-            "Web platform for student membership and publishing workflows. Built with relational database modeling and deployed to handle peak traffic.",
+            "Production web platform for the Information Systems student association. Built within a 30+ person cross-functional team collaborating across Backend, Frontend, and UI/UX divisions to deliver student membership and publishing workflows.",
         oneLiner:
             "Production portal for the Information Systems student association.",
         stack: [
