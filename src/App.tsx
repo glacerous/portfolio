@@ -44,19 +44,14 @@ export const App: React.FC = () => {
 
             {/* About / Bio */}
             <div id="about" className="scroll-mt-24 sm:scroll-mt-28 mt-8 text-[15px] sm:text-[16px] text-[#525252] leading-[1.7] font-normal space-y-3">
-              <div>
-                <p>
-                  I'm a <span className="text-[#0A0A0A] font-medium">Backend & Full-Stack Engineer</span>.
-                </p>
-                <p className="mt-1">
-                  I build full products on my own, from the database up to{' '}
-                  <span className="text-[#0A0A0A] font-normal">deployment</span>. 
-                  I care a lot about the <span className="text-[#0A0A0A] font-normal">small stuff</span>. Clean APIs, fast interfaces, interactions that actually <span className="text-[#0A0A0A] font-normal">feel right</span>.
-                </p>
-              </div>
-
               <p>
-                Want to hire me?{' '}
+                I'm a <span className="text-[#0A0A0A] font-medium">Software Engineer</span> who likes breaking things in staging so they stay unbreakable in production.
+              </p>
+              <p>
+                I turn wild ideas into fast, reliable systems. From distributed services and 3D Gaussian Splatting to crisp web apps that don't make users wait.
+              </p>
+              <p>
+                Have something fun to build?{' '}
                 <a 
                   href="mailto:azzakyraihan@gmail.com" 
                   className="text-[#0A0A0A] underline underline-offset-4 decoration-[#D4D4D4] hover:decoration-[#0A0A0A] transition-colors"
