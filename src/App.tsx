@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { 
   ArrowUpRight, 
-  ChevronDown
+  ChevronDown,
+  Copy,
+  Check
 } from 'lucide-react';
 import { projects } from '@/data/projects';
 import { experiences } from '@/data/experience';
@@ -10,8 +12,222 @@ import { ActivityGraph } from '@/components/ActivityGraph';
 import { TechIcon } from '@/components/TechIcon';
 import { 
   NexvynReachArrow, 
-  HandwrittenNote 
+  HandwrittenNote,
+  HandDrawnArrow
 } from '@/components/common/Doodles';
+
+interface CopyContactProps {
+  text: string;
+  copyValue: string;
+  label: string;
+  className?: string;
+}
+
+const XLogo: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' }) => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" className={className}>
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
+const VerifiedBadge: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' }) => (
+  <svg viewBox="0 0 24 24" aria-label="Verified account" className={className}>
+    <g>
+      <path
+        d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z"
+        fill="#1D9BF0"
+      />
+    </g>
+  </svg>
+);
+
+const TwitterHoverCard: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsOpen(false);
+    }, 180);
+  };
+
+  return (
+    <span
+      className="relative inline-block group"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <a
+        href="https://x.com/thefuturehold"
+        target="_blank"
+        rel="noreferrer"
+        className="relative inline-flex items-center text-[#2563EB] font-medium transition-colors hover:text-[#1d4ed8]"
+        onFocus={() => setIsOpen(true)}
+        onBlur={() => setIsOpen(false)}
+      >
+        <span>Twitter</span>
+
+        {/* Floating tilted X logo badge above top-right - appears ONLY on hover */}
+        <span
+          aria-hidden="true"
+          className="absolute -top-2.5 -right-2.5 h-3.5 w-3.5 -translate-x-1 translate-y-1 scale-[0.8] rotate-[-8deg] text-[#0A0A0A] opacity-0 blur-[1px] transition-all duration-200 ease-out group-hover:translate-x-0 group-hover:translate-y-0 group-hover:scale-110 group-hover:rotate-[4deg] group-hover:opacity-100 group-hover:blur-none pointer-events-none select-none"
+        >
+          <XLogo className="w-full h-full" />
+        </span>
+
+        {/* Wavy scribble underline */}
+        <svg
+          className="absolute -bottom-1 left-0 w-full h-[6px] text-[#2563EB] overflow-visible pointer-events-none"
+          viewBox="0 0 60 8"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1 5.5C12 2 22 7.5 33 4C42 1 50 6.5 59 3"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </a>
+
+      {/* Floating Profile Card */}
+      <span
+        role="dialog"
+        aria-label="Twitter Profile Preview"
+        className={`absolute left-0 sm:left-1/2 sm:-translate-x-1/2 top-full mt-2.5 z-50 w-[270px] rounded-2xl bg-white p-4 border border-[#E5E5E5] shadow-[0_12px_32px_rgba(0,0,0,0.12)] text-left transition-all duration-200 ease-out origin-top block ${
+          isOpen
+            ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
+            : 'opacity-0 scale-95 -translate-y-1 pointer-events-none'
+        }`}
+      >
+        {/* Top row: Avatar + X logo */}
+        <span className="flex items-start justify-between">
+          <a
+            href="https://x.com/thefuturehold"
+            target="_blank"
+            rel="noreferrer"
+            className="block rounded-full focus:outline-none focus:ring-2 focus:ring-[#1D9BF0]"
+          >
+            <img
+              src="https://avatars.githubusercontent.com/u/167007103?v=4"
+              alt="zak"
+              className="w-14 h-14 rounded-full border border-black/10 object-cover bg-neutral-100 shadow-sm transition-transform hover:scale-105"
+            />
+          </a>
+          <a
+            href="https://x.com/thefuturehold"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Visit @thefuturehold on X"
+            className="text-[#737373] hover:text-[#0A0A0A] p-1 transition-colors"
+          >
+            <XLogo className="w-4 h-4" />
+          </a>
+        </span>
+
+        {/* User Name & Handle */}
+        <span className="mt-2.5 block">
+          <a
+            href="https://x.com/thefuturehold"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1 font-semibold text-[15.5px] text-[#0A0A0A] hover:underline leading-tight"
+          >
+            <span>zak</span>
+            <VerifiedBadge className="w-4 h-4 text-[#1D9BF0] flex-shrink-0" />
+          </a>
+          <span className="text-[13px] text-[#737373] leading-tight mt-0.5 font-normal block">
+            @thefuturehold
+          </span>
+        </span>
+
+        {/* Bio & Link - strictly lowercase */}
+        <span className="mt-3 text-[13.5px] text-[#0A0A0A] leading-snug space-y-0.5 font-normal lowercase block">
+          <span className="block">i do tech</span>
+          <a
+            href="https://github.com/glacerous"
+            target="_blank"
+            rel="noreferrer"
+            className="text-[#1D9BF0] hover:underline inline-block lowercase"
+          >
+            github.com/glacerous
+          </a>
+        </span>
+
+        {/* Stats */}
+        <span className="mt-3.5 pt-1 flex items-center gap-4 text-[13px] text-[#737373] font-normal">
+          <span>
+            <strong className="font-semibold text-[#0A0A0A]">51</strong> Following
+          </span>
+          <span>
+            <strong className="font-semibold text-[#0A0A0A]">604</strong> Followers
+          </span>
+        </span>
+      </span>
+    </span>
+  );
+};
+
+const CopyContact: React.FC<CopyContactProps> = ({ text, copyValue, label, className = '' }) => {
+  const [copied, setCopied] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleCopy = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText(copyValue);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const isVisible = isHovered || copied;
+
+  return (
+    <span 
+      className="relative inline-block"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <button
+        type="button"
+        onClick={handleCopy}
+        onFocus={() => setIsHovered(true)}
+        onBlur={() => setIsHovered(false)}
+        aria-label={`Copy ${copyValue}`}
+        className={`text-[#0A0A0A] underline underline-offset-4 decoration-[#D4D4D4] hover:decoration-[#0A0A0A] transition-colors font-medium cursor-pointer ${className}`}
+      >
+        {text}
+      </button>
+
+      {/* Floating Copy Tooltip (matches nexvyn design) */}
+      <span
+        role="tooltip"
+        className={`pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-white border border-[#E5E5E5] px-2.5 py-1 text-[11.5px] font-sans font-medium text-[#0A0A0A] shadow-[0_2px_8px_rgba(0,0,0,0.08)] transition-all duration-150 ${
+          isVisible
+            ? 'opacity-100 translate-y-0 scale-100'
+            : 'opacity-0 translate-y-1 scale-95'
+        }`}
+      >
+        {copied ? (
+          <>
+            <Check className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Copied!</span>
+          </>
+        ) : (
+          <>
+            <Copy className="w-3.5 h-3.5 text-[#737373]" />
+            <span>{label}</span>
+          </>
+        )}
+      </span>
+    </span>
+  );
+};
 
 export const App: React.FC = () => {
   const [articles, setArticles] = useState<MediumArticle[]>([]);
@@ -36,7 +252,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FCFCFB] text-[#0A0A0A] selection:bg-[#0A0A0A] selection:text-[#FCFCFB] antialiased">
+    <div className="min-h-screen bg-[#FCFCFB] text-[#0A0A0A] selection:bg-[#0A0A0A] selection:text-[#FCFCFB] antialiased overflow-x-hidden">
       <main className="min-h-screen w-full flex flex-col items-center px-6 sm:px-8">
         <div className="w-full max-w-[720px]">
           
@@ -64,23 +280,27 @@ export const App: React.FC = () => {
               <p>
                 I'm a <span className="text-[#0A0A0A] font-medium">Software Engineer</span>, big fan of computers.
               </p>
-              <div className="relative flex flex-wrap items-center gap-1">
-                <span>Got something fun to build?</span>{' '}
-                <a 
-                  href="mailto:azzakyraihan@gmail.com" 
-                  className="text-[#0A0A0A] underline underline-offset-4 decoration-[#D4D4D4] hover:decoration-[#0A0A0A] transition-colors font-medium"
-                >
-                  Let's talk
-                </a>
-                <span>.</span>
+              
+              <div>
+                <span className="relative inline-block">
+                  <span>Got something fun to build? Reach out on&nbsp;</span>
+                  <TwitterHoverCard />
+                  <span>,&nbsp;email me at&nbsp;</span>
+                  <CopyContact 
+                    text="azzakyraihan@gmail.com" 
+                    copyValue="azzakyraihan@gmail.com" 
+                    label="Copy email" 
+                  />
+                  <span>.</span>
 
-                {/* Hand-drawn note & arrow pointing to Let's talk */}
-                <div className="hidden sm:inline-flex items-center gap-2 ml-4 -mt-1 select-none pointer-events-none">
-                  <NexvynReachArrow color="#2563EB" className="w-3.5 h-6 -scale-x-100 opacity-80" />
-                  <HandwrittenNote colorClass="text-[#2563EB]" rotation="-rotate-3" className="text-[18px] sm:text-[19px] font-medium">
-                    feel free to reach out
-                  </HandwrittenNote>
-                </div>
+                  {/* Hand-drawn note & arrow pointing to contact - strictly on the same line */}
+                  <span className="hidden sm:inline-flex items-center gap-1.5 absolute left-[calc(100%+12px)] top-1/2 -translate-y-1/2 whitespace-nowrap text-[#2563EB] select-none pointer-events-none">
+                    <HandDrawnArrow direction="left" className="w-5 h-3 text-[#2563EB]" />
+                    <span className="font-handwriting text-[#2563EB] text-[18px] sm:text-[19px] rotate-[-3deg]">
+                      feel free to reach out
+                    </span>
+                  </span>
+                </span>
               </div>
             </div>
 
@@ -99,6 +319,20 @@ export const App: React.FC = () => {
                 </svg>
                 <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-[#0A0A0A] px-2 py-0.5 text-[11px] font-medium text-[#FCFCFB] opacity-0 group-hover:opacity-100 transition-opacity">
                   GitHub
+                </span>
+              </a>
+
+              {/* X (Twitter) */}
+              <a 
+                href="https://x.com/thefuturehold" 
+                target="_blank" 
+                rel="noreferrer" 
+                aria-label="X (Twitter)"
+                className="group relative flex items-center justify-center transition-all duration-200 ease-out hover:-translate-y-0.5 hover:scale-105 text-[#0A0A0A] hover:opacity-80"
+              >
+                <XLogo className="h-[16px] w-[16px]" />
+                <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-[#0A0A0A] px-2 py-0.5 text-[11px] font-medium text-[#FCFCFB] opacity-0 group-hover:opacity-100 transition-opacity">
+                  X
                 </span>
               </a>
 
@@ -398,6 +632,7 @@ export const App: React.FC = () => {
             </div>
             <div className="flex items-center gap-4">
               <a href="https://github.com/glacerous" target="_blank" rel="noreferrer" className="hover:text-[#0A0A0A] transition-colors">GitHub</a>
+              <a href="https://x.com/thefuturehold" target="_blank" rel="noreferrer" className="hover:text-[#0A0A0A] transition-colors">X</a>
               <a href="https://www.linkedin.com/in/azzaky-raihan-ramdhani/" target="_blank" rel="noreferrer" className="hover:text-[#0A0A0A] transition-colors">LinkedIn</a>
               <a href="https://medium.com/@azzakyraihan" target="_blank" rel="noreferrer" className="hover:text-[#0A0A0A] transition-colors">Medium</a>
             </div>
