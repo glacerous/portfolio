@@ -154,7 +154,7 @@ export const App: React.FC = () => {
                   className="group relative flex flex-col overflow-hidden rounded-xl border border-[#E8E8E8] transition-colors duration-300 hover:border-[#A3A3A3] bg-white"
                 >
                   {/* Media Preview (Video/GIF/Image) */}
-                  <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-[#E8E8E8] bg-[#F5F5F4]">
+                  <div className="relative aspect-video w-full overflow-hidden border-b border-[#E8E8E8] bg-[#F5F5F4]">
                     {proj.media?.kind === 'video' ? (
                       <video 
                         src={proj.media.src}
