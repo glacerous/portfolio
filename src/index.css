@@ -50,3 +50,25 @@ body {
   background-color: #0A0A0A;
   color: #FCFCFB;
 }
+
+/* Doodle & handwriting styles matching nexvyn reference */
+.font-handwriting {
+  font-family: 'Caveat', cursive, sans-serif;
+}
+
+.stroke-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.stroke-draw-hover {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 260ms ease-out;
+}
+
+.group:hover .stroke-draw-hover,
+.group:focus-visible .stroke-draw-hover {
+  stroke-dashoffset: 0;
+}

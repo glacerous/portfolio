@@ -8,6 +8,12 @@ import { experiences } from '@/data/experience';
 import { fetchMediumArticles, MediumArticle } from '@/utils/medium';
 import { ActivityGraph } from '@/components/ActivityGraph';
 import { TechIcon } from '@/components/TechIcon';
+import { 
+  ScribbleUnderline, 
+  CurvedDoodleArrow, 
+  DoodleStar, 
+  HandwrittenNote 
+} from '@/components/common/Doodles';
 
 export const App: React.FC = () => {
   const [articles, setArticles] = useState<MediumArticle[]>([]);
@@ -39,37 +45,69 @@ export const App: React.FC = () => {
           {/* Header Navigation */}
           <header className="w-full pt-8 pb-14 flex items-center justify-between">
             <nav className="flex items-center gap-7 text-[14px]">
-              <a href="#" onClick={(e) => handleNavClick(e, '#')} className="font-medium text-[#0A0A0A] transition-colors">Home</a>
-              <a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">About</a>
-              <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">Projects</a>
-              <a href="#experience" onClick={(e) => handleNavClick(e, '#experience')} className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">Experience</a>
-              <a href="#blogs" onClick={(e) => handleNavClick(e, '#blogs')} className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">Blogs</a>
+              <a href="#" onClick={(e) => handleNavClick(e, '#')} className="group relative font-medium text-[#0A0A0A] transition-colors">
+                <span>Home</span>
+                <ScribbleUnderline color="#2563EB" />
+              </a>
+              <a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="group relative font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">
+                <span>About</span>
+                <ScribbleUnderline color="#2563EB" />
+              </a>
+              <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="group relative font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">
+                <span>Projects</span>
+                <ScribbleUnderline color="#2563EB" />
+              </a>
+              <a href="#experience" onClick={(e) => handleNavClick(e, '#experience')} className="group relative font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">
+                <span>Experience</span>
+                <ScribbleUnderline color="#2563EB" />
+              </a>
+              <a href="#blogs" onClick={(e) => handleNavClick(e, '#blogs')} className="group relative font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">
+                <span>Blogs</span>
+                <ScribbleUnderline color="#2563EB" />
+              </a>
             </nav>
           </header>
 
           {/* Hero Section */}
           <section className="w-full flex flex-col pt-4 pb-4">
-            <div className="relative">
-              <h1 className="text-[38px] sm:text-[48px] md:text-[54px] font-semibold text-[#0A0A0A] leading-[1.2] tracking-[-0.03em] flex items-center">
-                Hey, I'm Azzaky
+            <div className="relative flex items-center justify-between">
+              <h1 className="text-[38px] sm:text-[48px] md:text-[54px] font-semibold text-[#0A0A0A] leading-[1.2] tracking-[-0.03em] flex items-center gap-3">
+                <span>Hey, I'm Azzaky</span>
               </h1>
+              
+              {/* Subtle top doodle accent */}
+              <div className="hidden sm:flex items-center gap-1.5 opacity-80">
+                <DoodleStar color="#2563EB" className="w-4 h-4" />
+                <span className="font-handwriting text-[15px] text-[#2563EB] -rotate-3 select-none">
+                  design & code
+                </span>
+              </div>
             </div>
 
             {/* About / Bio */}
             <div id="about" className="scroll-mt-24 sm:scroll-mt-28 mt-8 text-[15px] sm:text-[16px] text-[#525252] leading-[1.7] font-normal space-y-2">
               <p>
-                I'm a <span className="text-[#0A0A0A] font-medium">Software Engineer</span>, big fan of computers.
+                I'm a <span className="text-[#0A0A0A] font-medium">Software Engineer</span>, big fan of computers and crafted interfaces.
               </p>
-              <p>
-                Got something fun to build?{' '}
+              <div className="relative flex flex-wrap items-center gap-1">
+                <span>Got something fun to build?</span>{' '}
                 <a 
                   href="mailto:azzakyraihan@gmail.com" 
-                  className="text-[#0A0A0A] underline underline-offset-4 decoration-[#D4D4D4] hover:decoration-[#0A0A0A] transition-colors"
+                  className="group relative inline-flex items-center text-[#0A0A0A] font-medium hover:text-[#2563EB] transition-colors"
                 >
-                  Let's talk
+                  <span>Let's talk</span>
+                  <ScribbleUnderline color="#2563EB" />
                 </a>
-                .
-              </p>
+                <span>.</span>
+
+                {/* Hand-drawn note & arrow pointing to Let's talk (matching nexvyn's reach out doodle) */}
+                <div className="hidden sm:inline-flex items-center gap-1.5 ml-4 -mt-1 select-none pointer-events-none">
+                  <CurvedDoodleArrow direction="down-left" color="#2563EB" className="w-5 h-5 -scale-x-100" />
+                  <HandwrittenNote colorClass="text-[#2563EB]" rotation="-rotate-3">
+                    feel free to reach out
+                  </HandwrittenNote>
+                </div>
+              </div>
             </div>
 
             {/* Social Icons */}
@@ -80,7 +118,7 @@ export const App: React.FC = () => {
                 target="_blank" 
                 rel="noreferrer" 
                 aria-label="GitHub"
-                className="group relative flex items-center justify-center transition-all duration-200 ease-out hover:-translate-y-0.5 hover:scale-105 text-[#0A0A0A] hover:opacity-80"
+                className="group relative flex items-center justify-center transition-all duration-200 ease-out hover:-translate-y-0.5 hover:scale-105 text-[#0A0A0A] hover:text-[#2563EB]"
               >
                 <svg viewBox="0 0 512 512" fill="currentColor" className="h-[18px] w-[18px]">
                   <path fillRule="evenodd" clipRule="evenodd" d="M256 6.3C114.6 6.3 0 120.9 0 262.3c0 113.3 73.3 209 175 242.9 12.8 2.2 17.6-5.4 17.6-12.2 0-6.1-.3-26.2-.3-47.7-64.3 11.8-81-15.7-86.1-30.1-2.9-7.4-15.4-30.1-26.2-36.2-9-4.8-21.8-16.6-.3-17 20.2-.3 34.6 18.6 39.4 26.2 23 38.7 59.8 27.8 74.6 21.1 2.2-16.6 9-27.8 16.3-34.2-57-6.4-116.5-28.5-116.5-126.4 0-27.8 9.9-50.9 26.2-68.8-2.6-6.4-11.5-32.6 2.6-67.8 0 0 21.4-6.7 70.4 26.2 20.5-5.8 42.2-8.6 64-8.6s43.5 2.9 64 8.6c49-33.3 70.4-26.2 70.4-26.2 14.1 35.2 5.1 61.4 2.6 67.8 16.3 17.9 26.2 40.6 26.2 68.8 0 98.2-59.8 120-116.8 126.4 9.3 8 17.3 23.4 17.3 47.4 0 34.2-.3 61.8-.3 70.4 0 6.7 4.8 14.7 17.6 12.2C438.7 471.3 512 375.3 512 262.3c0-141.4-114.6-256-256-256" />
@@ -130,9 +168,12 @@ export const App: React.FC = () => {
           {/* Activity Section */}
           <section id="activity" className="scroll-mt-14 sm:scroll-mt-16 w-full pt-14 pb-4 sm:pt-16 sm:pb-6">
             <div className="flex items-center justify-between mb-8">
-              <p className="font-mono text-[15px] text-[#8A8A8A]">
-                <span className="text-[#B5B5B5]">#</span> activity
-              </p>
+              <div className="flex items-center gap-2.5">
+                <p className="font-mono text-[15px] text-[#8A8A8A]">
+                  <span className="text-[#B5B5B5]">#</span> activity
+                </p>
+                <DoodleStar color="#2563EB" className="w-3.5 h-3.5" />
+              </div>
               <div className="flex items-center gap-2 font-mono text-[13px]">
                 <span className="text-[#0A0A0A] font-medium">github</span>
               </div>
@@ -143,15 +184,23 @@ export const App: React.FC = () => {
 
           {/* Projects Section */}
           <section id="projects" className="scroll-mt-14 sm:scroll-mt-16 w-full pt-8 pb-10 sm:pt-10 sm:pb-12">
-            <p className="mb-8 font-mono text-[15px] text-[#8A8A8A]">
-              <span className="text-[#B5B5B5]">#</span> projects
-            </p>
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center gap-2.5">
+                <p className="font-mono text-[15px] text-[#8A8A8A]">
+                  <span className="text-[#B5B5B5]">#</span> projects
+                </p>
+                <DoodleStar color="#2563EB" className="w-3.5 h-3.5" />
+              </div>
+              <span className="font-handwriting text-[16px] text-[#8A8A8A] -rotate-2 select-none hidden sm:inline">
+                crafted interfaces & code
+              </span>
+            </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {projects.map((proj) => (
                 <article 
                   key={proj.id}
-                  className="group relative flex flex-col overflow-hidden rounded-xl border border-[#E8E8E8] transition-colors duration-300 hover:border-[#A3A3A3] bg-white"
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#E8E8E8] transition-all duration-300 hover:border-[#C8C8C8] hover:shadow-[0_4px_24px_-6px_rgba(0,0,0,0.06)] bg-white"
                 >
                   {/* Media Preview (Video/GIF/Image) */}
                   <div className="relative aspect-video w-full overflow-hidden border-b border-[#E8E8E8] bg-[#F5F5F4]">
@@ -162,7 +211,7 @@ export const App: React.FC = () => {
                         loop
                         muted
                         playsInline
-                        className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.03] ${
+                        className={`h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.03] ${
                           proj.media.fit === 'contain' ? 'object-contain' : 'object-cover'
                         } ${
                           proj.media.position === 'top'
@@ -177,7 +226,7 @@ export const App: React.FC = () => {
                         src={proj.media?.src || '/projects/himasisfo.png'} 
                         alt={proj.title}
                         loading="lazy"
-                        className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.03] ${
+                        className={`h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.03] ${
                           proj.media?.fit === 'contain' ? 'object-contain' : 'object-cover'
                         } ${
                           proj.media?.position === 'center'
@@ -192,9 +241,21 @@ export const App: React.FC = () => {
 
                   <div className="flex flex-1 flex-col gap-3 p-5">
                     <div className="flex items-center justify-between gap-3">
-                      <h3 className="text-[16px] font-medium tracking-[-0.01em] text-[#0A0A0A]">
-                        {proj.title}
-                      </h3>
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-[16px] font-medium tracking-[-0.01em] text-[#0A0A0A] group-hover:text-[#2563EB] transition-colors">
+                          {proj.title}
+                        </h3>
+                        {proj.id === 'vora' && (
+                          <span className="font-handwriting text-[#2563EB] text-[13.5px] -rotate-3 select-none">
+                            ★ award winner
+                          </span>
+                        )}
+                        {proj.id === 'krslab' && (
+                          <span className="font-handwriting text-[#2563EB] text-[13.5px] -rotate-3 select-none">
+                            1k+ users
+                          </span>
+                        )}
+                      </div>
                       <div className="flex shrink-0 items-center gap-3">
                         {proj.links?.site && (
                           <a 
@@ -202,10 +263,11 @@ export const App: React.FC = () => {
                             target="_blank" 
                             rel="noreferrer" 
                             aria-label={`${proj.title} live site`}
-                            className="flex items-center gap-1 text-[13px] font-medium text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors"
+                            className="group/link relative flex items-center gap-1 text-[13px] font-medium text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors"
                           >
-                            Live
+                            <span>Live</span>
                             <ArrowUpRight className="h-3.5 w-3.5" />
+                            <ScribbleUnderline color="#2563EB" />
                           </a>
                         )}
                         {proj.links?.code && (
@@ -214,7 +276,7 @@ export const App: React.FC = () => {
                             target="_blank" 
                             rel="noreferrer" 
                             aria-label={`${proj.title} source on GitHub`}
-                            className="inline-flex items-center gap-1 text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors"
+                            className="group/icon inline-flex items-center gap-1 text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors"
                           >
                             <svg viewBox="0 0 512 512" fill="currentColor" className="h-[15px] w-[15px]">
                               <path fillRule="evenodd" clipRule="evenodd" d="M256 6.3C114.6 6.3 0 120.9 0 262.3c0 113.3 73.3 209 175 242.9 12.8 2.2 17.6-5.4 17.6-12.2 0-6.1-.3-26.2-.3-47.7-64.3 11.8-81-15.7-86.1-30.1-2.9-7.4-15.4-30.1-26.2-36.2-9-4.8-21.8-16.6-.3-17 20.2-.3 34.6 18.6 39.4 26.2 23 38.7 59.8 27.8 74.6 21.1 2.2-16.6 9-27.8 16.3-34.2-57-6.4-116.5-28.5-116.5-126.4 0-27.8 9.9-50.9 26.2-68.8-2.6-6.4-11.5-32.6 2.6-67.8 0 0 21.4-6.7 70.4 26.2 20.5-5.8 42.2-8.6 64-8.6s43.5 2.9 64 8.6c49-33.3 70.4-26.2 70.4-26.2 14.1 35.2 5.1 61.4 2.6 67.8 16.3 17.9 26.2 40.6 26.2 68.8 0 98.2-59.8 120-116.8 126.4 9.3 8 17.3 23.4 17.3 47.4 0 34.2-.3 61.8-.3 70.4 0 6.7 4.8 14.7 17.6 12.2C438.7 471.3 512 375.3 512 262.3c0-141.4-114.6-256-256-256" />
@@ -258,7 +320,7 @@ export const App: React.FC = () => {
                       {proj.stack.map(tech => (
                         <span 
                           key={tech} 
-                          className="inline-flex items-center gap-1.5 font-mono text-[11px] text-[#525252] bg-[#F5F5F4] border border-[#EBEBEA] px-2 py-0.5 rounded"
+                          className="inline-flex items-center gap-1.5 font-mono text-[11px] text-[#525252] bg-[#F5F5F4] border border-[#EBEBEA] px-2 py-0.5 rounded-md"
                         >
                           <TechIcon name={tech} className="w-3 h-3 text-[#737373]" />
                           <span>{tech}</span>
@@ -274,16 +336,20 @@ export const App: React.FC = () => {
           {/* Blogs Section (Accordion list style matching reference) */}
           <section id="blogs" className="scroll-mt-14 sm:scroll-mt-16 w-full pb-10 sm:pb-12">
             <div className="flex items-center justify-between mb-5">
-              <p className="font-mono text-[15px] text-[#8A8A8A]">
-                <span className="text-[#B5B5B5]">#</span> blogs
-              </p>
+              <div className="flex items-center gap-2.5">
+                <p className="font-mono text-[15px] text-[#8A8A8A]">
+                  <span className="text-[#B5B5B5]">#</span> blogs
+                </p>
+                <DoodleStar color="#2563EB" className="w-3.5 h-3.5" />
+              </div>
               <a 
                 href="https://medium.com/@azzakyraihan" 
                 target="_blank" 
                 rel="noreferrer"
-                className="font-mono text-xs text-[#8A8A8A] hover:text-[#0A0A0A] inline-flex items-center gap-1 transition-colors"
+                className="group relative font-mono text-xs text-[#8A8A8A] hover:text-[#0A0A0A] inline-flex items-center gap-1 transition-colors"
               >
-                medium/@azzakyraihan <ArrowUpRight className="w-3.5 h-3.5" />
+                <span>medium/@azzakyraihan</span> <ArrowUpRight className="w-3.5 h-3.5" />
+                <ScribbleUnderline color="#2563EB" />
               </a>
             </div>
 
@@ -295,7 +361,7 @@ export const App: React.FC = () => {
                     onClick={() => setOpenBlogIdx(openBlogIdx === idx ? null : idx)}
                     className="w-full flex items-center justify-between gap-3 text-left cursor-pointer group select-none py-1 transition-colors"
                   >
-                    <span className="text-[14px] sm:text-[14.5px] font-medium text-[#0A0A0A] group-hover:text-neutral-600 transition-colors leading-snug pr-2">
+                    <span className="text-[14px] sm:text-[14.5px] font-medium text-[#0A0A0A] group-hover:text-[#2563EB] transition-colors leading-snug pr-2">
                       {post.title}
                     </span>
                     <div className="shrink-0 text-[#8A8A8A] group-hover:text-[#0A0A0A] transition-colors">
@@ -310,9 +376,10 @@ export const App: React.FC = () => {
                         href={post.link}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-mono font-medium text-[#0A0A0A] hover:underline"
+                        className="group relative inline-flex items-center gap-1 text-xs font-mono font-medium text-[#0A0A0A] hover:text-[#2563EB] transition-colors"
                       >
-                        Read on Medium <ArrowUpRight className="w-3 h-3" />
+                        <span>Read on Medium</span> <ArrowUpRight className="w-3 h-3" />
+                        <ScribbleUnderline color="#2563EB" />
                       </a>
                     </div>
                   )}
@@ -323,16 +390,21 @@ export const App: React.FC = () => {
 
           {/* Experience Section */}
           <section id="experience" className="scroll-mt-14 sm:scroll-mt-16 w-full pb-10 sm:pb-12">
-            <p className="mb-6 font-mono text-[15px] text-[#8A8A8A]">
-              <span className="text-[#B5B5B5]">#</span> experience
-            </p>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-2.5">
+                <p className="font-mono text-[15px] text-[#8A8A8A]">
+                  <span className="text-[#B5B5B5]">#</span> experience
+                </p>
+                <DoodleStar color="#2563EB" className="w-3.5 h-3.5" />
+              </div>
+            </div>
 
             <div className="relative ml-2 sm:ml-2.5 border-l border-[#E8E8E8] pl-5 sm:pl-6 space-y-6">
               {experiences.map((exp, index) => (
                 <div key={index} className="relative group">
-                  <div className="absolute -left-[25px] sm:-left-[29px] top-1.5 h-2.5 w-2.5 rounded-full border-2 transition-all duration-200 border-[#D4D4D4] bg-[#FCFCFB] group-hover:border-[#0A0A0A]"></div>
+                  <div className="absolute -left-[25px] sm:-left-[29px] top-1.5 h-2.5 w-2.5 rounded-full border-2 transition-all duration-200 border-[#D4D4D4] bg-[#FCFCFB] group-hover:border-[#2563EB] group-hover:scale-110"></div>
                   <div className="flex flex-col gap-1">
-                    <span className="text-[14px] sm:text-[14.5px] font-medium text-[#0A0A0A] leading-snug">
+                    <span className="text-[14px] sm:text-[14.5px] font-medium text-[#0A0A0A] leading-snug group-hover:text-[#2563EB] transition-colors">
                       {exp.role} · {exp.company}
                     </span>
                     <div className="flex items-center gap-2 font-mono text-[11.5px] text-[#8A8A8A]">
@@ -350,9 +422,10 @@ export const App: React.FC = () => {
                                 href="https://www.himasisfoupnvy.com"
                                 target="_blank"
                                 rel="noreferrer"
-                                className="text-[#0A0A0A] underline underline-offset-2 decoration-[#D4D4D4] hover:decoration-[#0A0A0A] transition-colors"
+                                className="group relative inline-block text-[#0A0A0A] font-medium hover:text-[#2563EB] transition-colors"
                               >
-                                himasisfoupnvy.com
+                                <span>himasisfoupnvy.com</span>
+                                <ScribbleUnderline color="#2563EB" />
                               </a>
                               {parts[1]}
                             </li>
@@ -369,13 +442,25 @@ export const App: React.FC = () => {
 
           {/* Footer */}
           <footer className="pt-8 pb-12 border-t border-[#E8E8E8] flex flex-col sm:flex-row items-center justify-between text-xs text-[#8A8A8A] gap-4 font-mono">
-            <div>
-              © {new Date().getFullYear()} Azzaky Raihan Ramdhani
+            <div className="flex items-center gap-2 flex-wrap">
+              <span>© {new Date().getFullYear()} Azzaky Raihan Ramdhani</span>
+              <span className="font-handwriting text-[15px] text-[#2563EB] -rotate-3 select-none ml-1">
+                ✦ thanks for stopping by!
+              </span>
             </div>
             <div className="flex items-center gap-4">
-              <a href="https://github.com/glacerous" target="_blank" rel="noreferrer" className="hover:text-[#0A0A0A] transition-colors">GitHub</a>
-              <a href="https://www.linkedin.com/in/azzaky-raihan-ramdhani/" target="_blank" rel="noreferrer" className="hover:text-[#0A0A0A] transition-colors">LinkedIn</a>
-              <a href="https://medium.com/@azzakyraihan" target="_blank" rel="noreferrer" className="hover:text-[#0A0A0A] transition-colors">Medium</a>
+              <a href="https://github.com/glacerous" target="_blank" rel="noreferrer" className="group relative hover:text-[#0A0A0A] transition-colors">
+                <span>GitHub</span>
+                <ScribbleUnderline color="#2563EB" />
+              </a>
+              <a href="https://www.linkedin.com/in/azzaky-raihan-ramdhani/" target="_blank" rel="noreferrer" className="group relative hover:text-[#0A0A0A] transition-colors">
+                <span>LinkedIn</span>
+                <ScribbleUnderline color="#2563EB" />
+              </a>
+              <a href="https://medium.com/@azzakyraihan" target="_blank" rel="noreferrer" className="group relative hover:text-[#0A0A0A] transition-colors">
+                <span>Medium</span>
+                <ScribbleUnderline color="#2563EB" />
+              </a>
             </div>
           </footer>
 
