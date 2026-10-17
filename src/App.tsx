@@ -10,7 +10,6 @@ import { ActivityGraph } from '@/components/ActivityGraph';
 import { TechIcon } from '@/components/TechIcon';
 import { 
   NexvynReachArrow, 
-  HandDrawnArrow, 
   HandwrittenNote 
 } from '@/components/common/Doodles';
 
@@ -137,31 +136,15 @@ export const App: React.FC = () => {
                   Medium
                 </span>
               </a>
-
-              {/* Hand-drawn note & arrow pointing to socials */}
-              <div className="hidden sm:inline-flex items-center gap-1.5 text-[#2563EB] ml-2 select-none">
-                <HandDrawnArrow direction="left" className="w-5 h-3 text-[#2563EB]" />
-                <span className="font-handwriting text-[18px] sm:text-[19px] -rotate-2 font-medium">
-                  connect with me
-                </span>
-              </div>
             </div>
           </section>
 
           {/* Activity Section */}
           <section id="activity" className="scroll-mt-14 sm:scroll-mt-16 w-full pt-14 pb-4 sm:pt-16 sm:pb-6">
             <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-3">
-                <p className="font-mono text-[15px] text-[#8A8A8A]">
-                  <span className="text-[#B5B5B5]">#</span> activity
-                </p>
-                <div className="hidden sm:inline-flex items-center gap-1.5 text-[#2563EB]">
-                  <HandDrawnArrow direction="right" className="w-5 h-3 text-[#2563EB]" />
-                  <span className="font-handwriting text-[18px] sm:text-[19px] -rotate-2 font-medium">
-                    fresh code commits
-                  </span>
-                </div>
-              </div>
+              <p className="font-mono text-[15px] text-[#8A8A8A]">
+                <span className="text-[#B5B5B5]">#</span> activity
+              </p>
               <div className="flex items-center gap-2 font-mono text-[13px]">
                 <span className="text-[#0A0A0A] font-medium">github</span>
               </div>
@@ -172,19 +155,9 @@ export const App: React.FC = () => {
 
           {/* Projects Section */}
           <section id="projects" className="scroll-mt-14 sm:scroll-mt-16 w-full pt-8 pb-10 sm:pt-10 sm:pb-12">
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-3">
-                <p className="font-mono text-[15px] text-[#8A8A8A]">
-                  <span className="text-[#B5B5B5]">#</span> projects
-                </p>
-                <div className="hidden sm:inline-flex items-center gap-1.5 text-[#2563EB]">
-                  <HandDrawnArrow direction="right" className="w-5 h-3 text-[#2563EB]" />
-                  <span className="font-handwriting text-[18px] sm:text-[19px] -rotate-2 font-medium">
-                    selected builds
-                  </span>
-                </div>
-              </div>
-            </div>
+            <p className="mb-8 font-mono text-[15px] text-[#8A8A8A]">
+              <span className="text-[#B5B5B5]">#</span> projects
+            </p>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {projects.map((proj) => (
@@ -243,11 +216,6 @@ export const App: React.FC = () => {
                         {proj.id === 'krslab' && (
                           <span className="font-handwriting text-[#2563EB] text-[19px] sm:text-[20px] -rotate-2 select-none font-medium ml-2">
                             1k+ users
-                          </span>
-                        )}
-                        {proj.id === 'himasisfo' && (
-                          <span className="font-handwriting text-[#2563EB] text-[19px] sm:text-[20px] -rotate-2 select-none font-medium ml-2">
-                            30+ team
                           </span>
                         )}
                       </div>
@@ -330,17 +298,9 @@ export const App: React.FC = () => {
           {/* Blogs Section (Accordion list style matching reference) */}
           <section id="blogs" className="scroll-mt-14 sm:scroll-mt-16 w-full pb-10 sm:pb-12">
             <div className="flex items-center justify-between mb-5">
-              <div className="flex items-center gap-3">
-                <p className="font-mono text-[15px] text-[#8A8A8A]">
-                  <span className="text-[#B5B5B5]">#</span> blogs
-                </p>
-                <div className="hidden sm:inline-flex items-center gap-1.5 text-[#2563EB]">
-                  <HandDrawnArrow direction="right" className="w-5 h-3 text-[#2563EB]" />
-                  <span className="font-handwriting text-[18px] sm:text-[19px] -rotate-2 font-medium">
-                    writings & thoughts
-                  </span>
-                </div>
-              </div>
+              <p className="font-mono text-[15px] text-[#8A8A8A]">
+                <span className="text-[#B5B5B5]">#</span> blogs
+              </p>
               <a 
                 href="https://medium.com/@azzakyraihan" 
                 target="_blank" 
@@ -387,17 +347,9 @@ export const App: React.FC = () => {
 
           {/* Experience Section */}
           <section id="experience" className="scroll-mt-14 sm:scroll-mt-16 w-full pb-10 sm:pb-12">
-            <div className="flex items-center gap-3 mb-6">
-              <p className="font-mono text-[15px] text-[#8A8A8A]">
-                <span className="text-[#B5B5B5]">#</span> experience
-              </p>
-              <div className="hidden sm:inline-flex items-center gap-1.5 text-[#2563EB]">
-                <HandDrawnArrow direction="right" className="w-5 h-3 text-[#2563EB]" />
-                <span className="font-handwriting text-[18px] sm:text-[19px] -rotate-2 font-medium">
-                  career journey
-                </span>
-              </div>
-            </div>
+            <p className="mb-6 font-mono text-[15px] text-[#8A8A8A]">
+              <span className="text-[#B5B5B5]">#</span> experience
+            </p>
 
             <div className="relative ml-2 sm:ml-2.5 border-l border-[#E8E8E8] pl-5 sm:pl-6 space-y-6">
               {experiences.map((exp, index) => (
@@ -441,14 +393,8 @@ export const App: React.FC = () => {
 
           {/* Footer */}
           <footer className="pt-8 pb-12 border-t border-[#E8E8E8] flex flex-col sm:flex-row items-center justify-between text-xs text-[#8A8A8A] gap-4 font-mono">
-            <div className="flex items-center gap-3">
-              <span>© {new Date().getFullYear()} Azzaky Raihan Ramdhani</span>
-              <div className="hidden sm:inline-flex items-center gap-1.5 text-[#2563EB]">
-                <HandDrawnArrow direction="right" className="w-4 h-2.5 text-[#2563EB]" />
-                <span className="font-handwriting text-[17px] sm:text-[18px] -rotate-2 font-medium">
-                  thanks for stopping by!
-                </span>
-              </div>
+            <div>
+              © {new Date().getFullYear()} Azzaky Raihan Ramdhani
             </div>
             <div className="flex items-center gap-4">
               <a href="https://github.com/glacerous" target="_blank" rel="noreferrer" className="hover:text-[#0A0A0A] transition-colors">GitHub</a>
