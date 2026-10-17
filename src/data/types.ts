@@ -5,6 +5,8 @@ export interface Media {
   src: string;
   poster?: string;
   alt?: string;
+  position?: "top" | "center" | "bottom";
+  fit?: "cover" | "contain";
 }
 
 export type ProjectCategory =

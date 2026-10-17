@@ -162,14 +162,30 @@ export const App: React.FC = () => {
                         loop
                         muted
                         playsInline
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.03] ${
+                          proj.media.fit === 'contain' ? 'object-contain' : 'object-cover'
+                        } ${
+                          proj.media.position === 'top'
+                            ? 'object-top'
+                            : proj.media.position === 'bottom'
+                            ? 'object-bottom'
+                            : 'object-center'
+                        }`}
                       />
                     ) : (
                       <img 
                         src={proj.media?.src || '/projects/himasisfo.png'} 
                         alt={proj.title}
                         loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        className={`h-full w-full transition-transform duration-500 group-hover:scale-[1.03] ${
+                          proj.media?.fit === 'contain' ? 'object-contain' : 'object-cover'
+                        } ${
+                          proj.media?.position === 'center'
+                            ? 'object-center'
+                            : proj.media?.position === 'bottom'
+                            ? 'object-bottom'
+                            : 'object-top'
+                        }`}
                       />
                     )}
                   </div>
