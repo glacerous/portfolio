@@ -10,11 +10,7 @@ import { experiences } from '@/data/experience';
 import { fetchMediumArticles, MediumArticle } from '@/utils/medium';
 import { ActivityGraph } from '@/components/ActivityGraph';
 import { TechIcon } from '@/components/TechIcon';
-import { 
-  NexvynReachArrow, 
-  HandwrittenNote,
-  HandDrawnArrow
-} from '@/components/common/Doodles';
+import { HandDrawnArrow } from '@/components/common/Doodles';
 
 interface CopyContactProps {
   text: string;

@@ -594,8 +594,8 @@ export const ActivityGraph: React.FC<{ username: string }> = ({ username }) => {
                       style={{
                         fill,
                         opacity: cellOpacity,
-                        ['--d' as any]: `${delayMs}ms`
-                      }}
+                        '--d': `${delayMs}ms`
+                      } as React.CSSProperties}
                     >
                       <title>{`${cell.count} contributions on ${cell.date}`}</title>
                     </rect>
