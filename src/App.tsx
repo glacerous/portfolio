@@ -44,6 +44,12 @@ const TwitterHoverCard: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setIsOpen(true);
@@ -55,19 +61,32 @@ const TwitterHoverCard: React.FC = () => {
     }, 180);
   };
 
+  const handleBlur = (e: React.FocusEvent<HTMLSpanElement>) => {
+    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+      setIsOpen(false);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+    if (e.key === 'Escape') {
+      setIsOpen(false);
+    }
+  };
+
   return (
     <span
       className="relative inline-block group"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onFocus={() => setIsOpen(true)}
+      onBlur={handleBlur}
+      onKeyDown={handleKeyDown}
     >
       <a
         href="https://x.com/thefuturehold"
         target="_blank"
         rel="noreferrer"
         className="relative inline-flex items-center text-[#2563EB] font-medium transition-colors hover:text-[#1d4ed8]"
-        onFocus={() => setIsOpen(true)}
-        onBlur={() => setIsOpen(false)}
       >
         <span>Twitter</span>
 
@@ -176,13 +195,25 @@ const TwitterHoverCard: React.FC = () => {
 const CopyContact: React.FC<CopyContactProps> = ({ text, copyValue, label, className = '' }) => {
   const [copied, setCopied] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const copyTimeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleCopy = (e: React.MouseEvent) => {
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+    };
+  }, []);
+
+  const handleCopy = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    navigator.clipboard.writeText(copyValue);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard?.writeText(copyValue);
+      setCopied(true);
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+      copyTimeoutRef.current = setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard API unavailable or permission denied; fail quietly without stuck tooltip
+    }
   };
 
   const isVisible = isHovered || copied;
@@ -258,7 +289,7 @@ export const App: React.FC = () => {
           
           {/* Header Navigation */}
           <header className="w-full pt-8 pb-14 flex items-center justify-between">
-            <nav className="flex items-center gap-7 text-[14px]">
+            <nav aria-label="Main navigation" className="flex items-center gap-7 text-[14px]">
               <a href="#" onClick={(e) => handleNavClick(e, '#')} className="font-medium text-[#0A0A0A] transition-colors">Home</a>
               <a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">About</a>
               <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="font-normal text-[#8A8A8A] hover:text-[#0A0A0A] transition-colors">Projects</a>
@@ -550,6 +581,8 @@ export const App: React.FC = () => {
                 <div key={idx} className="py-3.5 first:pt-0 last:pb-0">
                   <button 
                     type="button"
+                    aria-expanded={openBlogIdx === idx}
+                    aria-controls={`blog-panel-${idx}`}
                     onClick={() => setOpenBlogIdx(openBlogIdx === idx ? null : idx)}
                     className="w-full flex items-center justify-between gap-3 text-left cursor-pointer group select-none py-1 transition-colors"
                   >
@@ -562,7 +595,7 @@ export const App: React.FC = () => {
                   </button>
 
                   {openBlogIdx === idx && (
-                    <div className="pt-2 pb-1 text-[13.5px] text-[#737373] leading-relaxed">
+                    <div id={`blog-panel-${idx}`} className="pt-2 pb-1 text-[13.5px] text-[#737373] leading-relaxed">
                       <p className="mb-2">{post.description}</p>
                       <a 
                         href={post.link}

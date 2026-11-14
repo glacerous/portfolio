@@ -48,6 +48,12 @@ export const ActivityGraph: React.FC<{ username: string }> = ({ username }) => {
   const [isRpg, setIsRpg] = useState(false);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    };
+  }, []);
+
   const handleMouseEnter = () => {
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
@@ -61,6 +67,13 @@ export const ActivityGraph: React.FC<{ username: string }> = ({ username }) => {
     hoverTimeoutRef.current = setTimeout(() => {
       setIsRpg(false);
     }, 150);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setIsRpg(prev => !prev);
+    }
   };
 
   useEffect(() => {
@@ -345,11 +358,16 @@ export const ActivityGraph: React.FC<{ username: string }> = ({ username }) => {
       <div className="w-full overflow-x-auto sm:overflow-x-visible [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         <div 
           id="activity-graph-wrapper"
-          className="min-w-[670px] sm:min-w-0 w-full relative cursor-pointer"
+          role="button"
+          tabIndex={0}
+          aria-pressed={isRpg}
+          aria-label="Toggle RPG world mode on GitHub activity graph"
+          className="min-w-[670px] sm:min-w-0 w-full relative cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0A0A0A] focus-visible:ring-offset-2 rounded-lg"
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onClick={() => setIsRpg(prev => !prev)}
-          title="Hover to explore RPG world"
+          onKeyDown={handleKeyDown}
+          title="Hover or press Enter to explore RPG world"
         >
           <svg 
             className="block w-full h-auto font-mono text-[10px]" 
