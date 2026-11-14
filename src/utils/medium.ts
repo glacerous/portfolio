@@ -21,7 +21,22 @@ export const fallbackArticles: MediumArticle[] = [
   },
 ];
 
+const MEDIUM_CACHE_TTL_MS = 15 * 60 * 1000;
+
 export async function fetchMediumArticles(username = "azzakyraihan"): Promise<MediumArticle[]> {
+  const cacheKey = `medium_articles_${username}`;
+  try {
+    const cached = sessionStorage.getItem(cacheKey);
+    if (cached) {
+      const parsed = JSON.parse(cached) as { timestamp: number; articles: MediumArticle[] };
+      if (Date.now() - parsed.timestamp < MEDIUM_CACHE_TTL_MS && Array.isArray(parsed.articles) && parsed.articles.length > 0) {
+        return parsed.articles;
+      }
+    }
+  } catch {
+    // sessionStorage unavailable
+  }
+
   try {
     const feedUrl = `https://medium.com/feed/@${username}`;
     
@@ -36,7 +51,7 @@ export async function fetchMediumArticles(username = "azzakyraihan"): Promise<Me
         if (res.ok) {
           const data = await res.json();
           if (data && data.status === 'ok' && Array.isArray(data.items) && data.items.length > 0) {
-            return data.items.map((item: { title?: string; description?: string; link?: string; pubDate?: string; guid?: string; author?: string; thumbnail?: string; enclosure?: { link?: string }; categories?: string[] }) => {
+            const mapped: MediumArticle[] = data.items.map((item: { title?: string; description?: string; link?: string; pubDate?: string; guid?: string; author?: string; thumbnail?: string; enclosure?: { link?: string }; categories?: string[] }) => {
               let title = item.title?.trim() || "";
               let description = item.description?.replace(/<[^>]*>?/gm, '').replace(/\s+/g, ' ').trim() || "";
 
@@ -59,6 +74,12 @@ export async function fetchMediumArticles(username = "azzakyraihan"): Promise<Me
                 categories: Array.isArray(item.categories) && item.categories.length > 0 ? item.categories : ["Lua", "Neovim", "Journey"],
               };
             });
+            try {
+              sessionStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), articles: mapped }));
+            } catch {
+              // sessionStorage quota or availability issue
+            }
+            return mapped;
           }
         }
       } catch {
