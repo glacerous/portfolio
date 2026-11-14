@@ -118,8 +118,32 @@ export const ActivityGraph: React.FC<{ username: string }> = ({ username }) => {
   const numWeeks = weeks.length;
   const graphWidth = numWeeks * 13;
 
-  // Month labels matching original clean format
-  const months = ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
+  // Derive month labels and year range dynamically from contribution dates
+  const monthLabels = useMemo(() => {
+    const names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const labels: { label: string; col: number }[] = [];
+    let lastMonth = -1;
+    weeks.forEach((week, col) => {
+      const firstDate = week[0]?.date;
+      if (!firstDate) return;
+      const month = Number(firstDate.slice(5, 7)) - 1;
+      if (Number.isNaN(month) || month < 0 || month > 11) return;
+      if (month !== lastMonth) {
+        if (labels.length === 0 || col - labels[labels.length - 1].col >= 3) {
+          labels.push({ label: names[month], col });
+        }
+        lastMonth = month;
+      }
+    });
+    return labels;
+  }, [weeks]);
+
+  const yearRange = useMemo(() => {
+    const firstYear = displayDays[0]?.date?.slice(0, 4);
+    const lastYear = displayDays[displayDays.length - 1]?.date?.slice(0, 4);
+    if (!firstYear || !lastYear) return '2025–26';
+    return firstYear === lastYear ? firstYear : `${firstYear}–${lastYear.slice(2)}`;
+  }, [displayDays]);
 
   // Normal mode colors
   const getNormalCellFill = (level: number) => {
@@ -455,17 +479,17 @@ export const ActivityGraph: React.FC<{ username: string }> = ({ username }) => {
               }
             `}</style>
 
-            {/* Month labels at top - clean, untouched */}
+            {/* Month labels at top */}
             <g className="fill-[#8A8A8A] text-[10px] font-mono tracking-wider">
-              {months.map((m, idx) => (
-                <text 
-                  key={`${m}-${idx}`} 
-                  dominantBaseline="hanging" 
-                  x={Math.min(graphWidth - 25, idx * (graphWidth / (months.length - 1)))} 
-                  y={2} 
+              {monthLabels.map((m, idx) => (
+                <text
+                  key={`${m.label}-${idx}`}
+                  dominantBaseline="hanging"
+                  x={Math.min(graphWidth - 25, m.col * 13)}
+                  y={2}
                   className="select-none"
                 >
-                  {m}
+                  {m.label}
                 </text>
               ))}
             </g>
@@ -917,7 +941,7 @@ export const ActivityGraph: React.FC<{ username: string }> = ({ username }) => {
       {/* Footer stats - completely clean, original format without emojis */}
       <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-[11.5px] tracking-wide text-[#8A8A8A] select-none mt-2">
         <div className="uppercase tracking-wider">
-          <span className="font-semibold text-[#0A0A0A]">{totalCount}</span> CONTRIBUTIONS · 2025–26
+          <span className="font-semibold text-[#0A0A0A]">{totalCount}</span> CONTRIBUTIONS · {yearRange}
         </div>
         <div className="ml-auto flex items-center gap-1.5 uppercase tracking-wider">
           <span className="text-[#8A8A8A] text-[11px]">LESS</span>
