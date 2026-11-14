@@ -36,7 +36,7 @@ export async function fetchMediumArticles(username = "azzakyraihan"): Promise<Me
         if (res.ok) {
           const data = await res.json();
           if (data && data.status === 'ok' && Array.isArray(data.items) && data.items.length > 0) {
-            return data.items.map((item: any) => {
+            return data.items.map((item: { title?: string; description?: string; link?: string; pubDate?: string; guid?: string; author?: string; thumbnail?: string; enclosure?: { link?: string }; categories?: string[] }) => {
               let title = item.title?.trim() || "";
               let description = item.description?.replace(/<[^>]*>?/gm, '').replace(/\s+/g, ' ').trim() || "";
 
