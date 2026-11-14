@@ -312,13 +312,15 @@ export const App: React.FC = () => {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
+    const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    const behavior: ScrollBehavior = prefersReducedMotion ? 'auto' : 'smooth';
     if (targetId === '#') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior });
       return;
     }
     const el = document.querySelector(targetId);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+      el.scrollIntoView({ behavior });
     }
   };
 
@@ -628,7 +630,7 @@ export const App: React.FC = () => {
                       {post.title}
                     </span>
                     <div className="shrink-0 text-[#8A8A8A] group-hover:text-[#0A0A0A] transition-colors">
-                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${openBlogIdx === idx ? 'rotate-180' : ''}`} />
+                      <ChevronDown aria-hidden="true" className={`h-4 w-4 transition-transform duration-200 ${openBlogIdx === idx ? 'rotate-180' : ''}`} />
                     </div>
                   </button>
 
