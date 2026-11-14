@@ -23,6 +23,44 @@ interface CopyContactProps {
   className?: string;
 }
 
+const LazyVideo: React.FC<{ src: string; className: string }> = ({ src, className }) => {
+  const videoRef = React.useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      src={src}
+      loop
+      muted
+      playsInline
+      preload="metadata"
+      className={className}
+    />
+  );
+};
+
 const XLogo: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' }) => (
   <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" className={className}>
     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -402,12 +440,8 @@ export const App: React.FC = () => {
                   {/* Media Preview (Video/GIF/Image) */}
                   <div className="relative aspect-video w-full overflow-hidden border-b border-[#E8E8E8] bg-[#F5F5F4]">
                     {proj.media?.kind === 'video' ? (
-                      <video 
+                      <LazyVideo
                         src={proj.media.src}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
                         className={`h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.03] ${
                           proj.media.fit === 'contain' ? 'object-contain' : 'object-cover'
                         } ${

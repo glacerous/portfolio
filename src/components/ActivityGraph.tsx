@@ -352,7 +352,7 @@ export const ActivityGraph: React.FC<{ username: string }> = ({ username }) => {
           title="Hover to explore RPG world"
         >
           <svg 
-            className="block w-full h-auto font-mono text-[10px]" 
+            className={`block w-full h-auto font-mono text-[10px]${isRpg ? " rpg-active" : ""}`} 
             viewBox={`0 0 ${graphWidth} 118`}
           >
             <defs>
@@ -401,16 +401,34 @@ export const ActivityGraph: React.FC<{ username: string }> = ({ username }) => {
                 0%, 100% { transform: translateY(0px) rotate(0deg); }
                 50% { transform: translateY(-1.2px) rotate(2deg); }
               }
-              .rpg-wave-1 { animation: rpgWaveDrift1 2.8s ease-in-out infinite; }
-              .rpg-wave-2 { animation: rpgWaveDrift2 3.4s ease-in-out infinite 0.7s; }
-              .rpg-wave-3 { animation: rpgWaveDrift3 4.0s ease-in-out infinite 1.4s; }
-              .rpg-glint-1 { animation: rpgGlint1 2.2s ease-in-out infinite; }
-              .rpg-glint-2 { animation: rpgGlint2 2.8s ease-in-out infinite 1.1s; }
-              .rpg-knight-bob { animation: rpgCharBob 1.8s ease-in-out infinite; }
-              .rpg-monster-bob { animation: rpgCharBob 2.0s ease-in-out infinite 0.3s; }
-              .rpg-beam { animation: rpgBeamFlicker 0.9s ease-in-out infinite; }
-              .rpg-smoke { animation: rpgSmokeDrift 1.8s ease-out infinite; }
-              .rpg-boat { animation: rpgBoatDrift 3.2s ease-in-out infinite; }
+              .rpg-active .rpg-wave-1 { animation: rpgWaveDrift1 2.8s ease-in-out infinite; }
+              .rpg-active .rpg-wave-2 { animation: rpgWaveDrift2 3.4s ease-in-out infinite 0.7s; }
+              .rpg-active .rpg-wave-3 { animation: rpgWaveDrift3 4.0s ease-in-out infinite 1.4s; }
+              .rpg-active .rpg-glint-1 { animation: rpgGlint1 2.2s ease-in-out infinite; }
+              .rpg-active .rpg-glint-2 { animation: rpgGlint2 2.8s ease-in-out infinite 1.1s; }
+              .rpg-active .rpg-knight-bob { animation: rpgCharBob 1.8s ease-in-out infinite; }
+              .rpg-active .rpg-monster-bob { animation: rpgCharBob 2.0s ease-in-out infinite 0.3s; }
+              .rpg-active .rpg-beam { animation: rpgBeamFlicker 0.9s ease-in-out infinite; }
+              .rpg-active .rpg-smoke { animation: rpgSmokeDrift 1.8s ease-out infinite; }
+              .rpg-active .rpg-boat { animation: rpgBoatDrift 3.2s ease-in-out infinite; }
+
+              @media (prefers-reduced-motion: reduce) {
+                .rpg-active .rpg-wave-1,
+                .rpg-active .rpg-wave-2,
+                .rpg-active .rpg-wave-3,
+                .rpg-active .rpg-glint-1,
+                .rpg-active .rpg-glint-2,
+                .rpg-active .rpg-knight-bob,
+                .rpg-active .rpg-monster-bob,
+                .rpg-active .rpg-beam,
+                .rpg-active .rpg-smoke,
+                .rpg-active .rpg-boat {
+                  animation: none;
+                }
+                .rpg-cell-node {
+                  transition: none;
+                }
+              }
               
               /* Hardware-accelerated CSS tile transition with zero overhead */
               .rpg-cell-node {
