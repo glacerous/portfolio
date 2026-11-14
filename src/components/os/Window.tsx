@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { IconName } from '@/assets/icons';
 import { Icon } from '@/components/common/Icon';
 import winColors from '@/constants/colors';

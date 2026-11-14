@@ -16,7 +16,7 @@ export const Icon: React.FC<IconProps> = ({
     className,
     onClick,
 }) => {
-    // @ts-ignore
+    // @ts-expect-error dynamic icon lookup returns image asset URL
     const src = icons[icon];
     return (
         <img

@@ -44,7 +44,7 @@ export type IconName = keyof typeof icons;
 
 const getIconByName = (
     iconName: IconName
-    // @ts-ignore
+    // @ts-expect-error image module imports do not match React.FC
 ): React.FC<React.SVGAttributes<SVGElement>> => icons[iconName];
 
 export default getIconByName;
