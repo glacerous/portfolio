@@ -26,10 +26,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 4. Run TypeScript check and Vite production build
+      # 4. Run ESLint
+      - name: Lint
+        run: npm run lint
+
+      # 5. Run TypeScript check and Vite production build
       - name: Typecheck and Build
         run: npm run build
 
-      # 5. DevSecOps check: Audit dependencies for known vulnerabilities
+      # 6. DevSecOps check: Audit dependencies for known vulnerabilities
       - name: Run Security Audit
         run: npm audit --omit=dev --audit-level=high
