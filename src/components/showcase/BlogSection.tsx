@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { blogPosts, BlogPost } from '@/data/blogs';
+import { blogPosts } from '@/data/blogs';
 import BlogMarkdownRenderer from './BlogMarkdownRenderer';
 import printerIcon from '@/assets/icons/printer.gif';
 

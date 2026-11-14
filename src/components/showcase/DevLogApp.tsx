@@ -40,7 +40,7 @@ export const DevLogApp: React.FC<DevLogAppProps> = ({
   onFocus,
   onTitleMouseDown,
   onSelectSlug,
-  onNavigateToContact,
+  onNavigateToContact: _onNavigateToContact,
 }) => {
   const [copiedLink, setCopiedLink] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
