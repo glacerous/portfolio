@@ -318,7 +318,13 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#FCFCFB] text-[#0A0A0A] selection:bg-[#0A0A0A] selection:text-[#FCFCFB] antialiased overflow-x-hidden">
-      <main className="min-h-screen w-full flex flex-col items-center px-6 sm:px-8">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-[#0A0A0A] focus:px-3 focus:py-2 focus:text-xs focus:font-medium focus:text-[#FCFCFB]"
+      >
+        Skip to content
+      </a>
+      <main id="main-content" className="min-h-screen w-full flex flex-col items-center px-6 sm:px-8">
         <div className="w-full max-w-[720px]">
           
           {/* Header Navigation */}
